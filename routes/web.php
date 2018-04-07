@@ -38,3 +38,5 @@ Route::group([
     });
 
 });
+
+Route::get('/admin', 'Admin\DashBoardController@index')->name('admin_dashboard');
