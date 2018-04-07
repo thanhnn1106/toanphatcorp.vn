@@ -15,8 +15,8 @@ class CreateUsersFilesInfoTable extends Migration
     {
         Schema::create('users_files_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('file_info_id');
+            $table->integer('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');;
+            $table->integer('file_info_id')->references('id')->on('files_info')->onDelete('cascade')->onUpdate('cascade');;
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

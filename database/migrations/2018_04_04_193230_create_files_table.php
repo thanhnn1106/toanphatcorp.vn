@@ -15,7 +15,7 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files_info', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
+            $table->integer('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');;
             $table->string('title', 255);
             $table->string('slug', 255);
             $table->text('track_list');
