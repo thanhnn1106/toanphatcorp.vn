@@ -16,10 +16,7 @@ class CreatePaymentsMethodTable extends Migration
         Schema::create('payments_method', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->text('description');
-            $table->text('note');
-            $table->string('url');
-            $table->string('key');
+            $table->string('description', 255);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

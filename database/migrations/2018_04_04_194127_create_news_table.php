@@ -15,13 +15,13 @@ class CreateNewsTable extends Migration
     {
         Schema::create('news', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title', 255);
             $table->text('content');
-            $table->string('slug');
-            $table->text('thumbnail');
-            $table->timestamp('created_at')->useCurrent();
+            $table->string('slug', 255);
+            $table->string('thumbnail')->nullable();
             $table->string('created_by');
             $table->string('updated_by');
+            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });
     }

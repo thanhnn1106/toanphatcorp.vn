@@ -30,13 +30,10 @@ Route::group([
     $router->group([
         'middleware' => ['auth.admin'],
     ], function ($router) {
-        /** @var \Illuminate\Routing\Router $router */
         $router->get('/', [
             'as'   => 'dashboard',
-            'uses' => 'DashBoardController@getIndex',
+            'uses' => 'DashBoardController@index',
         ]);
     });
 
 });
-
-Route::get('/admin', 'Admin\DashBoardController@index')->name('admin_dashboard');

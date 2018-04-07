@@ -21,7 +21,7 @@ class RolesTableSeeder extends Seeder
             ),
             array(
                 'role'        => ROLE_MANAGE,
-                'description' => 'Quản lý đơn hàng',
+                'description' => 'Manage',
                 'status'      => 1,
                 'created_at'  => date(DATETIME_FORMAT),
             ),

@@ -8,23 +8,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="all,follow">
         <!-- Bootstrap CSS-->
-        <link rel="stylesheet" href="{{ url('admin/vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('vendor/bootstrap/css/bootstrap.min.css') }}">
         <!-- Font Awesome CSS-->
-        <link rel="stylesheet" href="{{ url('admin/vendor/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('vendor/font-awesome/css/font-awesome.min.css') }}">
         <!-- Fontastic Custom icon font-->
-        <link rel="stylesheet" href="{{ url('admin/css/fontastic.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('css/fontastic.css') }}">
         <!-- Google fonts - Roboto -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
         <!-- jQuery Circle-->
-        <link rel="stylesheet" href="{{ url('admin/css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
         <!-- Custom Scrollbar-->
-        <link rel="stylesheet" href="{{ url('admin/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css') }}">
         <!-- theme stylesheet-->
-        <link rel="stylesheet" href="{{ url('admin/css/style.default.css') }}" id="theme-stylesheet">
+        <link rel="stylesheet" href="{{ asset_admin('css/style.default.css') }}" id="theme-stylesheet">
         <!-- Custom stylesheet - for your changes-->
-        <link rel="stylesheet" href="{{ url('admin/css/custom.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('css/custom.css') }}">
         <!-- Favicon-->
-        <link rel="shortcut icon" href="{{ url('admin/img/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ asset_admin('img/favicon.ico') }}">
         <!-- Tweaks for older IEs--><!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
@@ -37,7 +37,7 @@
                 <div class="sidenav-header d-flex align-items-center justify-content-center">
                     <!-- User Info-->
                     <div class="sidenav-header-inner text-center">
-                        <img src="img/avatar-1.jpg" alt="person" class="img-fluid rounded-circle">
+                        <img src="{{ asset_admin('img/avatar-1.jpg') }}" alt="person" class="img-fluid rounded-circle">
                         <h2 class="h5">Administrator</h2>
                         <span>Web Developer</span>
                     </div>
@@ -81,7 +81,7 @@
                             </div>
                             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link logout">
+                                    <a href="{{ route('admin.logout') }}" class="nav-link logout">
                                         Logout<i class="fa fa-sign-out"></i>
                                     </a>
                                 </li>
@@ -106,16 +106,25 @@
             </footer>
         </div>
         <!-- Javascript files-->
-        <script src="{{ url('admin/vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ url('admin/vendor/popper.js/umd/popper.min.js') }}"></script>
-        <script src="{{ url('admin/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
-        <script src="{{ url('admin/js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
-        <script src="{{ url('admin/vendor/jquery.cookie/jquery.cookie.js') }}"></script>
-        <script src="{{ url('admin/vendor/chart.js/Chart.min.js') }}"></script>
-        <script src="{{ url('admin/vendor/jquery-validation/jquery.validate.min.js') }}"></script>
-        <script src="{{ url('admin/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-        <script src="{{ url('admin/js/charts-home.js') }}"></script>
+        <script src="{{ asset_admin('vendor/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/popper.js/umd/popper.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset_admin('js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+        <script src="{{ asset_admin('js/charts-home.js') }}"></script>
         <!-- Main File-->
-        <script src="{{ url('admin/js/front.js') }}"></script>
+        <script src="{{ asset_admin('js/common.js') }}"></script>
+
+        <script>
+        // Add token when use ajax
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        </script>
+
+        @yield('footer_script')
     </body>
 </html>

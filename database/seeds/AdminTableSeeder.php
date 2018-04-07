@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\Admin;
 
 class AdminTableSeeder extends Seeder
 {
@@ -32,9 +32,9 @@ class AdminTableSeeder extends Seeder
         ];
 
         foreach ($users as $user) {
-            $chkUser = User::where('user_name', $user['user_name'])->first();
+            $chkUser = Admin::where('user_name', $user['user_name'])->first();
             if ($chkUser === NULL) {
-                DB::table('user')->insert($user);
+                DB::table('admin')->insert($user);
             }
         }
     }

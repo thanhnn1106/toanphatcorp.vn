@@ -6,7 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
@@ -15,7 +15,7 @@ class User extends Authenticatable
      *
      * @var string
      */
-    protected $table = 'user';
+    protected $table = 'admin';
 
     /**
      * The attributes that are mass assignable.
