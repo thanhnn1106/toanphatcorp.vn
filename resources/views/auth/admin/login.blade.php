@@ -1,56 +1,53 @@
+<!DOCTYPE html>
 <html>
-<head></head>
-<body>
-<section>
-  <div class="row">
-    <div class="form-group form-box">
-      <div class="col-md-6 col-md-push-3 col-sm-8 col-sm-push-2 col-xs-12 col-xs-push-0">
-
-        <div class="form-header">
-          <span>Login</span>
-        </div>
-
-        <div class="form-box-body">
-          <form action="{{route('admin.login')}}" method="POST">
-            {{ csrf_field() }}
-
-            {{--Email--}}
-            <div class="input-group mb-md">
-                                <span class="input-group-addon">
-                                    <i class="fa fa-envelope"></i>
-                                </span>
-              <input type="text" class="form-control" placeholder="Username" name="user_name" id="user_name" value="{{old('user_name')}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Login</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <link rel="stylesheet" href="{{ asset_admin('vendor/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset_admin('vendor/font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset_admin('css/fontastic.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="stylesheet" href="{{ asset_admin('css/grasp_mobile_progress_circle-1.0.0.min.css') }}">
+    <link rel="stylesheet" href="{{ asset_admin('css/style.default.css') }}" id="theme-stylesheet">
+    <link rel="stylesheet" href="{{ asset_admin('css/custom.css') }}">
+    <link rel="shortcut icon" href="{{ asset_admin('img/favicon.ico') }}">
+    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container">
+        <div class="form-outer text-center d-flex align-items-center">
+            <div class="form-inner">
+                <div class="logo text-uppercase"><span>CPANEL</span><strong class="text-primary">Dashboard</strong></div>
+                <form id="login-form" action="{{route('admin.login')}}" method="POST">
+                    {{ csrf_field() }}
+                    <div class="form-group-material">
+                        <input id="username" type="text" name="user_name" value="{{old('user_name')}}" class="input-material">
+                        <label for="username" class="label-material">Username</label>
+                        @if ($errors->has('user_name'))
+                        <label class="error" for="register-username">{{ $errors->first('user_name') }}</label>
+                        @endif
+                    </div>
+                    <div class="form-group-material">
+                        <input id="password" type="password" name="password" class="input-material">
+                        <label for="password" class="label-material">Password</label>
+                    </div>
+                    <input type="submit" value="Login" class="btn btn-primary" />
+                </form>
             </div>
-
-            {{--Password--}}
-            <div class="input-group mb-md">
-              <span class="input-group-addon">
-                  <i class="fa fa-key"></i>
-              </span>
-              <input type="password" class="form-control" placeholder="Password" name="password">
-            </div>
-            @if (count($errors) > 0)
-              <div class="alert alert-danger">
-                <ul>
-                  @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                  @endforeach
-                </ul>
-              </div>
-            @endif
-            <div class="row">
-              <div class="form-body-bottom">
-                {{--Submit button--}}
-                <div class="col-md-6 col-xm-12">
-                  <button type="submit" class="btn-login btn btn-block btn-flat">Login</button>
-                </div>
-              </div>
-            </div>
-          </form>
         </div>
       </div>
     </div>
-  </div>
-</section>
-</body>
+    <script src="{{ asset_admin('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset_admin('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset_admin('js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
+    <!-- Main File-->
+    <script src="{{ asset_admin('js/common.js') }}"></script>
+  </body>
 </html>

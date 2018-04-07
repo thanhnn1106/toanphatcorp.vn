@@ -10,7 +10,6 @@ use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class AuthController extends Controller
@@ -40,7 +39,6 @@ class AuthController extends Controller
         $this->middleware('guest:admin', [
             'except' => [
                 'logout',
-                'activatedPage'
             ],
         ]);
     }
