@@ -34,6 +34,22 @@ Route::group([
             'as'   => 'dashboard',
             'uses' => 'DashBoardController@index',
         ]);
+        $router->get('category', [
+            'as'   => 'category',
+            'uses' => 'CategoryController@index',
+        ]);
+        $router->match(['get', 'post'], 'category/add', [
+            'as'   => 'category.add',
+            'uses' => 'CategoryController@add',
+        ]);
+        $router->match(['get', 'post'], 'category/edit/{categoryId}', [
+            'as'   => 'category.edit',
+            'uses' => 'CategoryController@edit',
+        ]);
+        $router->get('category/delete/{categoryId}', [
+            'as'   => 'category.delete',
+            'uses' => 'CategoryController@delete',
+        ]);
     });
 
 });
