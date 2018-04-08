@@ -34,6 +34,11 @@ Route::group([
             'as'   => 'dashboard',
             'uses' => 'DashBoardController@index',
         ]);
+        Route::get('manage-package', 'PackagesController@index')->name('package');
+        Route::match(['get', 'post'], 'manage-package/add', 'PackagesController@add')->name('package_add');
+        Route::post('manage-package-view', 'PackagesController@view')->name('package_view');
+        Route::match(['get', 'post'], 'manage-package/edit/{id?}', 'PackagesController@edit')->name('package_edit');
+        Route::match(['get', 'post'], 'manage-package/delete/{id?}', 'PackagesController@delete')->name('package_delete');
     });
 
 });

@@ -54,8 +54,8 @@
                     <h5 class="sidenav-heading">Main</h5>
                     <ul id="side-main-menu" class="side-menu list-unstyled">
                         <li>
-                            <a href="#">
-                                <i class="icon-list"></i>Bài viết
+                            <a href="{{ route('admin.package') }}">
+                                <i class="icon-list"></i>Packages
                             </a>
                         </li>
                     </ul>
@@ -74,7 +74,7 @@
                                 </a>
                                 <a href="#" class="navbar-brand">
                                     <div class="brand-text d-none d-md-inline-block">
-                                        <span>Toanphatcorp </span>
+                                        <span>DJ Music </span>
                                         <strong class="text-primary">Dashboard</strong>
                                     </div>
                                 </a>
@@ -95,7 +95,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <p>Copyright © 2016 - Toàn Phát - All Right Reserved</p>
+                            <p>Copyright © 2018 - DJ Music - All Right Reserved</p>
                         </div>
                         <div class="col-sm-6 text-right">
                             <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
