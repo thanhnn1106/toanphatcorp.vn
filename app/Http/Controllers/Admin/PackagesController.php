@@ -14,7 +14,7 @@ class PackagesController extends Controller
     {
         $packageList = Packages::getAllPackage();
 
-        return view('packages.index', ['packageList' => $packageList]);
+        return view('admin.packages.index', ['packageList' => $packageList]);
     }
 
     public function add(Request $request)
@@ -51,12 +51,12 @@ class PackagesController extends Controller
             return redirect(route('admin.package'));
         }
 
-        return view('packages.form', $data);
+        return view('admin.packages.form', $data);
     }
 
     public function view(Request $request)
     {
-        return view('packages.form');
+        return view('admin.packages.form');
     }
 
     public function edit(Request $request, $id)
@@ -99,7 +99,7 @@ class PackagesController extends Controller
         }
         $data['packageInfo'] = $packageInfo;
 
-        return view('packages.form', $data);
+        return view('admin.packages.form', $data);
     }
 
     public function delete(Request $request, $id)
