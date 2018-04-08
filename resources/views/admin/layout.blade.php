@@ -9,7 +9,7 @@
         <meta name="robots" content="all,follow">
         <!-- Bootstrap CSS-->
         <link rel="stylesheet" href="{{ asset_admin('vendor/bootstrap/css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset_admin('vendor/jquery-ui/jquery-ui.min.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
         <!-- Font Awesome CSS-->
         <link rel="stylesheet" href="{{ asset_admin('vendor/font-awesome/css/font-awesome.min.css') }}">
         <!-- Fontastic Custom icon font-->
@@ -114,14 +114,13 @@
         </div>
         <!-- Javascript files-->
         <script src="{{ asset_admin('vendor/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset_admin('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/popper.js/umd/popper.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
         <script src="{{ asset_admin('js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
         <!-- Main File-->
         <script src="{{ asset_admin('js/common.js') }}"></script>
-        <script src="{{ asset_admin('js/xxx.js') }}"></script>
 
         <script>
         // Add token when use ajax

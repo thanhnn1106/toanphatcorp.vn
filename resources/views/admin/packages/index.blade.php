@@ -55,8 +55,10 @@
                                             <td>
                                                 <a href="{{ route('admin.package_view') }}" class="btn btn-info btn-xs">Chi tiết</a>
                                                 <a href="{{ route('admin.package_edit', ['id' => $item->id]) }}" class="btn btn-warning btn-xs">Cập nhật</a>
-                                                <a href="javascript:void(0);" onclick="fncDelete('{{ route('admin.package_delete', array('id' => $item->id)) }}');" class="btn btn-danger btn-xs">
-                                                    Delete
+                                                <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" 
+                                                   data-message="Are you sure delete this package?" 
+                                                   data-url="{{ route('admin.package_delete', ['id' => $item->id]) }}" 
+                                                   class="btn btn-danger btn-xs">Delete
                                                 </a>
                                             </td>
                                         </tr>
@@ -85,13 +87,4 @@
 @endsection
 
 @section('footer_script')
-<script>
-    function fncDelete(url)
-    {
-        if (!confirm('Are you sure delete this package?')) {
-            return false;
-        }
-        window.location.href = url;
-    }
-</script>
 @endsection
