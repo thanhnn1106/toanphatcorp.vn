@@ -39,6 +39,22 @@ Route::group([
         Route::post('manage-package-view', 'PackagesController@view')->name('package_view');
         Route::match(['get', 'post'], 'manage-package/edit/{id?}', 'PackagesController@edit')->name('package_edit');
         Route::match(['get', 'post'], 'manage-package/delete/{id?}', 'PackagesController@delete')->name('package_delete');
+        $router->get('category', [
+            'as'   => 'category',
+            'uses' => 'CategoryController@index',
+        ]);
+        $router->match(['get', 'post'], 'category/add', [
+            'as'   => 'category.add',
+            'uses' => 'CategoryController@add',
+        ]);
+        $router->match(['get', 'post'], 'category/edit/{categoryId}', [
+            'as'   => 'category.edit',
+            'uses' => 'CategoryController@edit',
+        ]);
+        $router->get('category/delete/{categoryId}', [
+            'as'   => 'category.delete',
+            'uses' => 'CategoryController@delete',
+        ]);
     });
 
 });

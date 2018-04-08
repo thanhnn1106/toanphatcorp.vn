@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 class CreateCategoriesTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations
      *
      * @return void
      */
@@ -16,7 +16,7 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->string('description', 255);
+            $table->string('description', 255)->nullable();
             $table->string('slug', 255);
             $table->string('thumbnail')->nullable();
             $table->timestamp('created_at')->useCurrent();
