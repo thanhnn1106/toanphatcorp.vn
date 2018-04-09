@@ -9,6 +9,7 @@
         <meta name="robots" content="all,follow">
         <!-- Bootstrap CSS-->
         <link rel="stylesheet" href="{{ asset_admin('vendor/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
         <!-- Font Awesome CSS-->
         <link rel="stylesheet" href="{{ asset_admin('vendor/font-awesome/css/font-awesome.min.css') }}">
         <!-- Fontastic Custom icon font-->
@@ -54,8 +55,8 @@
                     <h5 class="sidenav-heading">Main</h5>
                     <ul id="side-main-menu" class="side-menu list-unstyled">
                         <li>
-                            <a href="#">
-                                <i class="icon-list"></i>Bài viết
+                            <a href="{{ route('admin.package') }}">
+                                <i class="icon-list"></i>Packages
                             </a>
                         </li>
                     </ul>
@@ -74,7 +75,7 @@
                                 </a>
                                 <a href="#" class="navbar-brand">
                                     <div class="brand-text d-none d-md-inline-block">
-                                        <span>Toanphatcorp </span>
+                                        <span>DJ Music </span>
                                         <strong class="text-primary">Dashboard</strong>
                                     </div>
                                 </a>
@@ -95,7 +96,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
-                            <p>Copyright © 2016 - Toàn Phát - All Right Reserved</p>
+                            <p>Copyright © 2018 - DJ Music - All Right Reserved</p>
                         </div>
                         <div class="col-sm-6 text-right">
                             <p>Design by <a href="https://bootstrapious.com" class="external">Bootstrapious</a></p>
@@ -105,14 +106,19 @@
                 </div>
             </footer>
         </div>
+        <div id="dialog-confirm" title="Delete">
+            <p>
+                <span class="ui-icon ui-icon-alert"></span>
+                <span class="delete-text"></span>
+            </p>
+        </div>
         <!-- Javascript files-->
         <script src="{{ asset_admin('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/popper.js/umd/popper.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
         <script src="{{ asset_admin('js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
-        <script src="{{ asset_admin('vendor/jquery-validation/jquery.validate.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-        <script src="{{ asset_admin('js/charts-home.js') }}"></script>
         <!-- Main File-->
         <script src="{{ asset_admin('js/common.js') }}"></script>
 
