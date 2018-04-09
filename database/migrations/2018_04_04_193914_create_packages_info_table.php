@@ -18,6 +18,7 @@ class CreatePackagesInfoTable extends Migration
             $table->string('name', 255);
             $table->text('description');
             $table->decimal('price', 10, 0);
+            $table->integer('number_month');
             $table->tinyInteger('status')->comment('1=inactive, 0=active');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));

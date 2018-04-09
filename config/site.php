@@ -19,46 +19,5 @@ return [
             'inactive' => 0
         ),
     ),
-    'sex' => array(
-        'label' => array(
-            1 => 'front.register_page.sex.male',
-            0 => 'front.register_page.sex.female',
-        ),
-        'value' => array(
-            'male' => 1,
-            'female' => 0
-        ),
-    ),
-    'domain_name' => array(
-        'local' => array(
-            'thynh.allelua',
-        ),
-        'production' => array(
-            'allelua.com',
-        ),
-    ),
-
-    'general_logo' => array(
-        'path_upload_logo' => '/uploads/logo',
-    ),
-    'product_image' => array(
-        'resize_width' => 210,
-        'resize_height' => 210,
-        'resize_detail_width' => 83,
-        'resize_detail_height' => 105,
-        'resize_image' => 'w-resize-%s',
-        'path_upload' => '/uploads/product/%s',
-    ),
-    'seller_personal_info_status' => array(
-        'pending'  => 0,
-        'approved' => 1,
-    ),
-    'order_status_name' => array(
-        '0' => 'Chưa xử lý',
-        '1' => 'Đã xử lý',
-    ),
-    'order_status_value' => array(
-        'waiting_process' => 0,
-        'processed'       => 1,
-    ),
+    'file_accept_types' => 'jpeg,png',
 ];

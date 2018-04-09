@@ -1,8 +1,6 @@
 /*global $, document, Chart, LINECHART, data, options, window*/
 $(document).ready(function () {
 
-    'use strict';
-
     // Main Template Color
     var brandPrimary = '#33b35a';
 
@@ -80,31 +78,22 @@ $(document).ready(function () {
         window.open($(this).attr("href"));
     });
 
-    // ------------------------------------------------------ //
-    // For demo purposes, can be deleted
-    // ------------------------------------------------------ //
-
-    var stylesheet = $('link#theme-stylesheet');
-    $( "<link id='new-stylesheet' rel='stylesheet'>" ).insertAfter(stylesheet);
-    var alternateColour = $('link#new-stylesheet');
-
-    if ($.cookie("theme_csspath")) {
-        alternateColour.attr("href", $.cookie("theme_csspath"));
-    }
-
-    $("#colour").change(function () {
-
-        if ($(this).val() !== '') {
-
-            var theme_csspath = 'css/style.' + $(this).val() + '.css';
-
-            alternateColour.attr("href", theme_csspath);
-
-            $.cookie("theme_csspath", theme_csspath, { expires: 365, path: document.URL.substr(0, document.URL.lastIndexOf('/')) });
-
-        }
-
-        return false;
-    });
-
 });
+function fncDeleteConfirm (obj) {
+    $('.alert').hide();
+    var dialog = $( "#dialog-confirm" ).dialog({
+      resizable: false,
+      height: "auto",
+      width: 400,
+      modal: true,
+      buttons: {
+        Delete: function() {
+          window.location.href = $(obj).attr('data-url');
+        },
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        }
+      }
+    });
+    dialog.find('.delete-text').html($(obj).attr('data-message'));
+}
