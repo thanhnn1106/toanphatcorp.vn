@@ -19,5 +19,25 @@ return [
             'inactive' => 0
         ),
     ),
+    'type_download' => array(
+        'label' => array(
+            1 => 'Active',
+            0 => 'Inactive',
+        ),
+        'value' => array(
+            'active'   => 1,
+            'inactive' => 0
+        ),
+    ),
+    'file_status' => array(
+        'label' => array(
+            1 => 'Active',
+            0 => 'Inactive',
+        ),
+        'value' => array(
+            'active'   => 1,
+            'inactive' => 0
+        ),
+    ),
     'file_accept_types' => 'jpeg,png',
 ];

@@ -55,6 +55,22 @@ Route::group([
             'as'   => 'category.delete',
             'uses' => 'CategoryController@delete',
         ]);
+        $router->get('files', [
+            'as'   => 'files',
+            'uses' => 'FilesController@index',
+        ]);
+        $router->match(['get', 'post'], 'files/add', [
+            'as'   => 'files.add',
+            'uses' => 'FilesController@add',
+        ]);
+        $router->match(['get', 'post'], 'files/edit/{fileId}', [
+            'as'   => 'files.edit',
+            'uses' => 'FilesController@edit',
+        ]);
+        $router->get('files/delete/{fileId}', [
+            'as'   => 'files.delete',
+            'uses' => 'FilesController@delete',
+        ]);
     });
 
 });
