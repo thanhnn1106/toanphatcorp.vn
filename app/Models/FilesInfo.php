@@ -127,6 +127,16 @@ class FilesInfo extends Model {
         return null;
     }
 
+    public function getTagNames()
+    {
+        $tagNames = $this->tags()->get()->map(function ($item) {
+            return $item->name;
+        })->toArray();
+
+
+        return implode(',', $tagNames);
+    }
+
     public function getStatusLabel()
     {
         $const = config('site.file_status.label');

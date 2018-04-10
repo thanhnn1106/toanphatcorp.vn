@@ -127,16 +127,17 @@ class FilesController extends Controller
         if ( ! empty($tags)) {
             $tagIds = [];
             foreach ($tags as $tag) {
-                $objTag = Tags::firstOrCreate([
-                    'name' => $tag,
-                    'slug' => str_slug($tag),
-                    'created_at' => date('Y-m-d H:i:s')
-                ]);
-                if ($objTag) {
-                    $tagIds[] = $objTag->id;
+                $objTag = Tags::where('name', trim($tag))->first();
+                if ($objTag === NULL) {
+                    $objTag = Tags::firstOrCreate([
+                        'name' => $tag,
+                        'slug' => str_slug($tag),
+                        'created_at' => date('Y-m-d H:i:s')
+                    ]);
                 }
+                $tagIds[] = $objTag->id;
             }
-            $filesInfo->tags()->attach($tagIds);
+            $filesInfo->tags()->sync($tagIds);
         }
     }
 

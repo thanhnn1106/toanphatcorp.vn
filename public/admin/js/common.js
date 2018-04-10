@@ -1,6 +1,5 @@
 /*global $, document, Chart, LINECHART, data, options, window*/
 $(document).ready(function () {
-
     // Main Template Color
     var brandPrimary = '#33b35a';
 
@@ -77,7 +76,6 @@ $(document).ready(function () {
         e.preventDefault();
         window.open($(this).attr("href"));
     });
-
 });
 function fncDeleteConfirm (obj) {
     $('.alert').hide();

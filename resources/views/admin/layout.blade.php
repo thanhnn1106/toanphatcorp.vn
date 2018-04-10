@@ -120,7 +120,7 @@
         <script src="{{ asset_admin('js/grasp_mobile_progress_circle-1.0.0.min.js') }}"></script>
         <script src="{{ asset_admin('vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
         <!-- Main File-->
-        <script src="{{ asset_admin('js/common.js') }}"></script>
+        <script src="{{ asset_admin('js/common.js') }}?v={{ VERSION }}"></script>
 
         <script>
         // Add token when use ajax

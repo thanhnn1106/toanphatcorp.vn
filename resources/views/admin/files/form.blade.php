@@ -66,7 +66,7 @@
                             <div class="form-group row">
                               <label class="col-sm-2 form-control-label">Tags</label>
                               <div class="col-sm-10">
-                                <input type="text" id="tag_name" name="tag_name" class="form-control @if ($errors->has('tag_name'))is-invalid @endif" data-role="tagsinput" value="{{ old('tag_name', isset($file->tags()->tag_name) ? $file->tags()->tag_name : '') }}">
+                                <input type="text" id="tag_name" name="tag_name" class="form-control @if ($errors->has('tag_name'))is-invalid @endif" data-role="tagsinput" value="{{ old('tag_name', isset($file) ? $file->getTagNames() : '') }}">
                                 @if ($errors->has('tag_name'))
                                 <div class="invalid-feedback">{{ $errors->first('tag_name') }}</div>
                                 @endif
@@ -129,8 +129,8 @@
 @endsection
 
 @section('footer_script')
-<link href="{{ asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
-<script src="{{ asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+<link href="{{ asset('plugins/bootstrap-tagsinput/tagsinput.css') }}" rel="stylesheet"/>
+<script src="{{ asset('plugins/bootstrap-tagsinput/tagsinput.js') }}"></script>
 <!-- TinyMCE -->
 <script type="text/javascript" src="{{ asset('/plugins/tinymce/tinymce.min.js') }}"></script>
 <script>
