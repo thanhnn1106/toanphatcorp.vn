@@ -10,6 +10,41 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// AUTH ROUTER
+Route::group([
+    'as'           => 'auth.',
+    'middleware'   => 'web'
+], function ($router) {
+    $router->group([
+        'middleware' => ['RedirectIfAuthenticated'],
+    ], function ($router) {
+        $router->get('auth/facebook', [
+            'as'   => 'facebook',
+            'uses' => 'Auth\AuthController@redirectToProvider'
+        ]);
+
+        $router->get('auth/facebook/callback', [
+            'as'   => 'facebook_callback',
+            'uses' => 'Auth\AuthController@handleProviderCallback'
+        ]);
+    });
+});
+
+// FRONT ROUTER
+Route::group([
+    'as'           => 'front.',
+    'middleware'   => 'web'
+], function ($router) {
+    $router->group([
+        'middleware' => ['auth.front'],
+    ], function ($router) {
+        $router->get('/', [
+            'as'   => 'home',
+            'uses' => 'Front\HomeController@index'
+        ]);
+    });
+});
+
 // ADMIN ROUTER
 Route::group([
     'namespace'    => 'Admin',
@@ -72,5 +107,4 @@ Route::group([
             'uses' => 'FilesController@delete',
         ]);
     });
-
 });
