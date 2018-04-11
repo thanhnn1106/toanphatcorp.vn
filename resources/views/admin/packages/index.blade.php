@@ -34,6 +34,7 @@
                                             <th>#</th>
                                             <th>Tên gói</th>
                                             <th>Giá</th>
+                                            <th>Hạn sử dụng (Tháng)</th>
                                             <th>Trạng thái</th>
                                             <th>Mô tả</th>
                                             <th>Ngày tạo</th>
@@ -48,6 +49,7 @@
                                             <th scope="row">{{ ($packageList->currentpage()-1) * $packageList->perpage() + $i++ + 1 }}</th>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->price }}</td>
+                                            <td>{{ $item->number_month }}</td>
                                             <td>{{ $item->status }}</td>
                                             <td>{{ $item->description }}</td>
                                             <td>{{ $item->created_at }}</td>

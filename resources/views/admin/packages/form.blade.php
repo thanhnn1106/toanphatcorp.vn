@@ -38,9 +38,9 @@
                                     <select name="number_month" 
                                         class="form-control @if ($errors->has('number_month')) is-invalid @endif"
                                         value="{{ old('number_month', isset($packageInfo->number_month)) ? $packageInfo->number_month : ''}}">
-                                        <option value="1">1</option>
-                                        <option value="3">3</option>
-                                        <option value="12">12</option>
+                                        @foreach ($packageRangeMonth as $key => $value)
+                                        <option value="{{ $key }}">{{ $key }}</option>
+                                        @endforeach
                                     </select>
                                     @if ($errors->has('number_month'))
                                         <p class="help-block text-danger">{{ $errors->first('number_month') }}</p>
