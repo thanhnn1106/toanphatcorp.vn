@@ -20,7 +20,8 @@ class PackagesController extends Controller
     public function add(Request $request)
     {
         $data = [
-            'actionForm' => route('admin.package_add')
+            'actionForm' => route('admin.package_add'),
+            'packageRangeMonth' => config('site.package_range_month')
         ];
         if ($request->isMethod('POST')) {
             $rules =  array(
@@ -62,7 +63,8 @@ class PackagesController extends Controller
     public function edit(Request $request, $id)
     {
         $data = [
-            'actionForm' => route('admin.package_edit', ['id' => $id])
+            'actionForm' => route('admin.package_edit', ['id' => $id]),
+            'packageRangeMonth' => config('site.package_range_month')
         ];
         $packageInfo = Packages::getPackageById($id);
         if ($packageInfo == NULL) {

@@ -4,6 +4,7 @@ define('LIMIT_ROW_AJAX', 30);
 define('ROLE_ADMIN', 'administrator');
 define('ROLE_MANAGE', 'manage');
 define('DATETIME_FORMAT', 'Y-m-d H:i:s');
+define('DATE_FORMAT', 'Y-m-d');
 return [
     'roles' => array(
         'administrator' => 1,
@@ -20,4 +21,10 @@ return [
         ),
     ),
     'file_accept_types' => 'jpeg,png',
+    'package_range_month' => array(
+        '1' => 30,
+        '3' => 90,
+        '6' => 180,
+        '12' => 365
+    ),
 ];
