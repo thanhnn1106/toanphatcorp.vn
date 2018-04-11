@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'facebook' => [
+        'client_id'     => '156123161693087',
+        'client_secret' => '1e1c870ff5261c5a8706a20cf3f8d171',
+        'redirect'      => 'http://toanphat.local/auth/facebook/callback',
+    ],
 
 ];

@@ -34,7 +34,7 @@
         </div>
 
         <!-- Javascript files-->
-        <script src="{{ asset_front('s/fontawesome-all.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset_front('js/fontawesome-all.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/top.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/bootstrap.min.js') }}" type="text/javascript"></script>
