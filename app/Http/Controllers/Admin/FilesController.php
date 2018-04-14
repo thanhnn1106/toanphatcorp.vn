@@ -8,6 +8,7 @@ use App\Models\FilesInfo;
 use App\Models\Category;
 use App\Models\Tags;
 use Validator;
+use Illuminate\Support\Facades\DB;
 
 class FilesController extends Controller
 {
@@ -39,20 +40,34 @@ class FilesController extends Controller
                             ->withInput();
             }
 
-            $filesInfo = FilesInfo::firstOrCreate([
-                'thumbnail'   => FilesInfo::uploadThumbnail($request),
-                'category_id'        => $request->get('category_id'),
-                'title'        => $request->get('title'),
-                'slug'        => str_slug($request->get('title')),
-                'track_list' => $request->get('track_list'),
-                'type_download' => $request->get('type_download', config('site.type_download.value.inactive')),
-                'status' => $request->get('status', config('site.status.value.inactive')),
-                'created_at'  => date('Y-m-d H:i:s')
-            ]);
-            $this->_saveTags($filesInfo, $request);
+            DB::beginTransaction();
 
-            $request->session()->flash('success', trans('common.msg_create_success'));
-            return redirect()->route('admin.files');
+            try {
+                $filesInfo = FilesInfo::firstOrCreate([
+                    'thumbnail'   => FilesInfo::uploadThumbnail($request),
+                    'category_id'        => $request->get('category_id'),
+                    'title'        => $request->get('title'),
+                    'slug'        => str_slug($request->get('title')),
+                    'track_list' => $request->get('track_list'),
+                    'type_download' => $request->get('type_download', config('site.type_download.value.inactive')),
+                    'status' => $request->get('status', config('site.status.value.inactive')),
+                    'created_at'  => date('Y-m-d H:i:s')
+                ]);
+                $this->_saveTags($filesInfo, $request);
+
+                FilesInfo::makeCateFolderAndFile($filesInfo, null, 'add');
+
+                DB::commit();
+
+                $request->session()->flash('success', trans('common.msg_create_success'));
+                return redirect()->route('admin.files');
+
+            } catch (\Exception $e) {
+                DB::rollback();
+
+                $request->session()->flash('error', trans('common.msg_update_error'));
+                return redirect()->route('admin.files');
+            }
         }
 
         return view('admin.files.form', $data);
@@ -65,6 +80,7 @@ class FilesController extends Controller
             $request->session()->flash('error', trans('common.msg_data_not_found'));
             return redirect(route('admin.files'));
         }
+        $olCateName = $file->category->name;
 
         $data = array(
             'actionForm' => route('admin.files.edit', ['fileId' => $fileId]),
@@ -86,22 +102,39 @@ class FilesController extends Controller
                             ->withInput();
             }
 
-            $thumbnail = FilesInfo::uploadThumbnail($request);
-            if ( ! empty($thumbnail)) {
-                $file->thumbnail = $thumbnail;
+            DB::beginTransaction();
+
+            try {
+
+                $thumbnail = FilesInfo::uploadThumbnail($request);
+                if ( ! empty($thumbnail)) {
+                    $file->thumbnail = $thumbnail;
+                }
+
+                $file->category_id = $request->get('category_id');
+                $file->slug = str_slug($request->get('title'));
+                $file->title = $request->get('title');
+                $file->track_list = $request->get('track_list');
+                $file->type_download = $request->get('type_download', config('site.type_download.value.inactive'));
+                $file->status = $request->get('status', config('site.status.value.inactive'));
+                $file->save();
+
+                $this->_saveTags($file, $request);
+
+                FilesInfo::makeCateFolderAndFile($file, $olCateName);
+
+                DB::commit();
+
+                $request->session()->flash('success', trans('common.msg_update_success'));
+                return redirect()->route('admin.files');
+
+            } catch (\Exception $e) {
+
+                DB::rollback();
+
+                $request->session()->flash('error', trans('common.msg_update_error'));
+                return redirect()->route('admin.files');
             }
-            $file->category_id = $request->get('category_id');
-            $file->slug = str_slug($request->get('title'));
-            $file->title = $request->get('title');
-            $file->track_list = $request->get('track_list');
-            $file->type_download = $request->get('type_download', config('site.type_download.value.inactive'));
-            $file->status = $request->get('status', config('site.status.value.inactive'));
-            $file->save();
-
-            $this->_saveTags($file, $request);
-
-            $request->session()->flash('success', trans('common.msg_update_success'));
-            return redirect()->route('admin.files');
         }
 
         return view('admin.files.form', $data);
@@ -109,15 +142,19 @@ class FilesController extends Controller
 
     public function delete(Request $request, $fileId)
     {
-        $file = Category::find($fileId);
+        $file = FilesInfo::find($fileId);
         if ($file === NULL) {
             $request->session()->flash('error', trans('common.msg_data_not_found'));
             return redirect(route('admin.files'));
         }
 
-        $file->delete();
+        $hasDelete = $file->deleteFiles();
+        if ($hasDelete) {
+            $request->session()->flash('success', trans('common.msg_delete_success'));
+        } else {
+            $request->session()->flash('warning', trans('common.can_not_delete'));
+        }
 
-        $request->session()->flash('success', trans('common.msg_delete_success'));
         return redirect()->route('admin.files');
     }
 
