@@ -45,6 +45,8 @@ class CategoryController extends Controller
                 'created_at'  => date('Y-m-d H:i:s')
             ]);
 
+            Category::saveCateToFile();
+
             $request->session()->flash('success', trans('common.msg_create_success'));
             return redirect()->route('admin.category');
         }
@@ -88,6 +90,8 @@ class CategoryController extends Controller
             $category->description = $request->get('description');
             $category->save();
 
+            Category::saveCateToFile();
+
             $request->session()->flash('success', trans('common.msg_update_success'));
             return redirect()->route('admin.category');
         }
@@ -103,9 +107,13 @@ class CategoryController extends Controller
             return redirect(route('admin.category'));
         }
 
-        $category->delete();
+        $hasDelete = $category->deleteCate();
 
-        $request->session()->flash('success', trans('common.msg_delete_success'));
+        if ($hasDelete) {
+            $request->session()->flash('success', trans('common.msg_delete_success'));
+        } else {
+            $request->session()->flash('warning', trans('common.can_not_delete_category_because_it_is_using'));
+        }
         return redirect()->route('admin.category');
     }
 
@@ -118,7 +126,7 @@ class CategoryController extends Controller
 
         $rules =  array(
             'thumbnail'        => $thumbnail.'max:2048|mimes:'.config('site.file_accept_types'),
-            'name'             => 'required|max:255',
+            'name'             => 'required|unique:categories,name,'.$id.'|regex:/(^[A-Za-z0-9 ]+$)+/|max:255',
             'description'      => 'max:255',
         );
 
