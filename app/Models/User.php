@@ -41,4 +41,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public static function getList($params = array())
+    {
+        $result = User::paginate(LIMIT_ROW);
+        return $result;
+    }
+
 }

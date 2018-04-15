@@ -74,6 +74,7 @@ Route::group([
         Route::post('manage-package-view', 'PackagesController@view')->name('package_view');
         Route::match(['get', 'post'], 'manage-package/edit/{id?}', 'PackagesController@edit')->name('package_edit');
         Route::match(['get', 'post'], 'manage-package/delete/{id?}', 'PackagesController@delete')->name('package_delete');
+        // Admin manage caterogies
         $router->get('category', [
             'as'   => 'category',
             'uses' => 'CategoryController@index',
@@ -90,6 +91,7 @@ Route::group([
             'as'   => 'category.delete',
             'uses' => 'CategoryController@delete',
         ]);
+        // Admin manage files
         $router->get('files', [
             'as'   => 'files',
             'uses' => 'FilesController@index',
@@ -105,6 +107,40 @@ Route::group([
         $router->get('files/delete/{fileId}', [
             'as'   => 'files.delete',
             'uses' => 'FilesController@delete',
+        ]);
+        // Admin manage users
+        $router->get('users', [
+            'as'   => 'users',
+            'uses' => 'UsersController@index',
+        ]);
+        $router->match(['get', 'post'], 'users/add', [
+            'as'   => 'users.add',
+            'uses' => 'UsersController@add',
+        ]);
+        $router->match(['get', 'post'], 'users/edit/{userId}', [
+            'as'   => 'users.edit',
+            'uses' => 'UsersController@edit',
+        ]);
+        $router->match(['get', 'post'], 'users/delete/{userId}', [
+            'as'   => 'users.delete',
+            'uses' => 'UsersController@delete',
+        ]);
+        // Admin manage admins
+        $router->get('admins', [
+            'as'   => 'admins',
+            'uses' => 'AdminsController@index',
+        ]);
+        $router->match(['get', 'post'], 'admins/add', [
+            'as'   => 'admins.add',
+            'uses' => 'AdminsController@add',
+        ]);
+        $router->match(['get', 'post'], 'admins/edit/{adminId}', [
+            'as'   => 'admins.edit',
+            'uses' => 'AdminsController@edit',
+        ]);
+        $router->match(['get', 'post'], 'admins/delete/{adminId}', [
+            'as'   => 'admins.delete',
+            'uses' => 'AdminsController@delete',
         ]);
     });
 });

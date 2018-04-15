@@ -16,8 +16,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Categories</h4>
-                        <a href="{{ route('admin.category.add') }}">Add new</a>
+                        <h1>Categories</h1>
+                        <a class="btn btn-success btn-xs" href="{{ route('admin.category.add') }}">Thêm mới</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">

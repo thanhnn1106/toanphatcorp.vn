@@ -19,9 +19,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Danh sách Package</h4>
-                        <br />
-                        <a href="{{ route('admin.package_add') }}" class="btn btn-success">Thêm mới</a>
+                        <h1>Danh sách Package</h1>
+                        <a href="{{ route('admin.package_add') }}" class="btn btn-success btn-xs">Thêm mới</a>
                     </div>
                     <div class="card-body">
                         @if (count($packageList) <= 0)

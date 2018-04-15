@@ -13,8 +13,8 @@ class Roles extends Model  {
      */
     protected $table = 'roles';
 
-    public function users()
+    public function admins()
     {
-        return $this->hasMany('App\User', 'role_id', 'id');
+        return $this->hasMany('App\Models\Admin', 'role_id', 'id');
     }
 }

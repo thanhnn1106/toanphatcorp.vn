@@ -55,8 +55,28 @@
                     <h5 class="sidenav-heading">Main</h5>
                     <ul id="side-main-menu" class="side-menu list-unstyled">
                         <li>
+                            <a href="{{ route('admin.category') }}">
+                                <i class="icon-list"></i>Categories
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.files') }}">
+                                <i class="icon-list"></i>Files
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.package') }}">
                                 <i class="icon-list"></i>Packages
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.users') }}">
+                                <i class="icon-list"></i>Users
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.admins') }}">
+                                <i class="icon-list"></i>Admins
                             </a>
                         </li>
                     </ul>
