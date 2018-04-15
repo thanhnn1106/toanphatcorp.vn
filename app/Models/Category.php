@@ -44,21 +44,27 @@ class Category extends Model {
         'updated_at'
     ];
 
-    protected static function boot()
+    public function deleteCate()
     {
-        parent::boot();
+        $relationships = array('fileInfos');
+        $should_delete = true;
 
-        static::deleting(function($category) {
-            $relationMethods = [];
-
-            foreach ($relationMethods as $relationMethod) {
-                if ($category->$relationMethod()->count() > 0) {
-                    return false;
-                }
+        foreach($relationships as $r) {
+            if ($this->$r()->count()) {
+                $should_delete = false;
+                break;
             }
-            self::deleteThumbnail($category);
-            return true;
-        });
+        }
+        if ($should_delete == true) {
+            $this->delete();
+
+            // Delete thumbnail when delete category
+            self::deleteThumbnail($this);
+        }
+
+        self::saveCateToFile();
+
+        return $should_delete;
     }
 
     public static function getList($params = array())
@@ -108,5 +114,10 @@ class Category extends Model {
         }
 
         return null;
+    }
+
+    public static function saveCateToFile()
+    {
+        Storage::disk('public')->put(self::THUMBNAIL_PATH . '/cate_data.txt', json_encode(self::getList()->items()));
     }
 }

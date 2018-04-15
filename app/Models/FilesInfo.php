@@ -10,6 +10,8 @@ class FilesInfo extends Model {
 
     const THUMBNAIL_PATH = 'files_info';
 
+    const CATEGORY_FILES_PATH = self::THUMBNAIL_PATH . '/categories';
+
     /**
      * The database table used by the model.
      *
@@ -52,33 +54,33 @@ class FilesInfo extends Model {
         return $this->belongsToMany(Tags::class, 'file_tags', 'file_id', 'tag_id');
     }
 
-    protected static function boot()
+    public function deleteFiles()
     {
-        parent::boot();
+        $relationships = array();
+        $should_delete = true;
 
-        static::deleting(function($filesInfo) {
-            $relationMethods = [];
-
-            foreach ($relationMethods as $relationMethod) {
-                if ($filesInfo->$relationMethod()->count() > 0) {
-                    return false;
-                }
+        foreach($relationships as $r) {
+            if ($this->$r()->count()) {
+                $should_delete = false;
+                break;
             }
-            self::deleteThumbnail($filesInfo);
-            return true;
-        });
+        }
+        if ($should_delete == true) {
+
+            // Delete thumbnail when delete category
+            self::deleteThumbnail($this);
+
+            // Delete file and folder in category of files
+            self::deleteCateFolderAndFile($this->category->name);
+
+            $this->delete();
+        }
+
+        return $should_delete;
     }
 
     public static function getList($params = array())
     {
-        /*
-        $query = \DB::table('files_info AS t1')
-                ->select('t1.*', 't2.name AS categoryName')
-                ->leftJoin('categories AS t2', 't2.id', '=', 't1.category_id');
-
-        $result = $query->paginate(LIMIT_ROW);
-         * 
-         */
         $result = FilesInfo::paginate(LIMIT_ROW);
         return $result;
     }
@@ -88,7 +90,7 @@ class FilesInfo extends Model {
         $path = null;
         if ($request->hasFile('thumbnail')) {
             $path = Storage::disk('public')->putFileAs(
-                    self::THUMBNAIL_PATH,
+                    self::THUMBNAIL_PATH . '/thumb',
                     new File($request->file('thumbnail')),
                     time().'-'.$request->file('thumbnail')->getClientOriginalName()
             );
@@ -99,6 +101,43 @@ class FilesInfo extends Model {
     public static function deleteThumbnail($filesInfo)
     {
         Storage::disk('public')->delete($filesInfo->thumbnail);
+    }
+
+    public static function makeCateFolderAndFile($filesInfo, $oldCateName = '', $type = 'edit')
+    {
+        if ($filesInfo === NULL) {
+            return false;
+        }
+
+        $newCateName = null;
+        $cate = Category::find($filesInfo->category_id);
+        if ($cate !== NULL) {
+            $newCateName = $cate->name;
+        }
+
+        if ($type === 'add') {
+
+            Storage::disk('public')->makeDirectory(self::CATEGORY_FILES_PATH.'/'.$newCateName);
+
+        } else {
+
+            $files = Storage::disk('public')->allFiles(self::CATEGORY_FILES_PATH.'/'.$oldCateName);
+
+            // Move from old to new
+            if ( ! empty($files) && $oldCateName !== $newCateName) {
+                foreach ($files as $file) {
+                    Storage::disk('public')->move($file, self::CATEGORY_FILES_PATH.'/'.$newCateName . '/'.basename($file));
+                }
+                // Delete old category
+                self::deleteCateFolderAndFile($oldCateName);
+            }
+        }
+        return true;
+    }
+
+    public static function deleteCateFolderAndFile($cateName)
+    {
+        Storage::disk('public')->deleteDirectory(self::CATEGORY_FILES_PATH.'/'.$cateName);
     }
 
     public function getThumbnail()
