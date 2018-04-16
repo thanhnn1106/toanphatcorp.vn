@@ -43,49 +43,7 @@
         
         <!-- main_box_02 start -->
         <div class="main_box_02">
-            <div class="inner clearfix">
-                <div class="container">
-                    <p class="title_01">categories</p>
-                    <div id="slider_02">
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="item_content">
-                                <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">read more</a> </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('front.partial.category_slide')
         </div>
         <!-- main_box_02 end --> 
         
@@ -112,124 +70,54 @@
                 <div class="inner clearfix">
                     <div class="box_04_content clearfix">
                         <div class="row">
+                            @if(isset($files) && $files->count())
+                            @foreach($files as $file)
                             <div class="col-xs-6 col-md-4 col-lg-3">
                                 <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
+                                    <?php $thumbnail = getThumbnailUrl($file->thumbnail); ?>
+                                    @if( ! empty($thumbnail))
+                                    <p class="item_img">
+                                        <img src="{{ $thumbnail }}" alt="img">
+                                    </p>
+                                    @endif
+                                    <p class="item_ct">
+                                        <span>{{ $file->title }}</span>
+                                        <span>{{ formatMonthYear($file->created_at) }}</span>
+                                        @if($file->isDownload())
+                                        <a href="javascript:void(0);" onclick="fncDownload(this);" data-id="{{ $file->id }}" class="btn btn_03">download</a>
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
-                            <div class="col-xs-6 col-md-4 col-lg-3">
-                                <div class="item">
-                                    <p class="item_img"><img src="images/img_01.jpg" alt="img"></p>
-                                    <p class="item_ct"> <span>Albertomix Remix Pack</span> <span>August 2017</span> <a href="" class="btn btn_03">download</a> </p>
-                                </div>
-                            </div>
+                            @endforeach
+                            @endif
                         </div>
                     </div>
+                    @if(isset($files) && $files->count())
                     <div class="pagination_item">
                         <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item"> <a class="page-link" href="#" aria-label="Previous"> <span aria-hidden="true">&laquo;</span> <span class="sr-only">Previous</span> </a> </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"> <a class="page-link" href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span> <span class="sr-only">Next</span> </a> </li>
-                            </ul>
+                            {{ $files->links() }}
                         </nav>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
         <!-- main_box_04 end --> 
         
     </div>
+<form id="formDownload" action="{{ route('front.files_download') }}" method="POST">
+  <input type="hidden" id="file_id" name="file_id" />
+</form>
 
 @endsection
 
 @section('footer_script')
-<script></script>
+<script>
+function fncDownload(obj)
+{
+    $('#formDownload #file_id').val($(obj).attr('data-id'));
+    $('#formDownload').submit();
+}
+</script>
 @endsection

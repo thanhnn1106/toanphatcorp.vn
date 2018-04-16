@@ -120,4 +120,10 @@ class Category extends Model {
     {
         Storage::disk('public')->put(self::THUMBNAIL_PATH . '/cate_data.txt', json_encode(self::getList()->items()));
     }
+
+    public static function getCateFile()
+    {
+        $content = Storage::disk('public')->get(self::THUMBNAIL_PATH . '/cate_data.txt');
+        return json_decode($content, true);
+    }
 }

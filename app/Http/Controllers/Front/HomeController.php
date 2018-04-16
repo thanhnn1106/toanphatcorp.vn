@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Front\BaseController;
 use Illuminate\Http\Request;
+use App\Models\Category;
+use App\Models\FilesInfo;
 
 
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     public function index(Request $request)
     {
-        return view('front.home.index');
+        $data = array(
+            'files'      => FilesInfo::getListFront(),
+            'categories' => Category::getCateFile(),
+        );
+        return view('front.home.index', $data);
     }
 }

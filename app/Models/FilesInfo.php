@@ -32,6 +32,7 @@ class FilesInfo extends Model {
         'type_download',
         'status',
         'thumbnail',
+        'file_name',
     ];
 
     /**
@@ -82,6 +83,14 @@ class FilesInfo extends Model {
     public static function getList($params = array())
     {
         $result = FilesInfo::paginate(LIMIT_ROW);
+        return $result;
+    }
+
+    public static function getListFront($params = array())
+    {
+        $query = FilesInfo::where('status', config('site.file_status.value.active'))->orderBy('created_at', 'DESC');
+
+        $result = $query->paginate(LIMIT_FRONT_ROW);
         return $result;
     }
 
@@ -192,5 +201,13 @@ class FilesInfo extends Model {
             return $const[$this->type_download];
         }
         return null;
+    }
+
+    public function isDownload()
+    {
+        if ($this->type_download == config('site.type_download.value.premium')) {
+            return true;
+        }
+        return false;
     }
 }

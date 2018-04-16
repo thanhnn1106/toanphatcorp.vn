@@ -42,6 +42,14 @@ Route::group([
             'as'   => 'home',
             'uses' => 'Front\HomeController@index'
         ]);
+        $router->get('/category/{slug}', [
+            'as'   => 'category_detail',
+            'uses' => 'Front\CategoryController@detail'
+        ]);
+        $router->post('/files/download', [
+            'as'   => 'files_download',
+            'uses' => 'Front\FilesController@download'
+        ]);
     });
 });
 

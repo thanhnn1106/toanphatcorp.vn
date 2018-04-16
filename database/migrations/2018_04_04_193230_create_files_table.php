@@ -18,6 +18,7 @@ class CreateFilesTable extends Migration
             $table->integer('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
             $table->string('title', 255);
             $table->string('slug', 255);
+            $table->string('file_name', 255);
             $table->text('track_list');
             $table->integer('type_download')->comment('0=normal, 1=premium');
             $table->tinyInteger('status')->comment('0=inactive, 0=active');

@@ -48,6 +48,7 @@ class FilesController extends Controller
                     'category_id'        => $request->get('category_id'),
                     'title'        => $request->get('title'),
                     'slug'        => str_slug($request->get('title')),
+                    'file_name'   => $request->get('file_name'),
                     'track_list' => $request->get('track_list'),
                     'type_download' => $request->get('type_download', config('site.type_download.value.inactive')),
                     'status' => $request->get('status', config('site.status.value.inactive')),
@@ -114,6 +115,7 @@ class FilesController extends Controller
                 $file->category_id = $request->get('category_id');
                 $file->slug = str_slug($request->get('title'));
                 $file->title = $request->get('title');
+                $file->file_name = $request->get('file_name');
                 $file->track_list = $request->get('track_list');
                 $file->type_download = $request->get('type_download', config('site.type_download.value.inactive'));
                 $file->status = $request->get('status', config('site.status.value.inactive'));
@@ -192,6 +194,7 @@ class FilesController extends Controller
             'category_id'      => 'required|exists:categories,id',
             'title'            => 'required|max:255',
             'tag_name'         => 'required',
+            'file_name'        => 'required',
             'track_list'       => 'required',
             'type_download'    => 'required|in:'. implode(',', $typeDownload),
             'status'           => 'required|in:'. implode(',', $status),

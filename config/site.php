@@ -1,5 +1,6 @@
 <?php
 define('LIMIT_ROW', 10);
+define('LIMIT_FRONT_ROW', 16);
 define('LIMIT_ROW_AJAX', 30);
 define('ROLE_ADMIN', 'administrator');
 define('ROLE_MANAGE', 'manage');
@@ -23,12 +24,12 @@ return [
     ),
     'type_download' => array(
         'label' => array(
-            1 => 'Active',
-            0 => 'Inactive',
+            1 => 'Premium',
+            0 => 'Normal',
         ),
         'value' => array(
-            'active'   => 1,
-            'inactive' => 0
+            'premium'   => 1,
+            'normal' => 0
         ),
     ),
     'file_status' => array(

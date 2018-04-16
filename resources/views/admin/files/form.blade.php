@@ -73,6 +73,15 @@
                               </div>
                             </div>
                             <div class="form-group row">
+                              <label class="col-sm-2 form-control-label">File name</label>
+                              <div class="col-sm-10">
+                                <input type="text" id="file_name" name="file_name" class="form-control @if ($errors->has('file_name'))is-invalid @endif" value="{{ old('file_name', isset($file->file_name) ? $file->file_name : '') }}">
+                                @if ($errors->has('file_name'))
+                                <div class="invalid-feedback">{{ $errors->first('file_name') }}</div>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="form-group row">
                               <label class="col-sm-2 form-control-label">Track list</label>
                               <div class="col-sm-10">
                                 <textarea name="track_list" class="form-control border-corner editor-content  @if ($errors->has('track_list'))is-invalid @endif" rows="3">{{ old('track_list', isset($file->track_list) ? $file->track_list : '') }}</textarea>

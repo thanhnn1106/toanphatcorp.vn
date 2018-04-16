@@ -28,7 +28,7 @@
                                         <th>Thumbnail</th>
                                         <th>Category</th>
                                         <th>Title</th>
-                                        <th>Slug</th>
+                                        <th>File name</th>
                                         <th>Type download</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -44,7 +44,7 @@
                                         <td><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
                                         <td>{{ $file->category->name }}</td>
                                         <td>{{ $file->title }}</td>
-                                        <td>{{ $file->slug }}</td>
+                                        <td>{{ $file->file_name }}</td>
                                         <td>{{ $file->getTypeDownloadLabel() }}</td>
                                         <td>{{ $file->getStatusLabel() }}</td>
                                         <td>

@@ -17,7 +17,7 @@ class CreateFileTagsTable extends Migration
             $table->increments('id');
             $table->integer('file_id')->unsigned();
             $table->foreign('file_id')->references('id')->on('files_info')->onDelete('cascade')->onUpdate('cascade');
-            $table->bigIncrements('tag_id')->unsigned();
+            $table->bigInteger('tag_id')->unsigned();
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade');
         });
     }
