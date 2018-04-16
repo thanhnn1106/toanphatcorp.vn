@@ -72,11 +72,11 @@
                                 <label class="col-sm-2 form-control-label">Trạng thái</label>
                                 <div class="col-sm-10">
                                     <div>
-                                        <input type="radio" value="1" name="status" checked="{{ old('status', isset($packageInfo->status) == '1') ? 'checked' : ''}}">
+                                        <input class="form-control-custom radio-custom" type="radio" value="1" name="status" checked="{{ old('status', isset($packageInfo->status) == '1') ? 'checked' : ''}}">
                                         <label for="optionsRadios1">Hiển thị</label>
                                     </div>
                                     <div>
-                                        <input type="radio" value="0" name="status" checked="{{ old('status', isset($packageInfo->status) == '0') ? 'checked' : ''}}">
+                                        <input class="form-control-custom radio-custom" type="radio" value="0" name="status" checked="{{ old('status', isset($packageInfo->status) == '0') ? 'checked' : ''}}">
                                         <label for="optionsRadios2">Không hiển thị</label>
                                     </div>
                                     @if ($errors->has('status'))

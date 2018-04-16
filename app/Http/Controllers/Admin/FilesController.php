@@ -24,7 +24,7 @@ class FilesController extends Controller
     {
         $data = array(
             'actionForm' => route('admin.files.add'),
-            'title'      => 'Add new',
+            'title'      => 'Thêm mới',
             'categories' => Category::all(),
         );
 

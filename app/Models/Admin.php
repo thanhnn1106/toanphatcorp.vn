@@ -44,6 +44,13 @@ class Admin extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo('App\Roles', 'role_id');
+        return $this->belongsTo('App\Models\Roles', 'role_id');
     }
+
+    public static function getList($params = array())
+    {
+        $result = Admin::paginate(LIMIT_ROW);
+        return $result;
+    }
+
 }
