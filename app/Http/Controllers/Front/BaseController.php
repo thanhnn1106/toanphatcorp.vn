@@ -8,28 +8,30 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    public function download(Request $request)
+    public function normalDownload(Request $request)
     {
         if ( ! $request->isMethod('POST')) {
-            return redirect(Request::url());
+            return redirect(route('front.home'));
         }
 
         if (empty($request->get('file_id'))) {
-            return redirect(Request::url());
+            return redirect(route('front.home'));
         }
 
         $file = \App\Models\FilesInfo::where('id', $request->get('file_id'))->where('status', config('site.file_status.value.active'))->first();
         if ($file === NULL) {
-            return redirect(Request::url());
+            return redirect(route('front.home'));
         }
 
-        if ( ! $file->isDownload()) {
-            return redirect(Request::url());
+        if ( ! $file->isNormalDownload()) {
+            return redirect(route('front.home'));
         }
-        $data = array(
-            'files'      => FilesInfo::getListFront(),
-            'categories' => Category::getCateFile(),
-        );
-        return view('front.home.index', $data);
+
+        $download =  $file->download();
+        if ($download === false) {
+            return redirect(route('front.home'));
+        }
+
+        return $download;
     }
 }

@@ -18,4 +18,10 @@ class HomeController extends BaseController
         );
         return view('front.home.index', $data);
     }
+
+    public function redirect(Request $request)
+    {
+        $data = array();
+        return view('front.home.redirect', $data);
+    }
 }

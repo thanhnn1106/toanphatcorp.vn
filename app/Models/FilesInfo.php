@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use App\Models\Category;
+use Illuminate\Http\Response; 
 
 class FilesInfo extends Model {
 
@@ -175,6 +176,18 @@ class FilesInfo extends Model {
         return null;
     }
 
+    public function download()
+    {
+        $pathFile = self::CATEGORY_FILES_PATH.'/'.$this->category->name . '/' . $this->file_name;
+        if ( ! Storage::disk('public')->exists($pathFile)) {
+            return false;
+        }
+
+        $file = Storage::disk('public')->getDriver()->getAdapter()->getPathPrefix().$pathFile;
+
+        return response()->download($file);
+    }
+
     public function getTagNames()
     {
         $tagNames = $this->tags()->get()->map(function ($item) {
@@ -203,9 +216,17 @@ class FilesInfo extends Model {
         return null;
     }
 
-    public function isDownload()
+    public function isPremiumDownload()
     {
         if ($this->type_download == config('site.type_download.value.premium')) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isNormalDownload()
+    {
+        if ($this->type_download == config('site.type_download.value.normal')) {
             return true;
         }
         return false;
