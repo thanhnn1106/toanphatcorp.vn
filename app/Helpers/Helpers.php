@@ -18,6 +18,14 @@ function formatMonthYear($string)
     return date('F Y', strtotime($string));
 }
 
+function formatDayMonthYear($string)
+{
+    if (empty($string)) {
+        return '';
+    }
+    return date('F dS , Y', strtotime($string));
+}
+
 function getThumbnail($thumbnail)
 {
     if (empty($thumbnail)) {

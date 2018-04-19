@@ -50,6 +50,10 @@ Route::group([
             'as'   => 'category_detail',
             'uses' => 'Front\CategoryController@detail'
         ]);
+        $router->get('/tag/{slug}', [
+            'as'   => 'tag_detail',
+            'uses' => 'Front\CategoryController@detail'
+        ]);
         $router->post('/files/download', [
             'as'   => 'files_download',
             'uses' => 'Front\FilesController@normalDownload'

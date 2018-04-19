@@ -289,3 +289,19 @@ if (typeof jQuery !== 'undefined') {
 
     })(jQuery);
 }})();
+
+function fncDialog(obj)
+{
+    $( "#dialog-login" ).dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true
+    });
+}
+
+function fncDownload(obj)
+{
+    $('#formDownload #file_id').val($(obj).attr('data-id'));
+    $('#formDownload').submit();
+}

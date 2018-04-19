@@ -16,12 +16,13 @@ class HomeController extends BaseController
             'files'      => FilesInfo::getListFront(),
             'categories' => Category::getCateFile(),
         );
+
         return view('front.home.index', $data);
     }
 
     public function redirect(Request $request)
     {
         $data = array();
-        return view('front.home.redirect', $data);
+        return view('front.partial.redirect', $data);
     }
 }

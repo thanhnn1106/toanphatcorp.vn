@@ -5,7 +5,7 @@ define('LIMIT_ROW_AJAX', 30);
 define('ROLE_ADMIN', 'administrator');
 define('ROLE_MANAGE', 'manage');
 define('DATETIME_FORMAT', 'Y-m-d H:i:s');
-define('VERSION', '1.1');
+define('VERSION', '1.2');
 define('DATE_FORMAT', 'Y-m-d');
 return [
     'roles' => array(

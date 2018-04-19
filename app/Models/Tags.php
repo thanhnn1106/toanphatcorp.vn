@@ -43,4 +43,14 @@ class Tags extends Model {
     {
         return Category::paginate(LIMIT_ROW);
     }
+
+    public static function getTagsByIdFiles($fileIds)
+    {
+        $tags = Tags::select('file_tags.file_id', 'tags.*')->join('file_tags', function($join) use($fileIds){
+            $join->on('tags.id', '=', 'file_tags.tag_id')
+            ->whereIn('file_tags.file_id', $fileIds);
+        })->get();
+
+        return $tags;
+    }
 }

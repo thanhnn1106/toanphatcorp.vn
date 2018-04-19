@@ -83,13 +83,7 @@
                                     <p class="item_ct">
                                         <span>{{ $file->title }}</span>
                                         <span>{{ formatMonthYear($file->created_at) }}</span>
-                                        @if(Auth::check())
-                                            @if($file->isNormalDownload())
-                                                <a href="javascript:void(0);" onclick="fncDownload(this);" data-id="{{ $file->id }}" class="btn btn_03">Cloud</a>
-                                            @endif
-                                        @else
-                                        <a href="javascript:void(0);" onclick="fncDialog(this);" class="btn btn_03">download</a>
-                                        @endif
+                                        
                                     </p>
                                 </div>
                             </div>
@@ -115,22 +109,6 @@
     {{ csrf_field() }}
     <input type="hidden" id="file_id" name="file_id" />
 </form>
-
-<div id="dialog-login" title="Login" style="display: none;">
-    <a href="{{ route("auth.facebook", ["service" => "facebook"]) }}" 
-       data-plugin="nsl" 
-       data-action="connect" 
-       data-redirect="{{ route("front.redirect") }}" 
-       data-provider="facebook" 
-       data-popupwidth="475" 
-       data-popupheight="175">
-        <div class="new-fb-btn new-fb-4 new-fb-default-anim">
-            <div class="new-fb-4-1">
-                <div class="new-fb-4-1-1">Log-In</div>
-            </div>
-        </div>
-    </a>
-</div>
 @endsection
 
 @section('footer_script')
@@ -138,20 +116,5 @@
 <script src="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
 
 <script>
-function fncDialog(obj)
-{
-    $( "#dialog-login" ).dialog({
-        resizable: false,
-        height: "auto",
-        width: 400,
-        modal: true
-    });
-}
-
-function fncDownload(obj)
-{
-    $('#formDownload #file_id').val($(obj).attr('data-id'));
-    $('#formDownload').submit();
-}
 </script>
 @endsection

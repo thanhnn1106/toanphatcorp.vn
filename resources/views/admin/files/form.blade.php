@@ -94,11 +94,11 @@
                                 <label class="col-sm-2 form-control-label">Type download</label>
                                 <div class="col-sm-10">
                                   <div class="i-checks">
-                                    <input id="type_download_1" type="radio" value="{{ $typeDownload['active'] }}" @if (old('type_download', isset($file->type_download) ? $file->type_download : '') == 1) checked="checked" @endif name="type_download" class="form-control-custom radio-custom">
+                                    <input id="type_download_1" type="radio" value="{{ $typeDownload['premium'] }}" @if (old('type_download', isset($file->type_download) ? $file->type_download : '') == 1) checked="checked" @endif name="type_download" class="form-control-custom radio-custom">
                                     <label for="type_download_1">Premium</label>
                                   </div>
                                   <div class="i-checks">
-                                    <input id="type_download_0" type="radio" value="{{ $typeDownload['inactive'] }}" @if (old('type_download', isset($file->type_download) ? $file->type_download : '') != 1) checked="checked" @endif name="type_download" class="form-control-custom radio-custom">
+                                    <input id="type_download_0" type="radio" value="{{ $typeDownload['normal'] }}" @if (old('type_download', isset($file->type_download) ? $file->type_download : '') != 1) checked="checked" @endif name="type_download" class="form-control-custom radio-custom">
                                     <label for="type_download_0">Normal</label>
                                   </div>
                                 </div>

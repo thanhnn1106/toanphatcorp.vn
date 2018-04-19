@@ -89,7 +89,11 @@ class FilesInfo extends Model {
 
     public static function getListFront($params = array())
     {
-        $query = FilesInfo::where('status', config('site.file_status.value.active'))->orderBy('created_at', 'DESC');
+        $query = FilesInfo::where('status', config('site.file_status.value.active'));
+        if (isset($params['category_id'])) {
+            $query->where('category_id', $params['category_id']);
+        }
+        $query->orderBy('created_at', 'DESC');
 
         $result = $query->paginate(LIMIT_FRONT_ROW);
         return $result;

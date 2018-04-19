@@ -123,7 +123,10 @@ class Category extends Model {
 
     public static function getCateFile()
     {
-        $content = Storage::disk('public')->get(self::THUMBNAIL_PATH . '/cate_data.txt');
+        $content = null;
+        if (Storage::disk('public')->exists(self::THUMBNAIL_PATH . '/cate_data.txt')) {
+            $content = Storage::disk('public')->get(self::THUMBNAIL_PATH . '/cate_data.txt');
+        }
         return json_decode($content, true);
     }
 }
