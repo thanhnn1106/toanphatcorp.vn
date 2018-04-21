@@ -14,8 +14,15 @@ class FilesController extends Controller
 {
     public function index(Request $request)
     {
+        $files = FilesInfo::getList();
+
+        $fileIds = $files->map(function ($file) {
+            return $file->id;
+        })->toArray();
+
         $data = array(
-            'files' => FilesInfo::getList(),
+            'files'      => $files,
+            'categories' => Category::getCatesByIdFiles($fileIds),
         );
         return view('admin.files.list', $data);
     }
@@ -44,8 +51,8 @@ class FilesController extends Controller
 
             try {
                 $filesInfo = FilesInfo::firstOrCreate([
-                    'thumbnail'   => FilesInfo::uploadThumbnail($request),
-                    'category_id'        => $request->get('category_id'),
+                    'cover_image'   => FilesInfo::uploadImage($request, 'cover_image'),
+                    'thumbnail'   => FilesInfo::uploadImage($request),
                     'title'        => $request->get('title'),
                     'slug'        => str_slug($request->get('title')),
                     'file_name'   => $request->get('file_name'),
@@ -56,7 +63,9 @@ class FilesController extends Controller
                 ]);
                 $this->_saveTags($filesInfo, $request);
 
-                FilesInfo::makeCateFolderAndFile($filesInfo, null, 'add');
+                $this->_saveCategories($filesInfo, $request);
+
+                FilesInfo::makeFolderAndFile($filesInfo);
 
                 DB::commit();
 
@@ -81,7 +90,7 @@ class FilesController extends Controller
             $request->session()->flash('error', trans('common.msg_data_not_found'));
             return redirect(route('admin.files'));
         }
-        $olCateName = $file->category->name;
+        //$olCateName = $file->category->name;
 
         $data = array(
             'actionForm' => route('admin.files.edit', ['fileId' => $fileId]),
@@ -107,12 +116,16 @@ class FilesController extends Controller
 
             try {
 
-                $thumbnail = FilesInfo::uploadThumbnail($request);
+                $coverImage = FilesInfo::uploadImage($request, 'cover_image');
+                if ( ! empty($coverImage)) {
+                    $file->cover_image = $coverImage;
+                }
+
+                $thumbnail = FilesInfo::uploadImage($request);
                 if ( ! empty($thumbnail)) {
                     $file->thumbnail = $thumbnail;
                 }
 
-                $file->category_id = $request->get('category_id');
                 $file->slug = str_slug($request->get('title'));
                 $file->title = $request->get('title');
                 $file->file_name = $request->get('file_name');
@@ -123,7 +136,9 @@ class FilesController extends Controller
 
                 $this->_saveTags($file, $request);
 
-                FilesInfo::makeCateFolderAndFile($file, $olCateName);
+                $this->_saveCategories($file, $request);
+
+                FilesInfo::makeFolderAndFile($file);
 
                 DB::commit();
 
@@ -180,18 +195,28 @@ class FilesController extends Controller
         }
     }
 
+    private function _saveCategories($filesInfo, $request)
+    {
+        $cateIds = $request->get('category');
+        if ( ! empty($cateIds)) {
+            $filesInfo->categories()->sync($cateIds);
+        }
+    }
+
     private function _setRules($request, $id = null)
     {
-        $thumbnail = '';
+        $image = '';
         if ($id === null) {
-            $thumbnail = 'required|';
+            $image = 'required|';
         }
         $typeDownload = array_values(config('site.type_download.value'));
         $status       = array_values(config('site.file_status.value'));
 
         $rules =  array(
-            'thumbnail'        => $thumbnail.'max:2048|mimes:'.config('site.file_accept_types'),
-            'category_id'      => 'required|exists:categories,id',
+            'cover_image'      => $image.'max:2048|mimes:'.config('site.file_accept_types'),
+            'thumbnail'        => $image.'max:2048|mimes:'.config('site.file_accept_types'),
+            'category'         => 'required|array|min:1',
+            'category.*'       => 'exists:categories,id',
             'title'            => 'required|max:255',
             'tag_name'         => 'required',
             'file_name'        => 'required',

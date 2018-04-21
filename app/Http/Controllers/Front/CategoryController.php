@@ -24,21 +24,12 @@ class CategoryController extends BaseController
             return $file->id;
         })->toArray();
 
-        $tags = Tags::getTagsByIdFiles($fileIds);
-
-        $infoTags = array();
-        $tags->map(function ($tag) use ( & $infoTags) {
-            $infoTags[$tag->file_id][] = array(
-                'tag_id' => $tag->id,
-                'name' => $tag->name,
-                'slug' => $tag->slug,
-            );
-        });
 
         $data = array(
             'files'      => $files,
             'category'   => $category,
-            'tags'       => $infoTags,
+            'tags'       => Tags::getTagsByIdFiles($fileIds),
+            'cateTags'   => Category::getCatesByIdFiles($fileIds),
         );
 
         return view('front.category.detail', $data);

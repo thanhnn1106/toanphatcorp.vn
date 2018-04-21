@@ -38,7 +38,8 @@ class CategoryController extends Controller
             }
 
             Category::insert([
-                'thumbnail'   => Category::uploadThumbnail($request),
+                'thumbnail'   => Category::uploadImage($request),
+                'cover_image' => Category::uploadImage($request, 'cover_image'),
                 'name'        => $request->get('name'),
                 'slug'        => str_slug($request->get('name')),
                 'description' => $request->get('description'),
@@ -81,9 +82,13 @@ class CategoryController extends Controller
                             ->withInput();
             }
 
-            $thumbnail = Category::uploadThumbnail($request);
+            $thumbnail = Category::uploadImage($request);
             if ( ! empty($thumbnail)) {
                 $category->thumbnail = $thumbnail;
+            }
+            $coverImage = Category::uploadImage($request, 'cover_image');
+            if ( ! empty($coverImage)) {
+                $category->cover_image = $coverImage;
             }
             $category->name = $request->get('name');
             $category->slug = str_slug($request->get('name'));
@@ -119,13 +124,14 @@ class CategoryController extends Controller
 
     private function _setRules($request, $id = null)
     {
-        $thumbnail = '';
+        $image = '';
         if ($id === null) {
-            $thumbnail = 'required|';
+            $image = 'required|';
         }
 
         $rules =  array(
-            'thumbnail'        => $thumbnail.'max:2048|mimes:'.config('site.file_accept_types'),
+            'thumbnail'        => $image.'max:2048|mimes:'.config('site.file_accept_types'),
+            'cover_image'      => $image.'max:2048|mimes:'.config('site.file_accept_types'),
             'name'             => 'required|unique:categories,name,'.$id.'|regex:/(^[A-Za-z0-9 ]+$)+/|max:255',
             'description'      => 'max:255',
         );

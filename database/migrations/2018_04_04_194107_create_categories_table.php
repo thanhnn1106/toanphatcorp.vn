@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('description', 255)->nullable();
             $table->string('slug', 255);
             $table->string('thumbnail')->nullable();
+            $table->string('cover_image')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

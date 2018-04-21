@@ -51,6 +51,15 @@ class Tags extends Model {
             ->whereIn('file_tags.file_id', $fileIds);
         })->get();
 
-        return $tags;
+        $infoTags = array();
+        $tags->map(function ($tag) use ( & $infoTags) {
+            $infoTags[$tag->file_id][] = array(
+                'tag_id' => $tag->id,
+                'name' => $tag->name,
+                'slug' => $tag->slug,
+            );
+        });
+
+        return $infoTags;
     }
 }

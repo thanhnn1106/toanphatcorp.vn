@@ -25,6 +25,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Cover image</th>
                                         <th>Thumbnail</th>
                                         <th>Category</th>
                                         <th>Title</th>
@@ -36,13 +37,20 @@
                                 </thead>
                                 <tbody>
                                     @if ($files->count() == 0)
-                                        <tr><td colspan="8" align="center">Data not found</td></tr>
+                                        <tr><td colspan="9" align="center">Data not found</td></tr>
                                     @else
                                     @foreach($files as $file)
                                     <tr>
                                         <th scope="row">{{ $file->id }}</th>
+                                        <td><a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a></td>
                                         <td><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
-                                        <td>{{ $file->category->name }}</td>
+                                        <td>
+                                            @if( ! empty($categories[$file->id]))
+                                            @foreach ($categories[$file->id] as $cate)
+                                            <a href="{{ route('admin.category.edit', ['categoryId' => $cate['id']]) }}">{{ $cate['name'] }}</a><br/>
+                                            @endforeach
+                                            @endif
+                                        </td>
                                         <td>{{ $file->title }}</td>
                                         <td>{{ $file->file_name }}</td>
                                         <td>{{ $file->getTypeDownloadLabel() }}</td>

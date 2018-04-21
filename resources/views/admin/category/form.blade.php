@@ -23,11 +23,25 @@
                         <form class="form-horizontal" action="{{ $actionForm }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group row">
+                              <label class="col-sm-2 form-control-label">Cover image</label>
+                              <div class="col-sm-10">
+                                <input type="file" id="cover_image" name="cover_image" class="form-control @if ($errors->has('cover_image'))is-invalid @endif">
+
+                                @if( ! empty($category) && $category->getCoverImageUrl())
+                                <a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a>
+                                @endif
+
+                                @if ($errors->has('cover_image'))
+                                <div class="invalid-feedback">{{ $errors->first('cover_image') }}</div>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="form-group row">
                               <label class="col-sm-2 form-control-label">Thumbnail</label>
                               <div class="col-sm-10">
                                 <input type="file" id="thumbnail" name="thumbnail" class="form-control @if ($errors->has('thumbnail'))is-invalid @endif">
 
-                                @if( ! empty($category->thumbnail) && $category->getThumbnailUrl())
+                                @if( ! empty($category) && $category->getThumbnailUrl())
                                 <a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a>
                                 @endif
 

@@ -5,13 +5,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 use App\Models\Category;
-use Illuminate\Http\Response; 
 
 class FilesInfo extends Model {
 
-    const THUMBNAIL_PATH = 'files_info';
+    const IMAGE_PATH = 'files_info';
 
-    const CATEGORY_FILES_PATH = self::THUMBNAIL_PATH . '/categories';
+    const CATEGORY_FILES_PATH = self::IMAGE_PATH . '/files';
 
     /**
      * The database table used by the model.
@@ -33,6 +32,7 @@ class FilesInfo extends Model {
         'type_download',
         'status',
         'thumbnail',
+        'cover_image',
         'file_name',
     ];
 
@@ -46,9 +46,9 @@ class FilesInfo extends Model {
         'updated_at'
     ];
 
-    public function category()
+    public function categories()
     {
-        return $this->belongsTo('App\Models\Category', 'category_id');
+        return $this->belongsToMany(Category::class, 'category_files', 'file_id', 'category_id');
     }
 
     public function tags()
@@ -70,10 +70,10 @@ class FilesInfo extends Model {
         if ($should_delete == true) {
 
             // Delete thumbnail when delete category
-            self::deleteThumbnail($this);
+            self::deleteImage($this);
 
             // Delete file and folder in category of files
-            self::deleteCateFolderAndFile($this->category->name);
+            self::deleteFolderAndFile($this);
 
             $this->delete();
         }
@@ -89,92 +89,96 @@ class FilesInfo extends Model {
 
     public static function getListFront($params = array())
     {
-        $query = FilesInfo::where('status', config('site.file_status.value.active'));
+        $query = FilesInfo::select('files_info.*')->join('category_files', function ($join) use ($params) {
+            $join->on('files_info.id', '=', 'category_files.file_id');
+            if (isset($params['category_id'])) {
+                $join->where('category_files.category_id', $params['category_id']);
+            }
+        })
+        ->where('status', config('site.file_status.value.active'));
         if (isset($params['category_id'])) {
             $query->where('category_id', $params['category_id']);
         }
         $query->orderBy('created_at', 'DESC');
 
         $result = $query->paginate(LIMIT_FRONT_ROW);
+
         return $result;
     }
 
-    public static function uploadThumbnail($request)
+    public static function uploadImage($request, $fieldName = 'thumbnail')
     {
+        if ($fieldName !== 'thumbnail' && $fieldName !== 'cover_image') {
+            return null;
+        }
+        $prefix = '-thumb';
+        if ($fieldName === 'cover_image') {
+            $prefix = '-cover';
+        }
+
         $path = null;
-        if ($request->hasFile('thumbnail')) {
+        if ($request->hasFile($fieldName)) {
             $path = Storage::disk('public')->putFileAs(
-                    self::THUMBNAIL_PATH . '/thumb',
-                    new File($request->file('thumbnail')),
-                    time().'-'.$request->file('thumbnail')->getClientOriginalName()
+                    self::IMAGE_PATH . '/images',
+                    new File($request->file($fieldName)),
+                    time().$prefix.'-'.$request->file($fieldName)->getClientOriginalName()
             );
         }
         return $path;
     }
 
-    public static function deleteThumbnail($filesInfo)
+    public static function deleteImage($imagePath)
     {
-        Storage::disk('public')->delete($filesInfo->thumbnail);
+        Storage::disk('public')->delete($imagePath);
     }
 
-    public static function makeCateFolderAndFile($filesInfo, $oldCateName = '', $type = 'edit')
+    public static function makeFolderAndFile($filesInfo)
     {
         if ($filesInfo === NULL) {
             return false;
         }
 
-        $newCateName = null;
-        $cate = Category::find($filesInfo->category_id);
-        if ($cate !== NULL) {
-            $newCateName = $cate->name;
-        }
+        Storage::disk('public')->makeDirectory(self::CATEGORY_FILES_PATH.'/'.$filesInfo->id);
 
-        if ($type === 'add') {
-
-            Storage::disk('public')->makeDirectory(self::CATEGORY_FILES_PATH.'/'.$newCateName);
-
-        } else {
-
-            $files = Storage::disk('public')->allFiles(self::CATEGORY_FILES_PATH.'/'.$oldCateName);
-
-            // Move from old to new
-            if ( ! empty($files) && $oldCateName !== $newCateName) {
-                foreach ($files as $file) {
-                    Storage::disk('public')->move($file, self::CATEGORY_FILES_PATH.'/'.$newCateName . '/'.basename($file));
-                }
-                // Delete old category
-                self::deleteCateFolderAndFile($oldCateName);
-            }
-        }
         return true;
     }
 
-    public static function deleteCateFolderAndFile($cateName)
+    public static function deleteFolderAndFile($filesInfo)
     {
-        Storage::disk('public')->deleteDirectory(self::CATEGORY_FILES_PATH.'/'.$cateName);
+        Storage::disk('public')->deleteDirectory(self::CATEGORY_FILES_PATH.'/'.$filesInfo->id);
     }
 
     public function getThumbnail()
     {
-        if (empty($this->thumbnail)) {
-            return null;
-        }
-
-        if (Storage::disk('public')->exists($this->thumbnail)) {
-            return basename($this->thumbnail);
-        }
-
-        return null;
+        return $this->getImage($this->thumbnail);
     }
 
     public function getThumbnailUrl()
     {
-        if (empty($this->thumbnail)) {
+        return $this->getImage($this->thumbnail, true);
+    }
+
+    public function getCoverImage()
+    {
+        return $this->getImage($this->cover_image);
+    }
+
+    public function getCoverImageUrl()
+    {
+        return $this->getImage($this->cover_image, true);
+    }
+
+    protected function getImage($imagePath, $isUrl = false)
+    {
+        if (empty($imagePath)) {
             return null;
         }
 
-        if (Storage::disk('public')->exists($this->thumbnail)) {
-            return asset(Storage::url($this->thumbnail));
+        if (Storage::disk('public')->exists($imagePath)) {
+            if ($isUrl) {
+                return asset(Storage::url($imagePath));
+            }
+            return basename($imagePath);
         }
 
         return null;

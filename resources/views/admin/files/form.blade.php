@@ -27,6 +27,20 @@
                         <form class="form-horizontal" action="{{ $actionForm }}" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
                             <div class="form-group row">
+                              <label class="col-sm-2 form-control-label">Cover image</label>
+                              <div class="col-sm-10">
+                                <input type="file" id="cover_image" name="cover_image" class="form-control @if ($errors->has('cover_image'))is-invalid @endif">
+
+                                @if( ! empty($file->cover_image) && $file->getCoverImageUrl())
+                                <a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a>
+                                @endif
+
+                                @if ($errors->has('cover_image'))
+                                <div class="invalid-feedback">{{ $errors->first('cover_image') }}</div>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="form-group row">
                               <label class="col-sm-2 form-control-label">Thumbnail</label>
                               <div class="col-sm-10">
                                 <input type="file" id="thumbnail" name="thumbnail" class="form-control @if ($errors->has('thumbnail'))is-invalid @endif">
@@ -43,14 +57,26 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Category</label>
                                 <div class="col-sm-10 mb-3">
-                                  <select name="category_id" class="form-control @if ($errors->has('category_id'))is-invalid @endif">
-                                    <option value="">------</option>
-                                    @foreach ($categories as $cate)
-                                    <option value="{{ $cate->id }}"  @if (old('category_id', isset($file->category_id) ? $file->category_id : '') == $cate->id) selected="selected" @endif>{{ $cate->name }}</option>
-                                    @endforeach
+                                  <?php
+                                    $selectedCates = Request::old('category', isset($file) ? array_column($file->categories->toArray(), 'id') : array());
+                                  ?>
+                                  <select id="category" name="category[]" class="form-control" multiple="multiple">
+                                    @foreach($categories as $cate)
+                                    @if (is_array($selectedCates))
+                                            <option value="{{ $cate->id }}" 
+                                            @foreach ($selectedCates as $cateId)
+                                              @if($cateId == $cate->id)
+                                                selected
+                                              @endif 
+                                            @endforeach
+                                            >{{ $cate->name }}</option>
+                                    @else
+                                      <option value="{{ $cate->id }}">{{ $cate->name }}</option>
+                                    @endif
+                                  @endforeach
                                   </select>
-                                  @if ($errors->has('category_id'))
-                                    <div class="invalid-feedback">{{ $errors->first('category_id') }}</div>
+                                  @if ($errors->has('category'))
+                                    <div class="invalid-feedback" style="@if ($errors->has('category')) display:block @endif">{{ $errors->first('category') }}</div>
                                   @endif
                                 </div>
                             </div>
@@ -140,6 +166,9 @@
 @section('footer_script')
 <link href="{{ asset('plugins/bootstrap-tagsinput/tagsinput.css') }}" rel="stylesheet"/>
 <script src="{{ asset('plugins/bootstrap-tagsinput/tagsinput.js') }}"></script>
+<script type="text/javascript" src="{{ asset('plugins/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
+<link rel="stylesheet" href="{{ asset('plugins/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" type="text/css"/>
+
 <!-- TinyMCE -->
 <script type="text/javascript" src="{{ asset('/plugins/tinymce/tinymce.min.js') }}"></script>
 <script>
@@ -157,6 +186,8 @@ $(function() {
         image_advtab: true, 
         toolbar: "sizeselect | fontselect | fontsizeselect | undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect forecolor backcolor | link unlink anchor | image media | print preview code"
     });
+
+    $('#category').multiselect();
 });
 </script>
 @endsection

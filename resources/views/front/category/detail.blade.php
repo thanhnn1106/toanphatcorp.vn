@@ -1,12 +1,15 @@
 @extends('front.layout')
 @section('content')
-<div class="top_info_subpage">
+@if ( ! empty($category))
+<?php $coverCateImage = $category->getCoverImageUrl(); ?>
+<div class="top_info_subpage" style="@if( ! empty($coverCateImage)) background:url('{{ $coverCateImage }}') @endif">
     <div class="container">
         <div class="top_info_subpage_content">
-            <p>category 90s</p>
+            <p>{{ $category->name }}</p>
         </div>
     </div>
 </div>
+@endif
 
 <div id="main" class="clearfix">
     <div class="container">
@@ -24,9 +27,10 @@
             <div class="col-md-12 col-lg-8">
                 @if ($files->count())
                 @foreach($files as $file)
+                    <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
-                        <dt>{{ $file->title }}</dt>
+                        <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}') @endif">{{ $file->title }}</dt>
                         <dd>
                             <p class="title clearfix mb-0">
                             <span>Tracklist</span>

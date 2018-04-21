@@ -25,6 +25,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Cover image</th>
                                         <th>Thumbnail</th>
                                         <th>Name</th>
                                         <th>Slug</th>
@@ -34,11 +35,12 @@
                                 </thead>
                                 <tbody>
                                     @if (count($categories)==0)
-                                        <tr><td colspan="6" align="center">Data not found</td></tr>
+                                        <tr><td colspan="7" align="center">Data not found</td></tr>
                                     @else
                                     @foreach($categories as $category)
                                     <tr>
                                         <th scope="row">{{ $category->id }}</th>
+                                        <td><a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a></td>
                                         <td><a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a></td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->slug }}</td>
