@@ -186,7 +186,7 @@ class FilesInfo extends Model {
 
     public function download()
     {
-        $pathFile = self::CATEGORY_FILES_PATH.'/'.$this->category->name . '/' . $this->file_name;
+        $pathFile = self::CATEGORY_FILES_PATH.'/'.$this->id . '/' . $this->file_name;
         if ( ! Storage::disk('public')->exists($pathFile)) {
             return false;
         }

@@ -51,6 +51,10 @@
                 </div>
             </a>
         </div>
+        <form id="formDownload" action="{{ route('front.files_download') }}" method="POST">
+            {{ csrf_field() }}
+            <input type="hidden" id="file_id" name="file_id" />
+        </form>
 
         <!-- Javascript files-->
         <script src="{{ asset_front('js/fontawesome-all.min.js') }}" type="text/javascript"></script>

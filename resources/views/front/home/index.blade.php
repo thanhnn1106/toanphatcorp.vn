@@ -104,11 +104,6 @@
         <!-- main_box_04 end --> 
         
     </div>
-
-<form id="formDownload" action="{{ route('front.files_download') }}" method="POST">
-    {{ csrf_field() }}
-    <input type="hidden" id="file_id" name="file_id" />
-</form>
 @endsection
 
 @section('footer_script')
