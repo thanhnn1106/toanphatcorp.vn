@@ -26,6 +26,10 @@ Route::group([
             'as'   => 'facebook_callback',
             'uses' => 'Auth\AuthController@handleProviderCallback'
         ]);
+        $router->get('/logout', [
+            'as'   => 'logout',
+            'uses' => 'Auth\AuthController@logout'
+        ]);
     });
 });
 

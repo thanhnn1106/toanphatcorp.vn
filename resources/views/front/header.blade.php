@@ -23,7 +23,7 @@
                     <p class="info_name float-left" style="color: #fff;margin-right: 10px;height: 38px;line-height: 38px;">
                         {{ Auth::user()->full_name }}
                     </p>
-                    <a type="button" class="btn btn_02" href="">Logout</a>
+                    <a type="button" class="btn btn_02" href="{{ route('auth.logout') }}">Logout</a>
                     <!-- End logout button -->
                     @else
                     <!-- Login button -->
