@@ -16,6 +16,8 @@
         <link  href="{{ asset_front('css/responsive.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/slick.css') }}" rel="stylesheet" type="text/css" />
+        <script src="{{ asset_front('js/jquery.min.js') }}" type="text/javascript"></script>
+        <link  href="{{ asset_front('css/stype_02.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- Google Analytics start -->
         <!-- Google Analytics end -->
@@ -58,7 +60,6 @@
 
         <!-- Javascript files-->
         <script src="{{ asset_front('js/fontawesome-all.min.js') }}" type="text/javascript"></script>
-        <script src="{{ asset_front('js/jquery.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/top.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/slick.min.js') }}" type="text/javascript"></script>

@@ -31,6 +31,35 @@ img {
 }
 
 @media screen and (max-width: 991px) {
+.frm_login_sp {
+    position: fixed;
+    right: -300px;
+    top: 100px;
+    transition: all ease 0.3s;
+}
+.frm_login_sp:hover {
+    right: 0;
+}
+.frm_login_sp dd {
+    width: 100%;
+    min-width: 300px;
+    padding: 10px;
+    margin: 0;
+}
+.frm_login_sp dt {
+    background: #f8c100;
+    float: left;
+    transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    position: absolute;
+    left: -94px;
+    top: 44px;
+    width: 139px;
+    border-radius: 7px 7px 0 0;
+    font-weight: normal;
+}
 #header .container {
     max-width: 100%;
 }
@@ -52,9 +81,9 @@ img {
 .top_info {
     padding-top: 70px;
 }
-.top_info_subpage{
-     margin: 85px 0 0 0;
-    }
+.top_info_subpage {
+    margin: 85px 0 0 0;
+}
 .top_info .container {
     max-width: 100%;
 }
@@ -69,28 +98,40 @@ img {
     height: 40px;
     width: 40px;
 }
-    #header .logo img{
-        width: 44px;
-    }
-    .frm_abuse{
-        margin-bottom: 20px;
-    }
+#header .logo img {
+    width: 44px;
+}
+.frm_abuse {
+    margin-bottom: 20px;
+}
+table.tb_block td, table.tb_block th {
+    width: 100% !important;
+    display: block;
+    box-sizing: border-box;
+}
+table.tb_block tr {
+    border-bottom: 10px solid #fff;
+}
 }
 
 @media screen and (max-width: 640px) {
-    .cate_item dd .box_action .action{
-        margin-bottom: 20px!important;
-    }
-    .cate_item dd .box_action .action,.cate_item dd .box_action ul{
-        float: none;
-    }
+.cate_item dd .box_action .action {
+    margin-bottom: 20px!important;
+}
+.cate_item dd .box_action .action, .cate_item dd .box_action ul {
+    float: none;
+}
+#info_user .title_01 {
+    padding: 30px 0;
+    margin: 0;
+}
 }
 
 @media screen and (max-width: 414px) {
-    .dj_tips_content .box_btn_main .box_btn_02 li .btn_03{
-        max-width: 300px;
-        font-size: 12px;
-    }
+.dj_tips_content .box_btn_main .box_btn_02 li .btn_03 {
+    max-width: 300px;
+    font-size: 12px;
+}
 }
 
 @media screen and (max-width: 320px) {

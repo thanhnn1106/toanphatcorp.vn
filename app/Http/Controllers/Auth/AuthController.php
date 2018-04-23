@@ -86,20 +86,21 @@ class AuthController extends Controller
         if ($user) {
             if ($user->provider_user_id == null) {
                 $user->provider_user_id = $socialInfo->getId();
-                $user->provider = $service;
-                $user->full_name = $socialInfo->getName();
-                $user->avatar  = $socialInfo->getAvatar();
+                $user->provider         = $service;
+                $user->full_name        = $socialInfo->getName();
+                $user->avatar           = $socialInfo->getAvatar();
                 $user->save();
             }
         } else {
             if ($email != null) {
                 $user = User::create([
                     'provider_user_id' => $socialInfo->getId(),
-                    'provider'       => $service,
-                    'email'        => $email,
-                    'status'       => config('site.user_status.value.active'),
-                    'password'     => bcrypt(str_random(6)),
-                    'avatar'       => $socialInfo->getAvatar(),
+                    'full_name'        => $socialInfo->getName(),
+                    'provider'         => $service,
+                    'email'            => $email,
+                    'status'           => config('site.user_status.value.active'),
+                    'password'         => bcrypt(str_random(6)),
+                    'avatar'           => $socialInfo->getAvatar(),
                 ]);
 
                 $user->save();

@@ -22,7 +22,6 @@ Route::group([
             'as'   => 'facebook',
             'uses' => 'Auth\AuthController@redirectToProvider'
         ]);
-
         $router->get('auth/{service}/callback', [
             'as'   => 'facebook_callback',
             'uses' => 'Auth\AuthController@handleProviderCallback'
