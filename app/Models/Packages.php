@@ -16,7 +16,7 @@ class Packages extends Model  {
     public static function getAllPackage()
     {
         $queryReturn = Packages::select('*')
-            ->paginate(10);
+            ->paginate(LIMIT_ROW);
 
         return $queryReturn;
     }

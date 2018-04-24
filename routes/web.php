@@ -161,5 +161,14 @@ Route::group([
             'as'   => 'admins.delete',
             'uses' => 'AdminsController@delete',
         ]);
+        // Admin manage static page
+        $router->get('statis-pages', [
+            'as'   => 'staticPages',
+            'uses' => 'StaticPagesController@index',
+        ]);
+        $router->match(['get', 'post'], 'statis-pages/edit/{pageId}', [
+            'as'   => 'staticPages.edit',
+            'uses' => 'StaticPagesController@edit',
+        ]);
     });
 });

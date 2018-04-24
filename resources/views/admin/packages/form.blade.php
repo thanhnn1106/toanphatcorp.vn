@@ -11,6 +11,9 @@
         </ul>
     </div>
 </div>
+<?php
+    $status = config('site.file_status.value');
+?>
 <section class="forms">
     <div class="container-fluid">
         <div class="row">
@@ -71,18 +74,18 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Trạng thái</label>
                                 <div class="col-sm-10">
-                                    <div>
-                                        <input class="form-control-custom radio-custom" type="radio" value="1" name="status" checked="{{ old('status', isset($packageInfo->status) == '1') ? 'checked' : ''}}">
-                                        <label for="optionsRadios1">Hiển thị</label>
-                                    </div>
-                                    <div>
-                                        <input class="form-control-custom radio-custom" type="radio" value="0" name="status" checked="{{ old('status', isset($packageInfo->status) == '0') ? 'checked' : ''}}">
-                                        <label for="optionsRadios2">Không hiển thị</label>
-                                    </div>
-                                    @if ($errors->has('status'))
-                                        <p class="help-block text-danger">{{ $errors->first('status') }}</p>
-                                    @endif
+                                  <div class="i-checks">
+                                    <input id="status_1" type="radio" value="{{ $status['active'] }}" @if (old('status', isset($packageInfo->status) ? $packageInfo->status : '') == 1) checked="checked" @endif name="status" class="form-control-custom radio-custom">
+                                    <label for="status_1">Hiển thị</label>
+                                  </div>
+                                  <div class="i-checks">
+                                    <input id="status_0" type="radio" value="{{ $status['inactive'] }}" @if (old('status', isset($packageInfo->status) ? $packageInfo->status : '') != 1) checked="checked" @endif name="status" class="form-control-custom radio-custom">
+                                    <label for="status_0">Không hiển thị</label>
+                                  </div>
                                 </div>
+                                @if ($errors->has('status'))
+                                <div class="invalid-feedback">{{ $errors->first('status') }}</div>
+                                @endif
                             </div>
                             <div class="line"></div>
                             <div class="form-group row">
