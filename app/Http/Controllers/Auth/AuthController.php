@@ -12,6 +12,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Socialite;
 use App\Models\User;
+use Illuminate\Support\Facades\Session;
 
 
 class AuthController extends Controller
@@ -121,6 +122,15 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
+        return redirect()->route('front.home');
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
         return redirect()->route('front.home');
     }
 }
