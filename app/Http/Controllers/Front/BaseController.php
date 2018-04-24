@@ -28,6 +28,7 @@ class BaseController extends Controller
         }
 
         $download =  $file->download();
+
         if ($download === false) {
             return redirect(route('front.home'));
         }

@@ -38,21 +38,6 @@
             </div>
         </div>
 
-        <div id="dialog-login" title="Login" style="display: none;">
-            <a href="{{ route("auth.facebook", ["service" => "facebook"]) }}" 
-               data-plugin="nsl" 
-               data-action="connect" 
-               data-redirect="{{ route("front.redirect") }}" 
-               data-provider="facebook" 
-               data-popupwidth="475" 
-               data-popupheight="175">
-                <div class="new-fb-btn new-fb-4 new-fb-default-anim">
-                    <div class="new-fb-4-1">
-                        <div class="new-fb-4-1-1">Log-In</div>
-                    </div>
-                </div>
-            </a>
-        </div>
         <form id="formDownload" action="{{ route('front.files_download') }}" method="POST">
             {{ csrf_field() }}
             <input type="hidden" id="file_id" name="file_id" />

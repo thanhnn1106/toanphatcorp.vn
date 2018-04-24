@@ -14,8 +14,11 @@
             </div>
         </div>
         <div class="top_info_content">
-            <h2> <span class="h2_01">MUSIC IS YOUR</span> <span class="h2_02">dj-compilations</span> <span class="h2_03">DJ Compilations is one of the best<br>
-                DJ Pool Exchange on the web.</span> </h2>
+            <h2>
+              <span class="h2_01">MUSIC IS YOUR</span>
+              <span class="h2_02">dj-compilations</span>
+              <span class="h2_03">DJ Compilations is one of the best<br>DJ Pool Exchange on the web.</span>
+            </h2>
             <ul class="clearfix box_btn">
                 <li><a href="#title_about" class="btn btn_02">About us</a></li>
                 <li><a href="" class="btn btn_03">Download</a></li>
@@ -83,7 +86,7 @@
                                     <p class="item_ct">
                                         <span>{{ $file->title }}</span>
                                         <span>{{ formatMonthYear($file->created_at) }}</span>
-                                        
+                                        @include('front.partial.download_button', ['file' => $file])
                                     </p>
                                 </div>
                             </div>
@@ -107,8 +110,6 @@
 @endsection
 
 @section('footer_script')
-<link rel="stylesheet" href="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.css') }}">
-<script src="{{ asset_admin('vendor/jquery-ui-1.12.1/jquery-ui.min.js') }}"></script>
 
 <script>
 </script>

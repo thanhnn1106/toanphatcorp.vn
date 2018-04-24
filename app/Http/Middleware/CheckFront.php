@@ -1,8 +1,8 @@
 <?php 
 namespace App\Http\Middleware;
 
-use Closure, Auth;
-use Illuminate\Auth\AuthManager;
+use Closure;
+use Illuminate\Contracts\Auth\Guard;
 
 class CheckFront
 {
@@ -16,9 +16,9 @@ class CheckFront
     /**
      * Create a new filter instance.
      *
-     * @param AuthManager $auth
+     * @param Guard $auth
      */
-    public function __construct(AuthManager $auth)
+    public function __construct(Guard $auth)
     {
         $this->auth = $auth;
     }
@@ -32,6 +32,15 @@ class CheckFront
      */
     public function handle($request, Closure $next)
     {
+        $user = $this->auth->user();
+        if ( ! $user) {
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->guest(route('front.home'));
+            }
+        }
+
         return $next($request);
     }
 

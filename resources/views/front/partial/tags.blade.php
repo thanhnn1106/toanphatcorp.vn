@@ -6,10 +6,7 @@
         <?php $iCate = 0; ?>
         @foreach($cateTags[$fileId] as $cate)
         <?php $iCate++; ?>
-        <a href="{{ route('front.category_detail', ['slug' => $cate['slug']]) }}">{{ $cate['name'] }}</a>
-        @if($iCate < count($cateTags[$fileId]))
-        , 
-        @endif
+        <a href="{{ route('front.category_detail', ['slug' => $cate['slug']]) }}">{{ $cate['name'] }}</a>@if($iCate < count($cateTags[$fileId])),@endif
         @endforeach
     </li>
     @endif
@@ -20,10 +17,7 @@
         <?php $iTag = 0; ?>
         @foreach($tags[$fileId] as $tag)
         <?php $iTag++; ?>
-        <a href="{{ route('front.tag_detail', ['slug' => $tag['slug']]) }}">{{ $tag['name'] }}</a>
-        @if($iTag < count($tags[$fileId]))
-        , 
-        @endif
+        <a href="{{ route('front.tag_detail', ['slug' => $tag['slug']]) }}">{{ $tag['name'] }}</a>@if($iTag < count($tags[$fileId])),@endif
         @endforeach
     </li>
     @endif

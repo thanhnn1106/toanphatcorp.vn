@@ -21,9 +21,9 @@
                     @if(Auth::user())
                     <!-- Logout button -->
                     <p class="info_name float-left" style="color: #fff;margin-right: 10px;height: 38px;line-height: 38px;">
-                        {{ Auth::user()->full_name }}
+                      <a href="">{{ Auth::user()->full_name }}</a>
                     </p>
-                    <a type="button" class="btn btn_02" href="">Logout</a>
+                    <a type="button" class="btn btn_02" href="{{ route('auth.logout') }}">Logout</a>
                     <!-- End logout button -->
                     @else
                     <!-- Login button -->
@@ -42,7 +42,7 @@
                                         <dd>
                                             <ul class="clearfix">
                                                 <li class="login_fb">
-                                                    <a href="{{ route('auth.facebook', ['service' => 'facebook']) }}" class="btn clearfix"
+                                                    <a href="{{ route('auth.provider', ['service' => 'facebook']) }}" class="btn clearfix"
                                                         data-plugin="nsl" 
                                                         data-action="connect" 
                                                         data-redirect="{{ route("front.redirect") }}" 
@@ -52,7 +52,18 @@
                                                         <span>Login with facebook</span>
                                                     </a><span><i class="fab fa-facebook-f"></i></span>
                                                 </li>
-                                                <li class="login_gg"><a href="" class="btn clearfix"><span>Login with gmail</span></a><span><i class="fab fa-google"></i></span></li>
+                                                <li class="login_gg">
+                                                    <a href="{{ route('auth.provider', ['service' => 'google']) }}" class="btn clearfix"
+                                                        data-plugin="nsl" 
+                                                        data-action="connect" 
+                                                        data-redirect="{{ route("front.redirect") }}" 
+                                                        data-provider="google" 
+                                                        data-popupwidth="800" 
+                                                        data-popupheight="500">
+                                                        <span>Login with gmail</span>
+                                                    </a>
+                                                    <span><i class="fab fa-google"></i></span>
+                                                </li>
                                             </ul>
                                         </dd>
                                     </dl>
@@ -83,5 +94,36 @@
             </div>
         </div>
         <!-- gnavi sp end -->
+        <dl class="frm_login frm_login_sp box_sp">
+           <dt>login</dt>
+            <dd>
+                <ul class="clearfix">
+                    <li class="login_fb">
+                        <a href="{{ route('auth.provider', ['service' => 'facebook']) }}" class="btn clearfix"
+                            data-plugin="nsl" 
+                            data-action="connect" 
+                            data-redirect="{{ route("front.redirect") }}" 
+                            data-provider="facebook" 
+                            data-popupwidth="800" 
+                            data-popupheight="500">
+                            <span>Login with facebook</span>
+                        </a>
+                        <span><i class="fab fa-facebook-f"></i></span>
+                    </li>
+                    <li class="login_gg">
+                        <a href="{{ route('auth.provider', ['service' => 'google']) }}" class="btn clearfix"
+                            data-plugin="nsl" 
+                            data-action="connect" 
+                            data-redirect="{{ route("front.redirect") }}" 
+                            data-provider="google" 
+                            data-popupwidth="800" 
+                            data-popupheight="500">
+                            <span>Login with gmail</span>
+                        </a>
+                        <span><i class="fab fa-google"></i></span>
+                    </li>
+                </ul>
+            </dd>
+        </dl>
     </div>
 </div>

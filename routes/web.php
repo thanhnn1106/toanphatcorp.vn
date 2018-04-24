@@ -16,15 +16,19 @@ Route::group([
     'middleware'   => 'web'
 ], function ($router) {
     $router->group([
-        'middleware' => ['guest'],
+        'middleware' => ['web'],
     ], function ($router) {
         $router->get('auth/{service}', [
-            'as'   => 'facebook',
+            'as'   => 'provider',
             'uses' => 'Auth\AuthController@redirectToProvider'
         ]);
         $router->get('auth/{service}/callback', [
-            'as'   => 'facebook_callback',
+            'as'   => 'provider_callback',
             'uses' => 'Auth\AuthController@handleProviderCallback'
+        ]);
+        $router->get('logout', [
+            'as'   => 'logout',
+            'uses' => 'Auth\LoginController@logout'
         ]);
     });
 });
@@ -34,28 +38,36 @@ Route::group([
     'as'           => 'front.',
     'middleware'   => 'web'
 ], function ($router) {
+
+    // Do not login
+    $router->get('/', [
+        'as'   => 'home',
+        'uses' => 'Front\HomeController@index'
+    ]);
+    $router->get('/redirect', [
+        'as'   => 'redirect',
+        'uses' => 'Front\HomeController@redirect'
+    ]);
+    $router->get('/category/{slug}', [
+        'as'   => 'category_detail',
+        'uses' => 'Front\CategoryController@detail'
+    ]);
+    $router->get('/tag/{slug}', [
+        'as'   => 'tag_detail',
+        'uses' => 'Front\CategoryController@detail'
+    ]);
+
+    // Require login
     $router->group([
-        'middleware' => ['auth.front'],
-    ], function ($router) {
-        $router->get('/', [
-            'as'   => 'home',
-            'uses' => 'Front\HomeController@index'
-        ]);
-        $router->get('/redirect', [
-            'as'   => 'redirect',
-            'uses' => 'Front\HomeController@redirect'
-        ]);
-        $router->get('/category/{slug}', [
-            'as'   => 'category_detail',
-            'uses' => 'Front\CategoryController@detail'
-        ]);
-        $router->get('/tag/{slug}', [
-            'as'   => 'tag_detail',
-            'uses' => 'Front\CategoryController@detail'
-        ]);
+        'middleware' => ['auth.front']
+    ], function($router) {
         $router->post('/files/download', [
             'as'   => 'files_download',
             'uses' => 'Front\FilesController@normalDownload'
+        ]);
+        $router->get('/account', [
+            'as'   => 'account',
+            'uses' => 'Front\AccountController@index'
         ]);
     });
 });

@@ -35,7 +35,7 @@
                             <p class="title clearfix mb-0">
                             <span>Tracklist</span>
                             <span>{{ formatDayMonthYear($file->created_at) }}</span> </p>
-                            <p class="content mb-0">{!! $file->track_list !!}</p>
+                            <div class="content mb-0">{!! $file->track_list !!}</div>
                             <div class="box_action mb-0 clearfix">
                                 <p class="action mb-0">
                                     @include('front.partial.download_button')
