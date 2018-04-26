@@ -1,25 +1,9 @@
 @extends('front.layout')
 @section('content')
-@if ( ! empty($category))
-<?php $coverCateImage = $category->getCoverImageUrl(); ?>
-<div class="top_info_subpage" style="@if( ! empty($coverCateImage)) background:url('{{ $coverCateImage }}') @endif">
-    <div class="container">
-        <div class="top_info_subpage_content">
-            <p>{{ $category->name }}</p>
-        </div>
-    </div>
-</div>
-@endif
-
 <div id="main" class="clearfix">
     <div class="container">
         <div class="row">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
-                @if ( ! empty($category))
-                <li class="breadcrumb-item active">{{ $category->name }}</li>
-                @endif
-            </ol>
+            SEARCH RESULTS FOR: {{ $keyword or null }}
         </div>
     </div>
     <div class="container">

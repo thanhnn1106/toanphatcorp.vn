@@ -11,11 +11,14 @@
             </ul>
             <ul class="clearfix box_search">
                 <li>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for...">
-                        <span class="input-group-btn">
-                        <button class="btn btn_search" type="button"><i class="fas fa-search"></i></button>
-                        </span> </div>
+                    <form action="{{ route('front.home') }}" method="GET">
+                        <div class="input-group">
+                            <input type="text" name="keyword" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn_search" type="submit"><i class="fas fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
                 </li>
                 <li>
                     @if(Auth::user())
