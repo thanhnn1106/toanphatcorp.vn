@@ -47,8 +47,8 @@
                                                         data-action="connect" 
                                                         data-redirect="{{ route("front.redirect") }}" 
                                                         data-provider="facebook" 
-                                                        data-popupwidth="800" 
-                                                        data-popupheight="500">
+                                                        data-popupwidth="475" 
+                                                        data-popupheight="175">
                                                         <span>Login with facebook</span>
                                                     </a><span><i class="fab fa-facebook-f"></i></span>
                                                 </li>
