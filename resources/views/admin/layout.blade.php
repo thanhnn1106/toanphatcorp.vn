@@ -84,6 +84,11 @@
                                 <i class="icon-list"></i>Static pages
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.contacts') }}">
+                                <i class="icon-list"></i>Contacts
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
