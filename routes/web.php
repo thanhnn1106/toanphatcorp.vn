@@ -194,5 +194,18 @@ Route::group([
             'as'   => 'staticPages.edit',
             'uses' => 'StaticPagesController@edit',
         ]);
+        // Admin manage contacts page
+        $router->get('contacts', [
+            'as'   => 'contacts',
+            'uses' => 'ContactsController@index',
+        ]);
+        $router->match(['get', 'post'], 'contacts/edit/{contactId}', [
+            'as'   => 'contacts.edit',
+            'uses' => 'ContactsController@edit',
+        ]);
+        $router->match(['get', 'post'], 'delete/edit/{contactId}', [
+            'as'   => 'contacts.delete',
+            'uses' => 'ContactsController@delete',
+        ]);
     });
 });
