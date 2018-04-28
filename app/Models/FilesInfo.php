@@ -106,6 +106,21 @@ class FilesInfo extends Model {
         return $result;
     }
 
+    public static function search($params = array())
+    {
+        $query = FilesInfo::where('status', config('site.file_status.value.active'));
+
+        if (isset($params['keyword'])) {
+            $query->where('title', 'LIKE', "%{$params['keyword']}%");
+            $query->orWhere('track_list', 'LIKE', "%{$params['keyword']}%");
+        }
+        $query->orderBy('created_at', 'DESC');
+
+        $result = $query->paginate(LIMIT_FRONT_ROW);
+
+        return $result;
+    }
+
     public static function uploadImage($request, $fieldName = 'thumbnail')
     {
         if ($fieldName !== 'thumbnail' && $fieldName !== 'cover_image') {

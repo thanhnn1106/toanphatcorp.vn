@@ -57,7 +57,7 @@ class AuthController extends Controller
             $facebookProvider->with(['auth_type' => 'request']);
         }
 
-        return $facebookProvider->redirect();
+        return $facebookProvider->asPopup()->redirect();
     }
 
     /**
@@ -122,15 +122,6 @@ class AuthController extends Controller
      */
     public function redirectPath()
     {
-        return redirect()->route('front.home');
-    }
-
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
         return redirect()->route('front.home');
     }
 }

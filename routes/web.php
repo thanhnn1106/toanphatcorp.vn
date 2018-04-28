@@ -28,7 +28,7 @@ Route::group([
         ]);
         $router->get('logout', [
             'as'   => 'logout',
-            'uses' => 'Auth\AuthController@logout'
+            'uses' => 'Auth\LoginController@logout'
         ]);
     });
 });
