@@ -73,7 +73,7 @@ Route::group([
             'as'   => 'account',
             'uses' => 'Front\AccountController@index'
         ]);
-        $router->get('/purchase/send', [
+        $router->post('/purchase/send', [
             'as'   => 'purchase.send',
             'uses' => 'Front\PurchaseController@send'
         ]);

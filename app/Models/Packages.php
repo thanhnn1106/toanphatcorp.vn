@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Packages extends Model  {
 
+    const PACKAGE_FOREIGN_KEY = 'package_id';
 
     /**
      * The database table used by the model.
@@ -12,6 +13,34 @@ class Packages extends Model  {
      * @var string
      */
     protected $table = 'packages_info';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'price',
+        'number_month',
+        'status',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
+    public function purchases()
+    {
+        return $this->hasMany('App\Models\PurchaseHistory', 'id', 'package_id');
+    }
 
     public static function getAllPackage()
     {
@@ -21,11 +50,14 @@ class Packages extends Model  {
         return $queryReturn;
     }
 
-    public static function getPackageById($id)
+    public static function getPackageById($id, $params = array())
     {
-        $queryReturn = Packages::find($id);
+        $query = Packages::where('id', $id);
+        if (isset($params['status'])) {
+            $query->where('status', $params['status']);
+        }
 
-        return $queryReturn;
+        return $query->first();
     }
 
     public static function getPackages($params = array())

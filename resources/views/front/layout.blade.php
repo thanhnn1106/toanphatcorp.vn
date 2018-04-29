@@ -10,6 +10,7 @@
         <meta name="description" content="" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Script-Type" content="text/javascript" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link  href="{{ asset_front('css/styles.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/style_sp.css') }}" rel="stylesheet" type="text/css" />
@@ -28,13 +29,13 @@
     <body>
         <div id="wrapper">
             <div id="header" class="clearfix">
-                @include('front.header');
+                @include('front.header')
             </div>
 
             @yield('content')
 
             <div id="footer">
-                @include('front.footer');
+                @include('front.footer')
             </div>
         </div>
 

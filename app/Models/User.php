@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    const USER_FOREIGN_KEY = 'user_ids';
+
     /**
      * The database table used by the model.
      *
@@ -41,6 +43,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $dates = ['deleted_at'];
+
+    public function purchases()
+    {
+        return $this->hasMany('App\Models\PurchaseHistory', 'id', 'user_id');
+    }
 
     public static function getList($params = array())
     {
