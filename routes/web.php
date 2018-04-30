@@ -64,6 +64,10 @@ Route::group([
         'as'   => 'submit_contact',
         'uses' => 'Front\ContactsController@add'
     ]);
+    $router->get('/package', [
+        'as'   => 'package',
+        'uses' => 'Front\PackageController@index'
+    ]);
 
     // Require login
     $router->group([
@@ -76,6 +80,18 @@ Route::group([
         $router->get('/account', [
             'as'   => 'account',
             'uses' => 'Front\AccountController@index'
+        ]);
+        $router->get('/purchase/send', [
+            'as'   => 'purchase.send',
+            'uses' => 'Front\PurchaseController@send'
+        ]);
+        $router->get('/purchase/success', [
+            'as'   => 'purchase.success',
+            'uses' => 'Front\PurchaseController@success'
+        ]);
+        $router->get('/purchase/cancel', [
+            'as'   => 'purchase.cancel',
+            'uses' => 'Front\PurchaseController@cancel'
         ]);
     });
 });

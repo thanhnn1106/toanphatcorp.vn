@@ -27,4 +27,14 @@ class Packages extends Model  {
 
         return $queryReturn;
     }
+
+    public static function getPackages($params = array())
+    {
+        $status = isset($params['status']) ? $params['status'] : config('site.package_status.value.active');
+
+        $query = $queryReturn = Packages::select('*');
+        $query->where('status', $status);
+
+        return $query->get();
+    }
 }
