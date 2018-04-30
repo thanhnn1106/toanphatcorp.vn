@@ -17,6 +17,7 @@
         <link  href="{{ asset_front('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/slick.css') }}" rel="stylesheet" type="text/css" />
         <script src="{{ asset_front('js/jquery.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset_front('js/jquery.validate.min.js') }}" type="text/javascript"></script>
         <link  href="{{ asset_front('css/stype_02.css') }}" rel="stylesheet" type="text/css" />
 
         <!-- Google Analytics start -->
@@ -74,7 +75,6 @@
             }
         }
         </script>
-
         @yield('footer_script')
     </body>
 </html>

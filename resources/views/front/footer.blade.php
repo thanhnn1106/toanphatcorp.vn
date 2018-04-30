@@ -1,3 +1,57 @@
+<script>
+    function validateContact()
+    {
+        $('#contactForm .text-danger').css('display', 'none');
+        var formName = $('#contactName').val();
+        var formEmail = $('#contactEmail').val();
+        var formTitle = $('#contactTitle').val();
+        var formMessage = $('#contactMessage').val();
+
+        var isValidName = validateName(formName);
+        var isValidEmail = validateEmail(formEmail);
+        var isValidTitle = validateTitle(formTitle);
+        var isValidMessage = validateMessage(formMessage);
+        if (!isValidName) {
+            $('.validate-name').css('display', 'block');
+        } else if (!isValidEmail) {
+            $('.validate-email').css('display', 'block');
+        } else if (!isValidTitle) {
+            $('.validate-title').css('display', 'block');
+        } else if (!isValidMessage) {
+            $('.validate-message').css('display', 'block');
+        } else {
+            $('#contactForm').submit();
+        }
+    }
+    function validateName(formName)
+    {
+        if (formName.length <= 0) {
+            return false;
+        }
+        return true;
+    }
+    function validateEmail(formEmail)
+    {
+        if (formEmail.length <= 0) {
+            return false;
+        }
+        return true;
+    }
+    function validateTitle(formTitle)
+    {
+        if (formTitle.length <= 0) {
+            return false;
+        }
+        return true;
+    }
+    function validateMessage(formMessage)
+    {
+        if (formMessage.length <= 0) {
+            return false;
+        }
+        return true;
+    }
+</script>
 <div class="container-fluid">
     <div class="footer_01" id="title_contact">
         <div class="container">
@@ -7,12 +61,17 @@
                 <p>Support is provided 7 days a week. Please allow up to 12h for a reply. Thank you!</p>
             </div>
             <div class="footer_frm">
-                <form>
-                    <input class="form-control" type="text" id="ip_name" placeholder="Your name">
-                    <input class="form-control" type="email" id="ip_email" placeholder="Your email">
-                    <input class="form-control" type="text" id="ip_title" placeholder="Title">
-                    <textarea class="form-control" id="ip_message" rows="3" placeholder="Message"></textarea>
-                    <button type="submit" class="btn btn_03">Contacts TODAY</button>
+                <form id="contactForm" method="POST" action="{{ route('front.submit_contact') }}">
+                    <input class="form-control" type="text" id="contactName" name="contactName" placeholder="Your name">
+                    <h5 style="display: none;" class="text-danger validate-name ">Name was invalid.</h5>
+                    <input class="form-control" type="email" id="contactEmail" name="contactEmail" placeholder="Your email">
+                    <h5 style="display: none;" class="text-danger validate-email">Email was invalid.</h5>
+                    <input class="form-control" type="text" id="contactTitle" name="contactTitle" placeholder="Title">
+                    <h5 style="display: none;" class="text-danger validate-title">Title was invalid.</h5>
+                    <textarea class="form-control" id="contactMessage" rows="3" name="contactMessage" placeholder="Message"></textarea>
+                    <h5 style="display: none;" class="text-danger validate-message">Message was invalid.</h5>
+                    <a type="button" href="javascript:validateContact()" class="btn btn_03">Contacts TODAY</a>
+                    {{ csrf_field() }}
                 </form>
             </div>
         </div>
@@ -22,11 +81,11 @@
     <div class="footer_02">
         <ul class="container">
             <li><a href="">News</a></li>
-            <li><a href="">About Us</a></li>
-            <li><a href="">Abuse Report / DMCA</a></li>
-            <li><a href="">Privacy Policy</a></li>
+            <li><a href="{{ route('front.static_page', ['slug' => 'about-us']) }}">About Us</a></li>
+            <!--<li><a href="">Abuse Report / DMCA</a></li>-->
+            <li><a href="{{ route('front.static_page', ['slug' => 'privacy-policy']) }}">Privacy Policy</a></li>
             <li><a href="">F.A.Q</a></li>
-            <li><a href="">DJ Tips</a></li>
+            <li><a href="{{ route('front.static_page', ['slug' => 'dj-tips']) }}">DJ Tips</a></li>
             <li><a href="#title_contact">Contacts</a></li>
         </ul>
     </div>
@@ -39,3 +98,6 @@
 <div id="btn_top" class="toTop" style="display: block;">
     <p><a href="#wrapper"><img src="{{ asset_front('images/toTop.png') }}" alt="toTop"></a></p>
 </div>
+@section('footer_script')
+
+@endsection
