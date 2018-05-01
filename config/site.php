@@ -66,4 +66,29 @@ return [
             2 => 'Đã xử lý',
         ),
     ),
+    'order_format' => 'buy-%d-%s',
+    'transaction_type' => array(
+        'label' => array(
+            1 => 'Thanh toán ngay',
+            2 => 'Thanh toán tạm giữ',
+        ),
+        'value' => array(
+            'payment_now'   => 1,
+            'payment_wait'  => 2
+        ),
+    ),
+    'transaction_status' => array(
+        'label' => array(
+            1 => 'Chưa thanh toán',
+            2 => 'Đã thanh toán, tiền đang tạm giữ',
+            3 => 'Giao dịch lỗi',
+            4 => 'Đã thanh toán',
+        ),
+        'value' => array(
+            'waiting'   => 1,
+            'payment_wait'  => 2,
+            'error'  => 3,
+            'done'  => 4,
+        ),
+    ),
 ];

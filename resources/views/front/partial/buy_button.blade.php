@@ -1,4 +1,4 @@
-@if(Auth::check())
+@if($isLogged)
     <a href="javascript:void(0);" 
        package-id="{{ isset($package->id) ? $package->id : '' }}" 
        data-url="{{ route('front.purchase.send') }}"

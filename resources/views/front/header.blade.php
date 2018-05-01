@@ -21,10 +21,10 @@
                     </form>
                 </li>
                 <li>
-                    @if(Auth::user())
+                    @if($isLogged)
                     <!-- Logout button -->
                     <p class="info_name float-left" style="color: #fff;margin-right: 10px;height: 38px;line-height: 38px;">
-                      <a href="">{{ Auth::user()->full_name }}</a>
+                      <a href="">{{ $user->full_name }}</a>
                     </p>
                     <a type="button" class="btn btn_02" href="{{ route('auth.logout') }}">Logout</a>
                     <!-- End logout button -->
@@ -98,7 +98,10 @@
         </div>
         <!-- gnavi sp end -->
         <dl class="frm_login frm_login_sp box_sp">
-           <dt>login</dt>
+            @if( ! $isLogged)
+           <dt>
+                login
+           </dt>
             <dd>
                 <ul class="clearfix">
                     <li class="login_fb">
@@ -128,5 +131,6 @@
                 </ul>
             </dd>
         </dl>
+        @endif
     </div>
 </div>

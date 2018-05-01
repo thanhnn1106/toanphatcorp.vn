@@ -23,13 +23,20 @@ class PurchaseHistory extends Model  {
         Packages::PACKAGE_FOREIGN_KEY,
         PaymentMethod::PAYMENT_METHOD_FOREIGN_KEY,
         'order_code',
-        'order_type',
-        'status',
+        'merchant_site_code',
+        'transaction_id',
+        'transaction_type',
+        'transaction_status',
         'price',
+        'package_name',
+        'package_month',
         'payment_method_name',
         'buyer_name',
         'buyer_email',
-        'buyer_phone'
+        'buyer_phone',
+        'card_type',
+        'card_amount',
+        'fee',
     ];
 
     /**
@@ -55,6 +62,29 @@ class PurchaseHistory extends Model  {
     public function package()
     {
         return $this->belongsTo('App\Models\Packages', 'package_id');
+    }
+
+    public static function getList($params = array())
+    {
+        return PurchaseHistory::paginate(LIMIT_ROW);
+    }
+
+    public function getTransactionType()
+    {
+        $const = config('site.transaction_type.label');
+        if (isset($const[$this->transaction_type])) {
+            return $const[$this->transaction_type];
+        }
+        return '';
+    }
+
+    public function getTransactionStatus()
+    {
+        $const = config('site.transaction_status.label');
+        if (isset($const[$this->transaction_type])) {
+            return $const[$this->transaction_type];
+        }
+        return '';
     }
 
 }

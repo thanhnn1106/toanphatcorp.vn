@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Front\BaseController;
 use Illuminate\Http\Request;
-use App\Models\Category;
-use App\Models\FilesInfo;
+use App\Models\PurchaseHistory;
 
 
 class AccountController extends BaseController
@@ -15,7 +14,8 @@ class AccountController extends BaseController
         $user = \Auth::user();
 
         $data = array(
-            'user'      => $user,
+            'user'       => $user,
+            'infoChases' => PurchaseHistory::getList(),
         );
 
         return view('front.account.index', $data);

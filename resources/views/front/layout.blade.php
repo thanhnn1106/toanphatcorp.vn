@@ -23,7 +23,7 @@
         <!-- Google Analytics start -->
         <!-- Google Analytics end -->
         <script>
-            var isLogged = '{{ Auth::check() }}';
+            var isLogged = '{{ $isLogged }}';
         </script>
     </head>
     <body>

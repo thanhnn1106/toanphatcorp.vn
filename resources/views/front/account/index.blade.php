@@ -40,15 +40,45 @@
                         </tr>
                     </table>
                 </div>
+                @if(isset($infoChases))
                 <p class="title_01">Lịch sử giao dịch</p>
                 <div class="history">
                     <table class="tb_01 tb_block mb-2">
                         <tr>
-                            <td class="w10">02/04/2018</td>
-                            <td>Partybreaks And Remixes</td>
+                            <th>No.</th>
+                            <th>Order code</th>
+                            <th>Transaction</th>
+                            <th>Price</th>
+                            <th>Package name</th>
+                            <th>Package day</th>
+                            <th>Payment gate</th>
+                            <th>Method name</th>
+                            <th>Status</th>
                         </tr>
+                        @if( ! $infoChases->count())
+                        <tr>
+                            <td colspan="11"></td>
+                        </tr>
+                        @else
+                            <?php $no = 0; ?>
+                            @foreach($infoChases as $info)
+                            <?php $no++; ?>
+                        <tr>
+                            <td class="w10">{{ $no }}</td>
+                            <td>{{ $info->order_code }}</td>
+                            <td>{{ $info->getTransactionType() }}</td>
+                            <td>{{ formatCurrency($info->price) }}</td>
+                            <td>{{ $info->package_name }}</td>
+                            <td>{{ $info->package_month }} days</td>
+                            <td>{{ $info->payment_method_id }}</td>
+                            <td>{{ $info->payment_method_name }}</td>
+                            <td>{{ $info->getTransactionStatus() }}</td>
+                        </tr>
+                        @endforeach
+                        @endif
                     </table>
                 </div>
+                @endif
             </div>
             <div class="col-md-12 col-lg-4">
                 @include('front.partial.category_menu')

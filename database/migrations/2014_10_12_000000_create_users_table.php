@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('status')->comment('1=active, 0=inactive');
             $table->softDeletes();
             $table->rememberToken();
+            $table->dateTime('purchase_date')->nullable();
+            $table->dateTime('expired_date')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

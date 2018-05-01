@@ -81,10 +81,6 @@ Route::group([
             'as'   => 'purchase.success',
             'uses' => 'Front\PurchaseController@success'
         ]);
-        $router->get('/purchase/cancel', [
-            'as'   => 'purchase.cancel',
-            'uses' => 'Front\PurchaseController@cancel'
-        ]);
     });
 });
 
