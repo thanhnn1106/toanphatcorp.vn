@@ -59,7 +59,8 @@
                                                 <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" 
                                                    data-message="Are you sure delete this package?" 
                                                    data-url="{{ route('admin.package_delete', ['id' => $item->id]) }}" 
-                                                   class="btn btn-danger btn-xs">Delete
+                                                   class="btn btn-danger btn-xs">
+                                                   Xoá
                                                 </a>
                                             </td>
                                         </tr>

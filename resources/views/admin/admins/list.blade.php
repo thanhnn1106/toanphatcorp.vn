@@ -57,7 +57,7 @@
                                                data-message="Are you sure delete this admin?"
                                                data-url="{{ route('admin.admins.delete', ['adminId' => $admin->id]) }}"
                                                class="btn btn-danger btn-xs">
-                                                Delete
+                                                Xoá
                                             </a>
                                         </td>
                                     </tr>

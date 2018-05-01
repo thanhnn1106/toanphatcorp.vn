@@ -213,7 +213,6 @@ class FilesController extends Controller
         $status       = array_values(config('site.file_status.value'));
 
         $rules =  array(
-            'cover_image'      => $image.'max:2048|mimes:'.config('site.file_accept_types'),
             'thumbnail'        => $image.'max:2048|mimes:'.config('site.file_accept_types'),
             'category'         => 'required|array|min:1',
             'category.*'       => 'exists:categories,id',

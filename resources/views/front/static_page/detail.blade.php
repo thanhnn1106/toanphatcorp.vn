@@ -6,7 +6,7 @@
             <div class="row">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
-                    <li class="breadcrumb-item active">About us</li>
+                    <li class="breadcrumb-item active">{{ $pageDetail->title }}</li>
                 </ol>
             </div>
         </div>

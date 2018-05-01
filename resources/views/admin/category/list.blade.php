@@ -46,8 +46,16 @@
                                         <td>{{ $category->slug }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td>
-                                            <a href="{{ route('admin.category.edit', ['categoryId' => $category->id]) }}" class="btn btn-default btn-xs">Edit</a>
-                                            <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" data-message="Are you sure delete this category" data-url="{{ route('admin.category.delete', ['categoryId' => $category->id]) }}" class="btn btn-default btn-xs">Delete</a>
+                                            <a href="{{ route('admin.category.edit', ['categoryId' => $category->id]) }}" class="btn btn-warning btn-xs">
+                                               Cập nhật
+                                            </a>
+                                            <a href="javascript:void(0);"
+                                               onclick="return fncDeleteConfirm(this);"
+                                               data-message="Are you sure delete this category"
+                                               data-url="{{ route('admin.category.delete', ['categoryId' => $category->id]) }}"
+                                               class="btn btn-danger btn-xs">
+                                               Xoá
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

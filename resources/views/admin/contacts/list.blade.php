@@ -88,13 +88,13 @@
                                         <td>{{ $contact->updated_at }}</td>
                                         <td>
                                             <a href="{{ route('admin.contacts.edit', ['contactId' => $contact->id]) }}" class="btn btn-warning btn-xs">
-                                                Cập nhật
+                                               Cập nhật
                                             </a>
                                             <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);"
                                                data-message="Are you sure delete this contacts?"
                                                data-url="{{ route('admin.contacts.delete', ['contactId' => $contact->id]) }}"
                                                class="btn btn-danger btn-xs">
-                                                Delete
+                                               Xoá
                                             </a>
                                         </td>
                                     </tr>
