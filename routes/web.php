@@ -85,17 +85,13 @@ Route::group([
             'as'   => 'account',
             'uses' => 'Front\AccountController@index'
         ]);
-        $router->get('/purchase/send', [
+        $router->post('/purchase/send', [
             'as'   => 'purchase.send',
             'uses' => 'Front\PurchaseController@send'
         ]);
         $router->get('/purchase/success', [
             'as'   => 'purchase.success',
             'uses' => 'Front\PurchaseController@success'
-        ]);
-        $router->get('/purchase/cancel', [
-            'as'   => 'purchase.cancel',
-            'uses' => 'Front\PurchaseController@cancel'
         ]);
     });
 });
