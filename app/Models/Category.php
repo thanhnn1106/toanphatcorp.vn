@@ -104,22 +104,46 @@ class Category extends Model {
 
     public function getThumbnail()
     {
-        return $this->getImage($this->thumbnail);
+        $imagePath = $this->getImage($this->thumbnail);
+        return $this->getDefaultImage($imagePath, false, true);
     }
 
     public function getThumbnailUrl()
     {
-        return $this->getImage($this->thumbnail, true);
+        $imagePath = $this->getImage($this->thumbnail, true);
+        return $this->getDefaultImage($imagePath, true, true);
     }
 
     public function getCoverImage()
     {
-        return $this->getImage($this->cover_image);
+        $imagePath = $this->getImage($this->cover_image);
+        return $this->getDefaultImage($imagePath, false);
     }
 
     public function getCoverImageUrl()
     {
-        return $this->getImage($this->cover_image, true);
+        $imagePath = $this->getImage($this->cover_image, true);
+        return $this->getDefaultImage($imagePath, true);
+    }
+
+    protected function getDefaultImage($imagePath, $isUrl = false, $isThumb = false)
+    {
+        if (empty($imagePath)) {
+            $coverDefault = 'front/images/cate_cover_default.jpg';
+            $thumbDefault = 'front/images/cate_thumb_default.jpg';
+
+            $defaultImage = $coverDefault;
+            if ($isThumb) {
+                $defaultImage = $thumbDefault;
+            }
+
+            if ($isUrl) {
+                return asset($defaultImage);
+            }
+            return basename($defaultImage);
+        }
+
+        return $imagePath;
     }
 
     protected function getImage($imagePath, $isUrl = false)

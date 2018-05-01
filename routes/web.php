@@ -81,6 +81,10 @@ Route::group([
             'as'   => 'files_download',
             'uses' => 'Front\FilesController@normalDownload'
         ]);
+        $router->post('/files/premium-download', [
+            'as'   => 'files_preimum_download',
+            'uses' => 'Front\FilesController@premiumDownload'
+        ]);
         $router->get('/account', [
             'as'   => 'account',
             'uses' => 'Front\AccountController@index'

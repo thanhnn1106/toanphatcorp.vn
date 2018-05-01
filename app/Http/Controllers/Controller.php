@@ -12,8 +12,8 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    private $user;
-    private $isLogged;
+    public $user;
+    public $isLogged;
 
     public function __construct()
     {

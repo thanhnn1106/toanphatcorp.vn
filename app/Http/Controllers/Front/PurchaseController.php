@@ -21,8 +21,6 @@ class PurchaseController extends BaseController
                 throw new \Exception();
             }
 
-            $user = \Auth::user();
-
             $packageId = $request->get('packageId');
             $params    = array('status' => config('site.package_status.value.active'));
             $package   = Packages::getPackageById($packageId, $params);
@@ -33,7 +31,7 @@ class PurchaseController extends BaseController
 
             $inputs = array(
                 'receiver'                  => config('budget.service.email_receiver'),
-                'order_code'                => sprintf(config('site.order_format'), $user->id, date('His-dmY')),
+                'order_code'                => sprintf(config('site.order_format'), $this->user->id, date('His-dmY')),
                 'amount'                    => $package->price,
                 'currency_code'             => 'vnd',
                 'tax_amount'                => '0',
@@ -61,7 +59,7 @@ class PurchaseController extends BaseController
                     $inputs['package_month'] = $package->number_month;
                     $paymentMethod           = PaymentMethod::where('type', 'budget')->first();
                     $inputs['payment_method_id'] = ($paymentMethod !== NULL) ? $paymentMethod->id : 0;
-                    Redis::hmset('user:'.$user->id.':buy', $inputs);
+                    Redis::hmset('user:'.$this->user->id.':buy', $inputs);
 
                     return response()->json(array('error' => 0, 'result' => array('urlResult' => $result['link_checkout'])));
                 } else {
@@ -116,13 +114,12 @@ class PurchaseController extends BaseController
 
     private function _savePurchaseHistory($request, $result)
     {
-        $user      = \Auth::user();
-        $info      = Redis::hgetall('user:'.$user->id.':buy');
+        $info      = Redis::hgetall('user:'.$this->user->id.':buy');
         $orderCode = $request->get('order_code');
         $now       = date('Y-m-d H:i:s');
 
         $data = array(
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
             'package_id' => $info['package_id'],
             'package_name' => $info['package_name'],
             'package_month' => $info['package_month'],
@@ -143,11 +140,11 @@ class PurchaseController extends BaseController
         PurchaseHistory::create($data);
 
         $expiredDate = $now;
-        if ( ! empty($user->expired_date)) {
-            $expiredDate = $user->expired_date;
+        if ( ! empty($this->user->expired_date)) {
+            $expiredDate = $this->user->expired_date;
         }
-        $user->purchase_date = $now;
-        $user->expired_date  = date('Y-m-d H:i:s', strtotime($expiredDate . '+'.$info['package_month'].' day'));
-        $user->save();
+        $this->user->purchase_date = $now;
+        $this->user->expired_date  = date('Y-m-d H:i:s', strtotime($expiredDate . '+'.$info['package_month'].' day'));
+        $this->user->save();
     }
 }

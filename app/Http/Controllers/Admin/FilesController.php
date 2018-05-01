@@ -50,9 +50,7 @@ class FilesController extends Controller
             DB::beginTransaction();
 
             try {
-                $filesInfo = FilesInfo::firstOrCreate([
-                    'cover_image'   => FilesInfo::uploadImage($request, 'cover_image'),
-                    'thumbnail'   => FilesInfo::uploadImage($request),
+                $insert = [
                     'title'        => $request->get('title'),
                     'slug'        => str_slug($request->get('title')),
                     'file_name'   => $request->get('file_name'),
@@ -60,7 +58,18 @@ class FilesController extends Controller
                     'type_download' => $request->get('type_download', config('site.type_download.value.inactive')),
                     'status' => $request->get('status', config('site.status.value.inactive')),
                     'created_at'  => date('Y-m-d H:i:s')
-                ]);
+                ];
+                $coverImage = FilesInfo::uploadImage($request, 'cover_image');
+                $thumbImage = FilesInfo::uploadImage($request);
+
+                if ( ! empty($coverImage)) {
+                    $insert['cover_image'] = $coverImage;
+                }
+                if ( ! empty($thumbImage)) {
+                    $insert['thumbnail'] = $thumbImage;
+                }
+
+                $filesInfo = FilesInfo::firstOrCreate($insert);
                 $this->_saveTags($filesInfo, $request);
 
                 $this->_saveCategories($filesInfo, $request);
@@ -205,15 +214,12 @@ class FilesController extends Controller
 
     private function _setRules($request, $id = null)
     {
-        $image = '';
-        if ($id === null) {
-            $image = 'required|';
-        }
         $typeDownload = array_values(config('site.type_download.value'));
         $status       = array_values(config('site.file_status.value'));
 
         $rules =  array(
-            'thumbnail'        => $image.'max:2048|mimes:'.config('site.file_accept_types'),
+            'thumbnail'        => 'max:2048|mimes:'.config('site.file_accept_types'),
+            'cover_image'      => 'max:2048|mimes:'.config('site.file_accept_types'),
             'category'         => 'required|array|min:1',
             'category.*'       => 'exists:categories,id',
             'title'            => 'required|max:255',

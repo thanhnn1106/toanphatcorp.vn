@@ -56,6 +56,11 @@ class FilesInfo extends Model {
         return $this->belongsToMany(Tags::class, 'file_tags', 'file_id', 'tag_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_files_download', 'file_id', 'user_id');
+    }
+
     public function deleteFiles()
     {
         $relationships = array();
@@ -206,22 +211,46 @@ class FilesInfo extends Model {
 
     public function getThumbnail()
     {
-        return $this->getImage($this->thumbnail);
+        $imagePath = $this->getImage($this->thumbnail);
+        return $this->getDefaultImage($imagePath, false, true);
     }
 
     public function getThumbnailUrl()
     {
-        return $this->getImage($this->thumbnail, true);
+        $imagePath = $this->getImage($this->thumbnail, true);
+        return $this->getDefaultImage($imagePath, true, true);
     }
 
     public function getCoverImage()
     {
-        return $this->getImage($this->cover_image);
+        $imagePath = $this->getImage($this->cover_image);
+        return $this->getDefaultImage($imagePath, false);
     }
 
     public function getCoverImageUrl()
     {
-        return $this->getImage($this->cover_image, true);
+        $imagePath = $this->getImage($this->cover_image, true);
+        return $this->getDefaultImage($imagePath, true);
+    }
+
+    protected function getDefaultImage($imagePath, $isUrl = false, $isThumb = false)
+    {
+        if (empty($imagePath)) {
+            $coverDefault = 'front/images/file_cover_default.jpg';
+            $thumbDefault = 'front/images/file_thumb_default.jpg';
+
+            $defaultImage = $coverDefault;
+            if ($isThumb) {
+                $defaultImage = $thumbDefault;
+            }
+
+            if ($isUrl) {
+                return asset($defaultImage);
+            }
+            return basename($defaultImage);
+        }
+
+        return $imagePath;
     }
 
     protected function getImage($imagePath, $isUrl = false)
@@ -296,6 +325,14 @@ class FilesInfo extends Model {
     public function isNormalDownload()
     {
         if ($this->type_download == config('site.type_download.value.normal')) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isMaxDownload()
+    {
+        if ($this->users()->count() < MAX_PREMIUM_FILE_DOWNLOAD) {
             return true;
         }
         return false;
