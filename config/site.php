@@ -107,4 +107,14 @@ return [
             'done'  => 4,
         ),
     ),
+    'faqs_status' => array(
+        'label' => array(
+            1 => 'Hiển thị',
+            0 => 'Không hiển thị'
+        ),
+        'value' => array(
+            'active'   => 1,
+            'inactive' => 0
+        ),
+    ),
 ];

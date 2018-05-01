@@ -29,7 +29,7 @@
                 <h5>No data found.</h5>
                 @else
                 @foreach($files as $file)
-                    <?php $coverImage = $file->getCoverImageUrl(); ?>
+                <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
                         <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}')

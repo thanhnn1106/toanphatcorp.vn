@@ -89,6 +89,11 @@
                                 <i class="icon-list"></i>Contacts
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.faqs') }}">
+                                <i class="icon-list"></i>FAQs
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

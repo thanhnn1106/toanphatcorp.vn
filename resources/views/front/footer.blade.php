@@ -30,7 +30,7 @@
             <li><a href="{{ route('front.static_page', ['slug' => 'about-us']) }}">About Us</a></li>
             <!--<li><a href="">Abuse Report / DMCA</a></li>-->
             <li><a href="{{ route('front.static_page', ['slug' => 'privacy-policy']) }}">Privacy Policy</a></li>
-            <li><a href="">F.A.Q</a></li>
+            <li><a href="{{ route('front.faqs') }}">F.A.Q</a></li>
             <li><a href="{{ route('front.static_page', ['slug' => 'dj-tips']) }}">DJ Tips</a></li>
             <li><a href="#title_contact">Contacts</a></li>
         </ul>

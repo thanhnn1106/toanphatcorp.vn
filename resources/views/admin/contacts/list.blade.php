@@ -80,9 +80,6 @@
                                             <div class="badge badge-{{ $contactStatus }}">
                                                 {{ $status[$contact->status] }}
                                             </div>
-                                            <span class="label label-success" style="display:inline-block;">
-                                                
-                                            </span>
                                         </td>
                                         <td>{{ $contact->created_at }}</td>
                                         <td>{{ $contact->updated_at }}</td>

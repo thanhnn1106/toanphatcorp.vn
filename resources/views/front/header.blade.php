@@ -6,7 +6,7 @@
         <div class="col-lg-10 header_ct">
             <ul class="clearfix main_menu">
                 <li><a href="{{ route('front.home') }}">home</a></li>
-                <li><a href="">F.A.Q</a></li>
+                <li><a href="{{ route('front.faqs') }}">F.A.Q</a></li>
                 <li><a href="#title_contact">contacts</a></li>
             </ul>
             <ul class="clearfix box_search">

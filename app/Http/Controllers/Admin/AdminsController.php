@@ -38,7 +38,7 @@ class AdminsController extends Controller
                             ->withInput();
             }
 
-            $adminInfo = Admin::create([
+            Admin::create([
                 'user_name' => $request->get('user_name'),
                 'password'  => bcrypt($request->get('password')),
                 'role_id' => $request->get('role_id'),
@@ -62,7 +62,7 @@ class AdminsController extends Controller
         }
 
         $data = array(
-            'actionForm' => route('admin.admins.edit', ['adminiD' => $adminId]),
+            'actionForm' => route('admin.admins.edit', ['adminId' => $adminId]),
             'adminInfo'      => $admin,
             'title'      => 'Cập nhật',
             'roles'      => Roles::all(),

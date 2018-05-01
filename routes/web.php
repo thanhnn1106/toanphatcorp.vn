@@ -72,6 +72,10 @@ Route::group([
         'as'   => 'package',
         'uses' => 'Front\PackageController@index'
     ]);
+    $router->get('/faqs', [
+        'as'   => 'faqs',
+        'uses' => 'Front\FaqsController@index'
+    ]);
 
     // Require login
     $router->group([
@@ -215,9 +219,26 @@ Route::group([
             'as'   => 'contacts.edit',
             'uses' => 'ContactsController@edit',
         ]);
-        $router->match(['get', 'post'], 'delete/edit/{contactId}', [
+        $router->match(['get', 'post'], 'contacts/delete/{contactId}', [
             'as'   => 'contacts.delete',
             'uses' => 'ContactsController@delete',
+        ]);
+        // Admin manage faqs page
+        $router->get('faqs', [
+            'as'   => 'faqs',
+            'uses' => 'FaqsController@index',
+        ]);
+        $router->match(['get', 'post'], 'faqs/add', [
+            'as'   => 'faqs.add',
+            'uses' => 'FaqsController@add',
+        ]);
+        $router->match(['get', 'post'], 'faqs/edit/{faqId}', [
+            'as'   => 'faqs.edit',
+            'uses' => 'FaqsController@edit',
+        ]);
+        $router->match(['get', 'post'], 'faqs/delete/{faqId}', [
+            'as'   => 'faqs.delete',
+            'uses' => 'FaqsController@delete',
         ]);
     });
 });

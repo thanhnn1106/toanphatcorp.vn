@@ -27,9 +27,11 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Tên gói</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" 
+                                    <input type="text"
+                                           name="name" 
                                            class="form-control @if ($errors->has('name')) is-invalid @endif"
-                                           value="{{ old('name', isset($packageInfo->name)) ? $packageInfo->name : ''}}">
+                                           value="{{ old('name', isset($packageInfo->name) ? $packageInfo->name : '') }}"
+                                    >
                                     @if ($errors->has('name'))
                                         <p class="help-block text-danger">{{ $errors->first('name') }}</p>
                                     @endif
@@ -40,7 +42,7 @@
                                 <div class="col-sm-10 mb-3">
                                     <select name="number_month" 
                                         class="form-control @if ($errors->has('number_month')) is-invalid @endif"
-                                        value="{{ old('number_month', isset($packageInfo->number_month)) ? $packageInfo->number_month : ''}}">
+                                        value="{{ old('number_month', isset($packageInfo->number_month) ? $packageInfo->number_month : '') }}">
                                         @foreach ($packageRangeMonth as $key => $value)
                                         <option value="{{ $key }}">{{ $key }}</option>
                                         @endforeach
@@ -55,7 +57,7 @@
                                 <div class="col-sm-10">
                                     <input type="number" name="price" 
                                            class="form-control @if ($errors->has('price')) is-invalid @endif"
-                                           value="{{ old('price', isset($packageInfo->price)) ? $packageInfo->price : ''}}">
+                                           value="{{ old('price', isset($packageInfo->price) ? $packageInfo->price : '') }}">
                                     @if ($errors->has('price'))
                                         <p class="help-block text-danger">{{ $errors->first('price') }}</p>
                                     @endif
@@ -64,7 +66,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Miêu tả</label>
                                 <div class="col-sm-10">
-                                    <textarea name="description" class="form-control border-corner editor-content" rows="3">{{ old('description', isset($packageInfo->description)) ? $packageInfo->description : ''}}</textarea>
+                                    <textarea name="description" class="form-control border-corner editor-content" rows="3">{{ old('description', isset($packageInfo->description) ? $packageInfo->description : '') }}</textarea>
                                     @if ($errors->has('description'))
                                         <p class="help-block text-danger">{{ $errors->first('description') }}</p>
                                     @endif
