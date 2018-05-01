@@ -52,14 +52,14 @@
                                         <td>{{ $user->created_at }}</td>
                                         <td>{{ $user->updated_at }}</td>
                                         <td>
-                                            <a href="{{ route('admin.users.edit', ['userId' => $user->id]) }}" class="btn btn-info btn-xs">
+                                            <a href="{{ route('admin.users.edit', ['userId' => $user->id]) }}" class="btn btn-warning btn-xs">
                                                 Cập nhật
                                             </a>
                                             <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);"
                                                data-message="Are you sure delete this user?"
                                                data-url="{{ route('admin.users.delete', ['userId' => $user->id]) }}"
-                                               class="btn btn-warning btn-xs">
-                                                Delete
+                                               class="btn btn-danger btn-xs">
+                                               Xoá
                                             </a>
                                         </td>
                                     </tr>

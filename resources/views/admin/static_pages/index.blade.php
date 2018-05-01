@@ -32,7 +32,6 @@
                                             <th>#</th>
                                             <th>Tên trang</th>
                                             <th>Trạng thái</th>
-                                            <th>Nội dung</th>
                                             <th>Ngày tạo</th>
                                             <th>Ngày cập nhật</th>
                                             <th>Thao tác</th>
@@ -45,7 +44,6 @@
                                             <th scope="row">{{ ($staticPages->currentpage()-1) * $staticPages->perpage() + $i++ + 1 }}</th>
                                             <td>{{ $item->title }}</td>
                                             <td>{{ $item->status }}</td>
-                                            <td>{{ $item->content }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->updated_at }}</td>
                                             <td>

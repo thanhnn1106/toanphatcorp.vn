@@ -1,11 +1,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-lg-2">
-            <p class="logo"><a href="#"><img src="{{ asset_front('images/logo.png') }}" alt="dj-compilations"></a></p>
+            <p class="logo"><a href="{{ route('front.home') }}"><img src="{{ asset_front('images/logo.png') }}" alt="dj-compilations"></a></p>
         </div>
         <div class="col-lg-10 header_ct">
             <ul class="clearfix main_menu">
-                <li><a href="">home</a></li>
+                <li><a href="{{ route('front.home') }}">home</a></li>
                 <li><a href="">F.A.Q</a></li>
                 <li><a href="#title_contact">contacts</a></li>
             </ul>
@@ -64,8 +64,7 @@
                                                         data-popupwidth="800" 
                                                         data-popupheight="500">
                                                         <span>Login with gmail</span>
-                                                    </a>
-                                                    <span><i class="fab fa-google"></i></span>
+                                                    </a><span><i class="fab fa-google"></i></span>
                                                 </li>
                                             </ul>
                                         </dd>

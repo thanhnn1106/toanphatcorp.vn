@@ -51,13 +51,15 @@ class AuthController extends Controller
     {
         $redirect = $request->input('redirect');
         $request->session()->flash('redirect', $redirect);
-        $facebookProvider = Socialite::driver($service);
+        $provider = Socialite::driver($service);
 
         if ($request->session()->pull($service.'_login_error') == 'email') {
-            $facebookProvider->with(['auth_type' => 'request']);
+            $provider->with(['auth_type' => 'request']);
         }
-
-        return $facebookProvider->asPopup()->redirect();
+        if ($service == 'facebook') {
+            return $provider->asPopup()->redirect();
+        }
+        return $provider->redirect();
     }
 
     /**
@@ -80,7 +82,6 @@ class AuthController extends Controller
             \Log::error($e->getMessage());
             return redirect($redirect);
         }
-
         $email = strtolower($socialInfo->getEmail());
 
         $user = User::where('email', $email)->first();

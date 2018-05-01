@@ -1,16 +1,3 @@
-//totop
-$(document).ready(function () {
-    "use strict";
-    $("#btn_top").hide();
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 600) {
-            $("#btn_top").fadeIn();
-        } else {
-            $("#btn_top").fadeOut();
-        }
-    });
-});
-
 //accordion
 $(document).ready(function () {
     "use strict";
@@ -23,18 +10,18 @@ $(document).ready(function () {
         $('.content').not(next).slideUp('fast');
         return false;
     });
-});
-//click box
-$(document).ready(function () {
-    "use strict";
+    $("#btn_top").hide();
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 600) {
+            $("#btn_top").fadeIn();
+        } else {
+            $("#btn_top").fadeOut();
+        }
+    });
     $(".box").click(function () {
         window.location = $(this).find("a").attr("href");
         return false;
     });
-});
-// button menu
-$(document).ready(function () {
-    "use strict";
     $('#nav-icon3,.close_sp').click(function () {
         $('#nav-icon3').toggleClass('open');
         $(".content_menu_sp").stop().slideToggle(500);
@@ -294,4 +281,57 @@ function fncDownload(obj)
 {
     $('#formDownload #file_id').val($(obj).attr('data-id'));
     $('#formDownload').submit();
+}
+
+function validateContact()
+{
+    $('#contactForm .text-danger').css('display', 'none');
+    var formName = $('#contactName').val();
+    var formEmail = $('#contactEmail').val();
+    var formTitle = $('#contactTitle').val();
+    var formMessage = $('#contactMessage').val();
+
+    var isValidName = validateName(formName);
+    var isValidEmail = validateEmail(formEmail);
+    var isValidTitle = validateTitle(formTitle);
+    var isValidMessage = validateMessage(formMessage);
+    if (!isValidName) {
+        $('.validate-name').css('display', 'block');
+    } else if (!isValidEmail) {
+        $('.validate-email').css('display', 'block');
+    } else if (!isValidTitle) {
+        $('.validate-title').css('display', 'block');
+    } else if (!isValidMessage) {
+        $('.validate-message').css('display', 'block');
+    } else {
+        $('#contactForm').submit();
+    }
+}
+function validateName(formName)
+{
+    if (formName.length <= 0) {
+        return false;
+    }
+    return true;
+}
+function validateEmail(formEmail)
+{
+    if (formEmail.length <= 0) {
+        return false;
+    }
+    return true;
+}
+function validateTitle(formTitle)
+{
+    if (formTitle.length <= 0) {
+        return false;
+    }
+    return true;
+}
+function validateMessage(formMessage)
+{
+    if (formMessage.length <= 0) {
+        return false;
+    }
+    return true;
 }

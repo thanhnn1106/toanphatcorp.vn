@@ -82,7 +82,7 @@ $(function() {
     tinymce.init({
         selector: ".editor-content", 
         theme: "modern", 
-        height: 10,
+        height:"auto",
         subfolder:"",
         plugins: [ 
         "advlist autolink link image lists charmap print preview hr anchor pagebreak", 

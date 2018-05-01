@@ -20,4 +20,15 @@ class StaticPages extends Model
 
         return $queryReturn;
     }
+
+    public static function getPageDetailBySlug($slug)
+    {
+        $status = config('site.static_page_status.value');
+        $queryReturn = StaticPages::select('*')
+            ->where('slug', '=', $slug)
+            ->where('status', '=', $status['active'])
+            ->first();
+
+        return $queryReturn;
+    }
 }

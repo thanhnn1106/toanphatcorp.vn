@@ -22,6 +22,16 @@ return [
             'inactive' => 0
         ),
     ),
+    'static_page_status' => array(
+        'label' => array(
+            1 => 'Đang hoạt động',
+            0 => 'Đang khoá',
+        ),
+        'value' => array(
+            'active'   => 1,
+            'inactive' => 0
+        ),
+    ),
     'type_download' => array(
         'label' => array(
             1 => 'Premium',
@@ -65,6 +75,11 @@ return [
             1 => 'Đang xử lý',
             2 => 'Đã xử lý',
         ),
+        'value' => array(
+            'new'   => 0,
+            'process' => 1,
+            'solved' => 2
+        )
     ),
     'order_format' => 'buy-%d-%s',
     'transaction_type' => array(

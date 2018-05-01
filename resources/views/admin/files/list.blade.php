@@ -56,8 +56,17 @@
                                         <td>{{ $file->getTypeDownloadLabel() }}</td>
                                         <td>{{ $file->getStatusLabel() }}</td>
                                         <td>
-                                            <a href="{{ route('admin.files.edit', ['fileId' => $file->id]) }}" class="btn btn-default btn-xs">Edit</a>
-                                            <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" data-message="Are you sure delete this file" data-url="{{ route('admin.files.delete', ['fileId' => $file->id]) }}" class="btn btn-default btn-xs">Delete</a>
+                                            <a href="{{ route('admin.files.edit', ['fileId' => $file->id]) }}"
+                                               class="btn btn-warning btn-xs">
+                                               Cập nhật
+                                            </a>
+                                            <a href="javascript:void(0);"
+                                               onclick="return fncDeleteConfirm(this);"
+                                               data-message="Are you sure delete this file?"
+                                               data-url="{{ route('admin.files.delete', ['fileId' => $file->id]) }}"
+                                               class="btn btn-danger btn-xs">
+                                               Xoá
+                                            </a>
                                         </td>
                                     </tr>
                                     @endforeach

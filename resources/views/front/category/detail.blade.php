@@ -25,15 +25,22 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-lg-8">
-                @if ($files->count())
+                @if ($files->count() <= 0)
+                <h5>No data found.</h5>
+                @else
                 @foreach($files as $file)
                     <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
-                        <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}') @endif">{{ $file->title }}</dt>
+                        <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}')
+                                   @else
+                                   background:url('../front/images/subpage_img_01.jpg')
+                                   @endif">
+                            {{ $file->title }}
+                        </dt>
                         <dd>
                             <p class="title clearfix mb-0">
-                            <span>Tracklist</span>
+                            <span><strong>Tracklist</strong></span>
                             <span>{{ formatDayMonthYear($file->created_at) }}</span> </p>
                             <div class="content mb-0">{!! $file->track_list !!}</div>
                             <div class="box_action mb-0 clearfix">

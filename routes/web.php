@@ -56,6 +56,14 @@ Route::group([
         'as'   => 'tag_detail',
         'uses' => 'Front\CategoryController@detail'
     ]);
+    $router->get('/page/{slug}', [
+        'as'   => 'static_page',
+        'uses' => 'Front\StaticPagesController@detail'
+    ]);
+    $router->post('/contact_send', [
+        'as'   => 'submit_contact',
+        'uses' => 'Front\ContactsController@add'
+    ]);
     $router->get('/package', [
         'as'   => 'package',
         'uses' => 'Front\PackageController@index'
