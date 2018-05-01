@@ -49,10 +49,29 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\PurchaseHistory', 'id', 'user_id');
     }
 
+    public function files()
+    {
+        return $this->belongsToMany(FilesInfo::class, 'user_files_download', 'user_id', 'file_id');
+    }
+
     public static function getList($params = array())
     {
         $result = User::paginate(LIMIT_ROW);
         return $result;
+    }
+
+    public function isAccessDownload()
+    {
+        if (empty($this->expired_date)) {
+            return false;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        if ($now <= $this->expired_date) {
+            return true;
+        }
+
+        return false;
     }
 
 }

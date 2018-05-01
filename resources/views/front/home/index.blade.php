@@ -1,5 +1,6 @@
 @extends('front.layout')
 @section('content')
+@include('notifications')
 <div class="top_info">
     <div class="container">
         <div id="slider">

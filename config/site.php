@@ -7,6 +7,7 @@ define('ROLE_MANAGE', 'manage');
 define('DATETIME_FORMAT', 'Y-m-d H:i:s');
 define('VERSION', '1.2');
 define('DATE_FORMAT', 'Y-m-d');
+define('MAX_PREMIUM_FILE_DOWNLOAD', 2);
 return [
     'roles' => array(
         'administrator' => 1,

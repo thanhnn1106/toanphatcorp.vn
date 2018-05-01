@@ -280,6 +280,7 @@ if (typeof jQuery !== 'undefined') {
 function fncDownload(obj)
 {
     $('#formDownload #file_id').val($(obj).attr('data-id'));
+    $('#formDownload').attr('action', $(obj).attr('data-url'));
     $('#formDownload').submit();
 }
 

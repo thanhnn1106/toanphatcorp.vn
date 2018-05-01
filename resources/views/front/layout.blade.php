@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <form id="formDownload" action="{{ route('front.files_download') }}" method="POST">
+        <form id="formDownload" action="#" method="POST">
             {{ csrf_field() }}
             <input type="hidden" id="file_id" name="file_id" />
         </form>
@@ -51,7 +51,7 @@
         <script src="{{ asset_front('js/bootstrap.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/slick.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset_front('js/jquery.scroll.js') }}" type="text/javascript"></script>
-        <script src="{{ asset_front('js/common.js') }}?v={{ VERSION }}" type="text/javascript"></script>
+        <script src="{{ asset_front('js/common.js') }}?v={{ time() }}" type="text/javascript"></script>
 
         <script>
         // Add token when use ajax

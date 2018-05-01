@@ -33,7 +33,7 @@
                     <button type="button" class="btn btn_01" data-toggle="modal" data-target="#myModal">login</button>
                     <!-- Modal -->
                     <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog"> 
+                        <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -98,9 +98,7 @@
         <!-- gnavi sp end -->
         <dl class="frm_login frm_login_sp box_sp">
             @if( ! $isLogged)
-           <dt>
-                login
-           </dt>
+           <dt>login</dt>
             <dd>
                 <ul class="clearfix">
                     <li class="login_fb">
@@ -109,8 +107,8 @@
                             data-action="connect" 
                             data-redirect="{{ route("front.redirect") }}" 
                             data-provider="facebook" 
-                            data-popupwidth="800" 
-                            data-popupheight="500">
+                            data-popupwidth="475" 
+                            data-popupheight="475">
                             <span>Login with facebook</span>
                         </a>
                         <span><i class="fab fa-facebook-f"></i></span>
