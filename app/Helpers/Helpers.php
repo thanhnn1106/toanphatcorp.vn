@@ -28,25 +28,59 @@ function formatDayMonthYear($string)
 
 function getThumbnail($thumbnail)
 {
-    if (empty($thumbnail)) {
-        return null;
-    }
-
-    if (Storage::disk('public')->exists($thumbnail)) {
-        return basename($thumbnail);
-    }
-
-    return null;
+    $imagePath = getImage($thumbnail);
+    return getDefaultImage($imagePath, false, true);
 }
 
 function getThumbnailUrl($thumbnail)
 {
-    if (empty($thumbnail)) {
+    $imagePath = getImage($thumbnail, true);
+    return getDefaultImage($imagePath, true, true);
+}
+
+function getCoverImage($coverImage)
+{
+    $imagePath = getImage($coverImage);
+    return getDefaultImage($imagePath, false);
+}
+
+function getCoverImageUrl($coverImage)
+{
+    $imagePath = getImage($coverImage, true);
+    return getDefaultImage($imagePath, true);
+}
+
+function getDefaultImage($imagePath, $isUrl = false, $isThumb = false)
+{
+    if (empty($imagePath)) {
+        $coverDefault = 'front/images/cate_cover_default.jpg';
+        $thumbDefault = 'front/images/cate_thumb_default.jpg';
+
+        $defaultImage = $coverDefault;
+        if ($isThumb) {
+            $defaultImage = $thumbDefault;
+        }
+
+        if ($isUrl) {
+            return asset($defaultImage);
+        }
+        return basename($defaultImage);
+    }
+
+    return $imagePath;
+}
+
+function getImage($imagePath, $isUrl = false)
+{
+    if (empty($imagePath)) {
         return null;
     }
 
-    if (Storage::disk('public')->exists($thumbnail)) {
-        return asset(Storage::url($thumbnail));
+    if (Storage::disk('public')->exists($imagePath)) {
+        if ($isUrl) {
+            return asset(Storage::url($imagePath));
+        }
+        return basename($imagePath);
     }
 
     return null;

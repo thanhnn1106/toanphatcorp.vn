@@ -78,7 +78,7 @@
                             @foreach($files as $file)
                             <div class="col-xs-6 col-md-4 col-lg-3">
                                 <div class="item">
-                                    <?php $thumbnail = getThumbnailUrl($file->thumbnail); ?>
+                                    <?php $thumbnail = $file->getThumbnailUrl(); ?>
                                     @if( ! empty($thumbnail))
                                     <p class="item_img">
                                         <img src="{{ $thumbnail }}" alt="img">
