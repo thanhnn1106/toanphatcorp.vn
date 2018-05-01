@@ -84,7 +84,11 @@
                                     </p>
                                     @endif
                                     <p class="item_ct">
-                                        <span>{{ $file->title }}</span>
+                                        <span>
+                                            <a href="{{ route('front.file_detail', ['slug' => $file->slug]) }}">
+                                                {{ $file->getTitleWithDate() }}
+                                            </a>
+                                        </span>
                                         <span>{{ formatMonthYear($file->created_at) }}</span>
                                         @include('front.partial.download_button', ['file' => $file])
                                     </p>
@@ -94,13 +98,6 @@
                             @endif
                         </div>
                     </div>
-                    @if(isset($files) && $files->count())
-                    <div class="pagination_item">
-                        <nav aria-label="Page navigation example">
-                            {{ $files->links() }}
-                        </nav>
-                    </div>
-                    @endif
                 </div>
             </div>
         </div>

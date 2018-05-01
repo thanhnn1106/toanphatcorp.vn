@@ -17,8 +17,16 @@ class HomeController extends BaseController
             return $this->search($request);
         }
 
+        // Get newest files.
+        $currentDate = date('Y-m-d', strtotime(date('Y-m-d') . "+1 day"));
+
+        do {
+            $currentDate = date("Y-m-d", strtotime($currentDate . "-1 day"));
+            $fielList = FilesInfo::getNewFileFront($currentDate);
+        } while (count($fielList) <= 0);
+
         $data = array(
-            'files'      => FilesInfo::getListFront(),
+            'files'      => $fielList,
             'categories' => Category::getCateFile(),
         );
 

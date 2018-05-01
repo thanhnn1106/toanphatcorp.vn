@@ -52,9 +52,13 @@ Route::group([
         'as'   => 'category_detail',
         'uses' => 'Front\CategoryController@detail'
     ]);
+    $router->get('/file/{slug}', [
+        'as'   => 'file_detail',
+        'uses' => 'Front\FilesController@detail'
+    ]);
     $router->get('/tag/{slug}', [
         'as'   => 'tag_detail',
-        'uses' => 'Front\CategoryController@detail'
+        'uses' => 'Front\TagsController@detail'
     ]);
     $router->get('/page/{slug}', [
         'as'   => 'static_page',

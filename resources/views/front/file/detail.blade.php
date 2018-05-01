@@ -16,8 +16,8 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
-                @if ( ! empty($category))
-                <li class="breadcrumb-item active">{{ $category->name }}</li>
+                @if ( ! empty($file))
+                <li class="breadcrumb-item active">{{ $file->file_name }}</li>
                 @endif
             </ol>
         </div>
@@ -25,11 +25,10 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-lg-8">
-                @if ($files->count() <= 0)
+                @if (empty($file))
                 <h5>No data found.</h5>
                 @else
-                @foreach($files as $file)
-                    <?php $coverImage = $file->getCoverImageUrl(); ?>
+                <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
                         <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}')
@@ -54,11 +53,21 @@
                         </dd>
                     </dl>
                 </div>
-                @endforeach
-                <div class="pagination_item">
-                    <nav aria-label="Page navigation example">
-                        {{ $files->links() }}
-                    </nav>
+                <div class="pagination_pre_next">
+                    @if ($filePrevious)
+                    <p class="mb-0 float-left">
+                        <a href="{{ route('front.file_detail', ['slug' => $filePrevious->slug]) }}" class="previous">
+                            &laquo; {{ $filePrevious->getTitleWithDate() }}
+                        </a>
+                    </p>
+                    @endif
+                    @if ($fileNext)
+                    <p class="mb-0 float-right">
+                        <a href="{{ route('front.file_detail', ['slug' => $fileNext->slug]) }}" class="next">
+                            {{ $fileNext->getTitleWithDate() }} &raquo;
+                        </a>
+                    </p>
+                    @endif
                 </div>
                 @endif
             </div>

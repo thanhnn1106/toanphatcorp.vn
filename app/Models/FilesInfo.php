@@ -106,6 +106,47 @@ class FilesInfo extends Model {
         return $result;
     }
 
+    /**
+     * Get new file list in home.
+     *
+     * @param $date
+     * @author ngthanh <thanh.nn1106@gmail.com>
+     */
+    public static function getNewFileFront($date)
+    {
+        $query = FilesInfo::select('*')
+            ->whereDate('created_at', '=', $date)
+            ->where('status', config('site.file_status.value.active'))
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return $query;
+    }
+    /**
+     * Get file list by tag id.
+     *
+     * @param $tagId
+     * @author ngthanh <thanh.nn1106@gmail.com>
+     */
+    public static function getListFileByTagId($params)
+    {
+        $query = FilesInfo::select('files_info.*')->join('file_tags', function ($join) use ($params) {
+            $join->on('files_info.id', '=', 'file_tags.file_id');
+            if (isset($params['tag_id'])) {
+                $join->where('file_tags.tag_id', $params['tag_id']);
+            }
+        })
+        ->where('status', config('site.file_status.value.active'));
+        if (isset($params['tag_id'])) {
+            $query->where('tag_id', $params['tag_id']);
+        }
+        $query->orderBy('created_at', 'DESC');
+
+        $result = $query->paginate(LIMIT_FRONT_ROW);
+
+        return $result;
+    }
+
     public static function search($params = array())
     {
         $query = FilesInfo::where('status', config('site.file_status.value.active'));
@@ -219,6 +260,11 @@ class FilesInfo extends Model {
 
 
         return implode(',', $tagNames);
+    }
+
+    function getTitleWithDate()
+    {
+        return $this->title.' [' . date('d-M-Y') . ']';
     }
 
     public function getStatusLabel()

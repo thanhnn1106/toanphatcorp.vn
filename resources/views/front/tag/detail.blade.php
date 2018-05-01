@@ -16,8 +16,8 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
-                @if ( ! empty($category))
-                <li class="breadcrumb-item active">{{ $category->name }}</li>
+                @if ( ! empty($tag))
+                <li class="breadcrumb-item active">{{ $tag->name }}</li>
                 @endif
             </ol>
         </div>
