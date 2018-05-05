@@ -95,16 +95,14 @@ return [
     ),
     'transaction_status' => array(
         'label' => array(
-            1 => 'Chưa thanh toán',
-            2 => 'Đã thanh toán, tiền đang tạm giữ',
-            3 => 'Giao dịch lỗi',
-            4 => 'Đã thanh toán',
+            00 => 'Đã thanh toán',
+            01 => 'Đã thanh toán, chờ xử lý',
+            02 => 'Chưa thanh toán',
         ),
         'value' => array(
-            'waiting'   => 1,
-            'payment_wait'  => 2,
-            'error'  => 3,
-            'done'  => 4,
+            'paid'          => 00,
+            'payment_wait'  => 01,
+            'not_yet'       => 02,
         ),
     ),
     'faqs_status' => array(
@@ -125,6 +123,51 @@ return [
         'label' => array(
             1 => 'Phổ biến',
             0 => 'Không phố biến'
+        )
+    ),
+    'payment_gate' => array(
+        'label' => array(
+            'budget' => 'Ngân Lượng',
+        ),
+        'value' => array(
+            'budget'   => 'budget',
+        ),
+    ),
+    'payment_method' => array(
+        'label' => array(
+            'VISA'          => 'Thanh toán bằng thẻ Visa, Master Card',
+            'IB_ONLINE'     => 'Thanh toán bằng internet banking',
+        ),
+        'value' => array(
+            'VISA'          => 'VISA',
+            'IB_ONLINE'     => 'IB_ONLINE'
+        ),
+    ),
+    'bank_code' => array(
+        'label' => array(
+            'VCB' => 'Ngân hàng TMCP Ngoại Thương Việt Nam (Vietcombank)',
+            'DAB' => 'Ngân hàng TMCP Đông Á (DongA Bank)',
+            'TCB' => 'Ngân hàng TMCP Kỹ Thương (Techcombank)',
+            'MB'  => 'Ngân hàng TMCP Quân Đội (MB)',
+            'VIB' => 'Ngân hàng TMCP Quốc tế (VIB)',
+            'ICB' => 'Ngân hàng TMCP Công Thương (VietinBank)',
+            'EXB' => 'Ngân hàng TMCP Xuất Nhập Khẩu (Eximbank)',
+            'ACB' => 'Ngân hàng TMCP Á Châu (ACB)',
+            'HDB' => 'Ngân hàng TMCP Phát Triển Nhà TP. Hồ Chí Minh (HDBank)',
+            'MSB' => 'Ngân hàng TMCP Hàng Hải (MariTimeBank)',
+            'NVB' => 'Ngân hàng TMCP Nam Việt (NaviBank)',
+            'VAB' => 'Ngân hàng TMCP Việt Á (VietA Bank)',
+            'VPB' => 'Ngân hàng TMCP Việt Nam Thịnh Vượng  (VPBank)',
+            'SCB' => 'Ngân hàng TMCP Sài Gòn Thương Tính (Sacombank)',
+            'GPB' => 'Ngân hàng TMCP Dầu Khí (GPBank)',
+            'AGB' => 'Ngân hàng Nông nghiệp và Phát triển Nông thôn (Agribank)',
+            'BIDV' => 'Ngân hàng Đầu tư và Phát triển Việt Nam (BIDV)',
+            'OJB' => 'Ngân hàng TMCP Đại Dương (OceanBank)',
+            'PGB' => 'Ngân Hàng TMCP Xăng Dầu Petrolimex (PGBank)',
+            'SHB' => 'Ngân hàng TMCP Sài Gòn - Hà Nội (SHB)',
+            'TPB' => 'Ngân hàng TMCP Tiên Phong (TienPhong Bank)',
+            'NAB' => 'Ngân hàng Nam Á',
+            'SGB' => 'Ngân hàng Sài Gòn Công Thương',
         ),
     ),
 ];

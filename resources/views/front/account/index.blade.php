@@ -53,6 +53,7 @@
                             <th>Package day</th>
                             <th>Payment gate</th>
                             <th>Method name</th>
+                            <th>Bank</th>
                             <th>Status</th>
                         </tr>
                         @if( ! $infoChases->count())
@@ -70,8 +71,9 @@
                             <td>{{ formatCurrency($info->price) }}</td>
                             <td>{{ $info->package_name }}</td>
                             <td>{{ $info->package_month }} days</td>
-                            <td>{{ $info->payment_method_id }}</td>
+                            <td>{{ $info->getPaymentGate() }}</td>
                             <td>{{ $info->payment_method_name }}</td>
+                            <td>{{ $info->getBank() }}</td>
                             <td>{{ $info->getTransactionStatus() }}</td>
                         </tr>
                         @endforeach

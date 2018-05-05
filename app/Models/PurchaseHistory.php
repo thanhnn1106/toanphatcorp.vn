@@ -21,19 +21,19 @@ class PurchaseHistory extends Model  {
     protected $fillable = [
         User::USER_FOREIGN_KEY,
         Packages::PACKAGE_FOREIGN_KEY,
-        PaymentMethod::PAYMENT_METHOD_FOREIGN_KEY,
         'order_code',
-        'merchant_site_code',
+        'payment_gate',
         'transaction_id',
         'transaction_type',
         'transaction_status',
         'price',
         'package_name',
         'package_month',
-        'payment_method_name',
+        'bank_code',
         'buyer_name',
         'buyer_email',
         'buyer_phone',
+        'buyer_address',
         'card_type',
         'card_amount',
         'fee',
@@ -52,11 +52,6 @@ class PurchaseHistory extends Model  {
     public function user()
     {
         return $this->belongsTo('App\Models\User', 'user_id');
-    }
-
-    public function paymentMethod()
-    {
-        return $this->belongsTo('App\Models\PaymentMethod', 'payment_method_id');
     }
 
     public function package()
@@ -83,6 +78,33 @@ class PurchaseHistory extends Model  {
         $const = config('site.transaction_status.label');
         if (isset($const[$this->transaction_type])) {
             return $const[$this->transaction_type];
+        }
+        return '';
+    }
+
+    public function getPaymentGate()
+    {
+        $const = config('site.payment_gate.label');
+        if (isset($const[$this->payment_gate])) {
+            return $const[$this->payment_gate];
+        }
+        return '';
+    }
+
+    public function getPaymentMethod()
+    {
+        $const = config('site.payment_method.label');
+        if (isset($const[$this->payment_method])) {
+            return $const[$this->payment_method];
+        }
+        return '';
+    }
+
+    public function getBank()
+    {
+        $const = config('site.bank_code.label');
+        if (isset($const[$this->bank_code])) {
+            return $const[$this->bank_code];
         }
         return '';
     }

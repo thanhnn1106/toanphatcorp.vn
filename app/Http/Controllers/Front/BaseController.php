@@ -10,20 +10,12 @@ class BaseController extends Controller
 {
     public function normalDownload(Request $request)
     {
-        if ( ! $request->isMethod('POST')) {
-            return redirect(route('front.home'));
-        }
-
-        if (empty($request->get('file_id'))) {
+        if ( ! $request->isMethod('POST') || empty($request->get('file_id'))) {
             return redirect(route('front.home'));
         }
 
         $file = \App\Models\FilesInfo::where('id', $request->get('file_id'))->where('status', config('site.file_status.value.active'))->first();
-        if ($file === NULL) {
-            return redirect(route('front.home'));
-        }
-
-        if ( ! $file->isNormalDownload()) {
+        if ($file === NULL ||  ! $file->isNormalDownload()) {
             return redirect(route('front.home'));
         }
 
@@ -38,11 +30,7 @@ class BaseController extends Controller
 
     public function premiumDownload(Request $request)
     {
-        if ( ! $request->isMethod('POST')) {
-            return redirect(route('front.home'));
-        }
-
-        if (empty($request->get('file_id'))) {
+        if ( ! $request->isMethod('POST') || empty($request->get('file_id'))) {
             return redirect(route('front.home'));
         }
 
@@ -51,12 +39,7 @@ class BaseController extends Controller
             return redirect(route('front.home'));
         }
 
-        if ( ! $file->isPremiumDownload()) {
-            return redirect(route('front.home'));
-        }
-
-        // Check expire download
-        if ( ! $this->user->isAccessDownload()) {
+        if ( ! $file->isPremiumDownload() ||  ! $this->user->isAccessDownload()) {
             return redirect(route('front.home'));
         }
 
