@@ -31,8 +31,7 @@
         },
         "files": [
             "app/Helpers/Helpers.php",
-            "app/Supports/Budget/include/lib/nusoap.php",
-            "app/Supports/Budget/include/nganluong.microcheckout.class.php"
+            "app/Supports/Budget/NL_Checkoutv3.php"
         ]
     },
     "scripts": {

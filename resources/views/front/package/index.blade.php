@@ -1,5 +1,6 @@
 @extends('front.layout')
 @section('content')
+@include('notifications')
 <div id="main" class="clearfix">
     <div class="container">
         <div class="row">
@@ -43,11 +44,14 @@
         </div>
     </div>
 </div>
-<input type="button" id="triggerClick"  style="display:none;" />
+<form id="formPackage" action="" method="POST">
+    {{ csrf_field() }}
+    <input type="hidden" id="packageId" name="packageId" />
+    <input type="hidden" id="paymentMethod" name="paymentMethod" />
+</form>
 @endsection
 
 @section('footer_script')
-<script language="javascript" src="{{ asset_front('js/nganluong.apps.mcflow.js') }}"></script>
-<script language="javascript" src="{{ asset_front('js/product.js') }}"></script>
+<script language="javascript" src="{{ asset_front('js/product.js?v='.time()) }}"></script>
 
 @endsection

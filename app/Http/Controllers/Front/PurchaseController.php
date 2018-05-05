@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Front\BaseController;
 use Illuminate\Http\Request;
-use NL_MicroCheckout;
+use NL_CheckOutV3;
 use App\Models\Packages;
 use Illuminate\Support\Facades\Redis;
 use App\Models\Category;
-use App\Models\PaymentMethod;
 use App\Models\PurchaseHistory;
 
 
@@ -16,90 +15,136 @@ class PurchaseController extends BaseController
 {
     public function send(Request $request)
     {
-        try {
-            if ( ! $request->ajax()) {
-                throw new \Exception();
-            }
+        $packageId     = $request->get('packageId');
+        $paymentMethod = $request->get('paymentMethod');
 
-            $packageId = $request->get('packageId');
-            $params    = array('status' => config('site.package_status.value.active'));
-            $package   = Packages::getPackageById($packageId, $params);
+        $params    = array('status' => config('site.package_status.value.active'));
+        $package   = Packages::getPackageById($packageId, $params);
 
-            if ($package === NULL) {
-                throw new \Exception();
-            }
-
-            $inputs = array(
-                'receiver'                  => config('budget.service.email_receiver'),
-                'order_code'                => sprintf(config('site.order_format'), $this->user->id, date('His-dmY')),
-                'amount'                    => $package->price,
-                'currency_code'             => 'vnd',
-                'tax_amount'                => '0',
-                'discount_amount'           => '0',
-                'fee_shipping'              => '0',
-                'request_confirm_shipping'  => '0',
-                'no_shipping'               => '1',
-                'return_url'                => route('front.purchase.success'),
-                'cancel_url'                => route('front.home'),
-                'language'                  => 'vi',
-            );
-
-            $obj = new NL_MicroCheckout(
-                config('budget.service.merchant_code'),
-                config('budget.service.merchant_pass'),
-                config('budget.service.merchant_url_connect')
-            );
-
-            $result = $obj->setExpressCheckoutPayment($inputs);
-            if ($result != false) {
-                if ($result['result_code'] == '00') {
-
-                    $inputs['package_id']    = $packageId;
-                    $inputs['package_name']  = $package->name;
-                    $inputs['package_month'] = $package->number_month;
-                    $paymentMethod           = PaymentMethod::where('type', 'budget')->first();
-                    $inputs['payment_method_id'] = ($paymentMethod !== NULL) ? $paymentMethod->id : 0;
-                    Redis::hmset('user:'.$this->user->id.':buy', $inputs);
-
-                    return response()->json(array('error' => 0, 'result' => array('urlResult' => $result['link_checkout'])));
-                } else {
-                    return response()->json(array('error' => 1, 'result' => $result['result_description']));
-                }
-            } else {
-                return response()->json(array('error' => 1, 'result' => 'Lỗi kết nối tới cổng thanh toán Ngân Lượng'));
-            }
-        } catch (\Exception $e) {
-            var_dump($e->getMessage());exit;
-            return response()->json(array('error' => 1, 'result' => trans('common.msg_error_exception_ajax')));
+        if ($package === NULL) {
+            $request->session()->flash('error', 'Package not found. Please try again');
+            return redirect()->route('front.package');
         }
+
+        $const = config('site.payment_method.value');
+        if ( ! isset($const[$paymentMethod])) {
+            $request->session()->flash('error', 'Do not support that payment method. Please confirm with administrator');
+            return redirect()->route('front.package');
+        }
+
+        $items = array(
+            array(
+                'item_name1'     => $package->name,
+                'item_quantity1' => 1,
+                'item_amount1'   => $package->price,
+            ),
+        );
+
+        $orderDescription     = '';
+        $buyerFullname        = '';
+        $buyerEmail           = '';
+        $buyerMobile          = '';
+        $buyerAddress         = '';
+        $bankCode             = '';
+        $inputs = array(
+            'order_code'      => sprintf(config('site.order_format'), $this->user->id, date('His-dmY')),
+            'total_amount'    => $package->price,
+            'tax_amount'      => 0,
+            'discount_amount' => 0,
+            'free_shipping'   => 0,
+            'return_url'      => route('front.purchase.success'),
+            'cancel_url'      => route('front.home'),
+            'transaction_type'=> config('site.transaction_type.value.payment_now'),
+            'tax_amount'      => 0,
+        );
+
+        $nlCheckout = new NL_CheckOutV3(
+            config('budget.service.merchant_code'),
+            config('budget.service.merchant_pass'),
+            config('budget.service.email_receiver'),
+            config('budget.service.merchant_url_connect')
+        );
+
+        if ($paymentMethod === $const['VISA']) {
+
+            $result = $nlCheckout->VisaCheckout(
+                $inputs['order_code'],
+                $inputs['total_amount'],
+                $inputs['transaction_type'],
+                $orderDescription,
+                $inputs['tax_amount'],
+                $inputs['free_shipping'],
+                $inputs['discount_amount'],
+                $inputs['return_url'],
+                $inputs['cancel_url'],
+                $buyerFullname,
+                $buyerEmail,
+                $buyerMobile,
+                $buyerAddress,
+                $items,
+                $bankCode
+            );
+        } else {
+
+            $result = $nlCheckout->IBCheckout(
+                $inputs['order_code'],
+                $inputs['total_amount'],
+                $bankCode,
+                $inputs['transaction_type'],
+                $orderDescription,
+                $inputs['tax_amount'],
+                $inputs['free_shipping'],
+                $inputs['discount_amount'],
+                $inputs['return_url'],
+                $inputs['cancel_url'],
+                $buyerFullname,
+                $buyerEmail,
+                $buyerMobile,
+                $buyerAddress,
+                $items
+            );
+        }
+        if ($result->error_code == '00') {
+            $inputs['package_id']    = $packageId;
+            $inputs['package_name']  = $package->name;
+            $inputs['package_month'] = $package->number_month;
+            $inputs['payment_gate']  = config('site.payment_gate.value.budget');
+            Redis::hmset('user:'.$this->user->id.':buy', $inputs);
+
+            return Redirect::to($result->checkout_url);
+
+        }
+        $request->session()->flash('error', $result->error_message);
+        return redirect()->route('front.package');
     }
 
     public function success(Request $request)
     {
-        $obj = new NL_MicroCheckout(
+        $obj = new NL_CheckOutV3(
             config('budget.service.merchant_code'),
             config('budget.service.merchant_pass'),
+            config('budget.service.email_receiver'),
             config('budget.service.merchant_url_connect')
         );
 
-        if ($obj->checkReturnUrlAuto()) {
-            $inputs = array(
-                'token' => $obj->getTokenCode(),
-            );
+        $token   = $request->get('token', NULL);
+        $result  = $obj->GetTransactionDetail($token);
+        $message = '';
 
-            $result = $obj->getExpressCheckout($inputs);
+        if ($result) {
 
-            $message = '';
-            if ($result != false) {
-                if ($result['result_code'] === '00') {
+            $errorCode           = (string)$result->error_code;
+            $transactionStatus   = (string)$result->transaction_status;
+
+            if ($errorCode === '00') {
+                if ($transactionStatus === '00') {
 
                     $this->_savePurchaseHistory($request, $result);
 
                     return redirect()->route('front.account');
                 }
-                $message = 'Mã lỗi '.$result['result_code'].' ('.$result['result_description'].') ';
             } else {
-                $message = 'Lỗi kết nối tới cổng thanh toán Ngân Lượng';
+                $message = $result->GetErrorMessage($errorCode);
             }
         } else {
             $message = 'Tham số truyền không đúng';
@@ -123,22 +168,23 @@ class PurchaseController extends BaseController
             'package_id' => $info['package_id'],
             'package_name' => $info['package_name'],
             'package_month' => $info['package_month'],
-            'payment_method_id' => $info['payment_method_id'],
+            'payment_gate' => $info['payment_gate'],
             'order_code' => $orderCode,
-            'merchant_site_code' => $result['merchant_site_code'],
             'transaction_id' => $result['transaction_id'],
-            'transaction_type' => $result['transaction_type'],
+            'transaction_type' => $result['payment_type'],
             'transaction_status' => $result['transaction_status'],
-            'price' => $result['amount'],
-            'buyer_name' => $result['payer_name'],
-            'buyer_email' => $result['payer_email'],
-            'buyer_phone' => $result['payer_mobile'],
-            'payment_method_name' => $result['method_payment_name'],
+            'price' => $result['total_amount'],
+            'buyer_name' => $result['buyer_fullname'],
+            'buyer_email' => $result['buyer_email'],
+            'buyer_phone' => $result['buyer_mobile'],
+            'buyer_address' => $result['buyer_address'],
+            'payment_method' => $result['payment_method'],
             'created_at' => $now,
         );
 
         PurchaseHistory::create($data);
 
+        // Increase time expire when user payment success
         $expiredDate = $now;
         if ( ! empty($this->user->expired_date)) {
             $expiredDate = $this->user->expired_date;
@@ -146,5 +192,8 @@ class PurchaseController extends BaseController
         $this->user->purchase_date = $now;
         $this->user->expired_date  = date('Y-m-d H:i:s', strtotime($expiredDate . '+'.$info['package_month'].' day'));
         $this->user->save();
+
+        // Remove hash key from memcache
+        Redis::hDel('user:'.$this->user->id.':buy');
     }
 }

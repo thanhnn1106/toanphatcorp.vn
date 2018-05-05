@@ -332,7 +332,10 @@ class FilesInfo extends Model {
 
     public function isMaxDownload()
     {
-        if ($this->users()->count() < MAX_PREMIUM_FILE_DOWNLOAD) {
+        $user  = \Auth::user();
+        $count = $this->users()->whereBetween('user_files_download.created_at', [$user->purchase_date, $user->expired_date])->count();
+
+        if ($count < MAX_PREMIUM_FILE_DOWNLOAD) {
             return true;
         }
         return false;
