@@ -13,8 +13,8 @@ class FaqsController extends Controller
     public function index(Request $request)
     {
         $data = array(
-            'faqs' => Faqs::getListFront(),
-            'categories' => Category::all()
+            'faqs'       => Faqs::getListFront(),
+            'categories' => Category::getCateFile()
         );
 
         return view('front.faqs.index', $data);

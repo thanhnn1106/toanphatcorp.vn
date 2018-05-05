@@ -17,8 +17,8 @@
         <div class="top_info_content">
             <h2>
               <span class="h2_01">MUSIC IS YOUR</span>
-              <span class="h2_02">dj-compilations</span>
-              <span class="h2_03">DJ Compilations is one of the best<br>DJ Pool Exchange on the web.</span>
+              <span class="h2_02">PACK4DJS.COM</span>
+              <span class="h2_03">PACK4DJS is one of the best<br>DJ Pool Exchange on the web.</span>
             </h2>
             <ul class="clearfix box_btn">
                 <li><a href="#title_about" class="btn btn_02">About us</a></li>

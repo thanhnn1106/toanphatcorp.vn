@@ -106,7 +106,7 @@ class PurchaseController extends BaseController
         }
         $data = [
             'message' => $message,
-            'categories' => Category::all(),
+            'categories' => Category::getCateFile(),
         ];
 
         return view('front.purchase.error', $data);

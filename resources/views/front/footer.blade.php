@@ -38,7 +38,7 @@
 </div>
 <div class="container-fluid">
     <address>
-    DJ Compilations &copy; 2012 - 2018 | Mixing Your world!
+    Pack4djs.com &copy; 2018 | Mixing Your world!
     </address>
 </div>
 <div id="btn_top" class="toTop" style="display: block;">

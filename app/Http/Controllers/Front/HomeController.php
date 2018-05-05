@@ -19,11 +19,12 @@ class HomeController extends BaseController
 
         // Get newest files.
         $currentDate = date('Y-m-d', strtotime(date('Y-m-d') . "+1 day"));
-
+        $i = 0;
         do {
             $currentDate = date("Y-m-d", strtotime($currentDate . "-1 day"));
             $fielList = FilesInfo::getNewFileFront($currentDate);
-        } while (count($fielList) <= 0);
+            $i++;
+        } while (count($fielList) <= 0 && $i < 10);
 
         $data = array(
             'files'      => $fielList,

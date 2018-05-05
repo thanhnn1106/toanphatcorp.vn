@@ -41,7 +41,7 @@ class Tags extends Model {
 
     public static function getList($params = array())
     {
-        return Category::paginate(LIMIT_ROW);
+        return Tags::orderBy('created_at', 'DESC')->paginate(LIMIT_ROW);
     }
 
     public static function getTagsByIdFiles($fileIds)

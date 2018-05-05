@@ -117,4 +117,14 @@ return [
             'inactive' => 0
         ),
     ),
+    'tags_status' => array(
+        'value' => array(
+            'is_popular'   => 1,
+            'is_not_popular' => 0
+        ),
+        'label' => array(
+            1 => 'Phổ biến',
+            0 => 'Không phố biến'
+        ),
+    ),
 ];

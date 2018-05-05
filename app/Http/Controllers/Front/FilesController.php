@@ -20,7 +20,7 @@ class FilesController extends BaseController
     public function detail(Request $request, $slug)
     {
         $status = config('site.file_status.value');
-        $categories = Category::all();
+        $categories = Category::getCateFile();
         $fileInfo = FilesInfo::where('slug', '=', $slug)
             ->where('status', '=', $status['active'])
             ->first();

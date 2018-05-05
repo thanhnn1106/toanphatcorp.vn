@@ -29,7 +29,7 @@ class TagsController extends BaseController
             'tag'        => $tag,
             'tags'       => Tags::getTagsByIdFiles($fileIds),
             'cateTags'   => Category::getCatesByIdFiles($fileIds),
-            'categories' => Category::all(),
+            'categories' => Category::getCateFile(),
         );
 
         return view('front.tag.detail', $data);

@@ -164,7 +164,7 @@ class Category extends Model {
 
     public static function saveCateToFile()
     {
-        Storage::disk('public')->put(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE, json_encode(self::getList()->items()));
+        Storage::disk('public')->put(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE, json_encode(self::all()->toArray()));
     }
 
     public static function getCateFile()
@@ -173,6 +173,7 @@ class Category extends Model {
         if (Storage::disk('public')->exists(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE)) {
             $content = Storage::disk('public')->get(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE);
         }
+
         return json_decode($content, true);
     }
 

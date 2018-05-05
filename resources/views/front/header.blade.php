@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-lg-2">
-            <p class="logo"><a href="{{ route('front.home') }}"><img src="{{ asset_front('images/logo.png') }}" alt="dj-compilations"></a></p>
+            <p class="logo"><a href="{{ route('front.home') }}"><img style="width: 70px; height: 82px;" src="{{ asset_front('images/logo_dj.png') }}" alt="dj-compilations"></a></p>
         </div>
         <div class="col-lg-10 header_ct">
             <ul class="clearfix main_menu">

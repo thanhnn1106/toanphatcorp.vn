@@ -30,7 +30,7 @@ class CategoryController extends BaseController
             'category'   => $category,
             'tags'       => Tags::getTagsByIdFiles($fileIds),
             'cateTags'   => Category::getCatesByIdFiles($fileIds),
-            'categories' => Category::all(),
+            'categories' => Category::getCateFile(),
         );
 
         return view('front.category.detail', $data);
