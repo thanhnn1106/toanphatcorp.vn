@@ -39,13 +39,13 @@
                                     @else
                                     @foreach($categories as $category)
                                     <tr>
-                                        <th scope="row">{{ $category->id }}</th>
-                                        <td><a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a></td>
-                                        <td><a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a></td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td>{{ $category->description }}</td>
-                                        <td>
+                                        <th style="width: 5%;" scope="row">{{ $category->id }}</th>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a></td>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a></td>
+                                        <td style="width: 10%;">{{ $category->name }}</td>
+                                        <td style="width: 10%;">{{ $category->slug }}</td>
+                                        <td style="width: 40%;">{{ $category->description }}</td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.category.edit', ['categoryId' => $category->id]) }}" class="btn btn-warning btn-xs">
                                                Cập nhật
                                             </a>

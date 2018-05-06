@@ -39,17 +39,17 @@
                                     @else
                                     @foreach($admins as $admin)
                                     <tr>
-                                        <th scope="row">{{ $admin->id }}</th>
-                                        <td>{{ $admin->user_name }}</td>
-                                        <td>{{ $admin->role->role }}</td>
-                                        <td>
+                                        <th style="width: 10%;" scope="row">{{ $admin->id }}</th>
+                                        <td style="width: 25%;">{{ $admin->user_name }}</td>
+                                        <td style="width: 10%;">{{ $admin->role->role }}</td>
+                                        <td style="width: 10%;">
                                             <div class="badge badge-{{ ($admin->status == 0) ? 'warning' : 'primary' }}">
                                                 {{ config('site.user_status.label')[$admin->status] }}
                                             </div>
                                         </td>
-                                        <td>{{ $admin->created_at }}</td>
-                                        <td>{{ $admin->updated_at }}</td>
-                                        <td>
+                                        <td style="width: 15%;">{{ $admin->created_at }}</td>
+                                        <td style="width: 15%;">{{ $admin->updated_at }}</td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.admins.edit', ['adminId' => $admin->id]) }}" class="btn btn-warning btn-xs">
                                                 Cập nhật
                                             </a>

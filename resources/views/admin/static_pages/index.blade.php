@@ -43,7 +43,11 @@
                                         <tr>
                                             <th scope="row">{{ ($staticPages->currentpage()-1) * $staticPages->perpage() + $i++ + 1 }}</th>
                                             <td>{{ $item->title }}</td>
-                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                <div class="badge badge-{{ ($item->status == 0) ? 'warning' : 'primary' }}">
+                                                    {{ $status[$item->status] }}
+                                                </div>
+                                            </td>
                                             <td>{{ $item->created_at }}</td>
                                             <td>{{ $item->updated_at }}</td>
                                             <td>

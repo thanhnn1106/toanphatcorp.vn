@@ -47,7 +47,6 @@
                                         <th>Tên</th>
                                         <th>Địa chỉ email</th>
                                         <th>Tiêu đề</th>
-                                        <th>Nội dung</th>
                                         <th>Trạng thái</th>
                                         <th>Ngày tạo</th>
                                         <th>Ngày cập nhật</th>
@@ -61,12 +60,11 @@
                                     <?php $i = ($contacts->currentpage()-1) * $contacts->perpage() + 1; ?>
                                     @foreach($contacts as $contact)
                                     <tr>
-                                        <td scope="row">{{ $i++ }}</td>
-                                        <td>{{ $contact->name }}</td>
-                                        <td>{{ $contact->email }}</td>
-                                        <td>{{ $contact->title }}</td>
-                                        <td>{{ $contact->message }}</td>
-                                        <td>
+                                        <td style="width: 5%;" scope="row">{{ $i++ }}</td>
+                                        <td style="width: 15%;">{{ $contact->name }}</td>
+                                        <td style="width: 15%;">{{ $contact->email }}</td>
+                                        <td style="width: 20%;">{{ $contact->title }}</td>
+                                        <td style="width: 10%;">
                                             <?php
                                                 $contactStatus = '';
                                                 if ($contact->status == 0) {
@@ -81,9 +79,9 @@
                                                 {{ $status[$contact->status] }}
                                             </div>
                                         </td>
-                                        <td>{{ $contact->created_at }}</td>
-                                        <td>{{ $contact->updated_at }}</td>
-                                        <td>
+                                        <td style="width: 10%;">{{ $contact->created_at }}</td>
+                                        <td style="width: 10%;">{{ $contact->updated_at }}</td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.contacts.edit', ['contactId' => $contact->id]) }}" class="btn btn-warning btn-xs">
                                                Cập nhật
                                             </a>

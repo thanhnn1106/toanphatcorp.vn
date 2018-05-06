@@ -41,21 +41,33 @@
                                     @else
                                     @foreach($files as $file)
                                     <tr>
-                                        <th scope="row">{{ $file->id }}</th>
-                                        <td><a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a></td>
-                                        <td><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
-                                        <td>
+                                        <th style="width: 5%;" scope="row">{{ $file->id }}</th>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a></td>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
+                                        <td style="width: 15%;">
                                             @if( ! empty($categories[$file->id]))
                                             @foreach ($categories[$file->id] as $cate)
                                             <a href="{{ route('admin.category.edit', ['categoryId' => $cate['id']]) }}">{{ $cate['name'] }}</a><br/>
                                             @endforeach
                                             @endif
                                         </td>
-                                        <td>{{ $file->title }}</td>
-                                        <td>{{ $file->file_name }}</td>
-                                        <td>{{ $file->getTypeDownloadLabel() }}</td>
-                                        <td>{{ $file->getStatusLabel() }}</td>
-                                        <td>
+                                        <td style="width: 15%;">{{ $file->title }}</td>
+                                        <td style="width: 20%;">{{ $file->file_name }}</td>
+                                        <td style="width: 5%;">{{ $file->getTypeDownloadLabel() }}</td>
+                                        <td style="width: 5%;">
+                                            <?php
+                                                $fileStatus = '';
+                                                if ($file->status == 0) {
+                                                    $fileStatus = 'secondary';
+                                                } elseif ($file->status == 1) {
+                                                    $fileStatus = 'success';
+                                                }
+                                            ?>
+                                            <div class="badge badge-{{ $fileStatus }}">
+                                                {{ $file->getStatusLabel() }}
+                                            </div>
+                                        </td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.files.edit', ['fileId' => $file->id]) }}"
                                                class="btn btn-warning btn-xs">
                                                Cập nhật

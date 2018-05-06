@@ -65,9 +65,9 @@ return [
     ),
     'file_accept_types' => 'jpeg,png',
     'package_range_month' => array(
-        '1' => 30,
-        '3' => 90,
-        '6' => 180,
+        '1'  => 30,
+        '3'  => 90,
+        '6'  => 180,
         '12' => 365
     ),
     'contact_status' => array(

@@ -45,15 +45,15 @@
                                         <?php $i = 0;  ?>
                                         @foreach ($packageList as $item)
                                         <tr>
-                                            <th scope="row">{{ ($packageList->currentpage()-1) * $packageList->perpage() + $i++ + 1 }}</th>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->price }}</td>
-                                            <td>{{ $item->number_month }}</td>
-                                            <td>{{ $item->status }}</td>
-                                            <td>{{ $item->description }}</td>
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>{{ $item->updated_at }}</td>
-                                            <td>
+                                            <th style="width: 5%;" scope="row">{{ ($packageList->currentpage()-1) * $packageList->perpage() + $i++ + 1 }}</th>
+                                            <td style="width: 20%;">{{ $item->name }}</td>
+                                            <td style="width: 10%;">{{ $item->price }}</td>
+                                            <td style="width: 5%;">{{ $item->number_month }}</td>
+                                            <td style="width: 5%;">{{ $item->status }}</td>
+                                            <td style="width: 20%;">{{ $item->description }}</td>
+                                            <td style="width: 10%;">{{ $item->created_at }}</td>
+                                            <td style="width: 10%;">{{ $item->updated_at }}</td>
+                                            <td style="width: 15%;">
                                                 <a href="{{ route('admin.package_view') }}" class="btn btn-info btn-xs">Chi tiết</a>
                                                 <a href="{{ route('admin.package_edit', ['id' => $item->id]) }}" class="btn btn-warning btn-xs">Cập nhật</a>
                                                 <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" 
