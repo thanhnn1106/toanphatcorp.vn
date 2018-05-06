@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers">
-                                    {{ $users->links() }}
+                                    {{ $users->appends(request()->input())->links() }}
                                 </div>
                             </div>
                         </div>

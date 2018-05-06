@@ -11,11 +11,14 @@ class ContactsController extends Controller
 {
     public function index(Request $request)
     {
-        $status = $request->get('contactStatus');
+        $paramSearch['email'] = $request->get('email');
+        $paramSearch['filter_status'] = $request->get('filter_status');
         $data = array(
-            'contacts' => Contacts::getList($status),
-            'filter' => $status
+            'contacts'      => Contacts::getList($paramSearch),
+            'filter_status' => $paramSearch['filter_status'],
+            'email'         => $paramSearch['email']
         );
+
         return view('admin.contacts.list', $data);
     }
 

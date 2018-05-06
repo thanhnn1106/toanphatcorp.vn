@@ -22,21 +22,33 @@
                         <h1>Contacts</h1>
                     </div>
                     <div class="card-header">
-                        <div class="form-group row col-sm-4 pull-right">
-                            <label class="col-sm-4 form-control-label">Trạng thái</label>
-                            <div class="col-sm-8 mb-3">
-                                <form id="filterStatus" methd="GET" action="{{ route('admin.contacts') }}">
-                                    <select name="contactStatus" class="form-control" onchange="this.form.submit();">
-                                        <option value="">Tất cả</option>
-                                        @foreach ($status as $key => $value)
-                                        <option @if ($filter != '' && (int)$key === (int)$filter) selected="selected" @endif value="{{ $key }}">
-                                                 {{ $value }}
-                                        </option>
-                                        @endforeach
-                                    </select>
-                                </form>
+                        <form id="searchContact" method="GET" action="{{ route('admin.contacts') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="email" type="text" class="form-control" placeholder="Enter user email..." value="{{ $email }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <select class="form-control" name="filter_status" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($status as $key => $value)
+                                                <option @if ($filter_status != '' && (int)$key === (int)$filter_status) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            {{ csrf_field() }}
+                        </form>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -104,7 +116,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers">
-                                    {{ $contacts->links() }}
+                                    {{ $contacts->appends(request()->input())->links() }}
                                 </div>
                             </div>
                         </div>
