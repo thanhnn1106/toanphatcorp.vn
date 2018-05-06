@@ -19,6 +19,35 @@
                         <h1>Users</h1>
                         <a class="btn btn-success btn-xs" href="{{ route('admin.users.add') }}">Thêm mới</a>
                     </div>
+                    <div class="card-header">
+                        <form id="searchTag" method="GET" action="{{ route('admin.users') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="email" type="text" class="form-control" placeholder="Enter user email..." value="{{ $email }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <select class="form-control" name="filter_status" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($status as $key => $value)
+                                                <option @if ($filter_status != '' && (int)$key === (int)$filter_status) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">

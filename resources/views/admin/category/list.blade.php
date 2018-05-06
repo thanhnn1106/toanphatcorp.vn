@@ -19,6 +19,23 @@
                         <h1>Categories</h1>
                         <a class="btn btn-success btn-xs" href="{{ route('admin.category.add') }}">Thêm mới</a>
                     </div>
+                    <div class="card-header">
+                        <form id="searchCate" method="GET" action="{{ route('admin.category') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="name" type="text" class="form-control" placeholder="Enter category name..." value="{{ $name }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -69,7 +86,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers">
-                                    {{ $categories->links() }}
+                                    {{ $categories->appends(request()->input())->links() }}
                                 </div>
                             </div>
                         </div>

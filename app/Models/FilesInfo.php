@@ -88,7 +88,15 @@ class FilesInfo extends Model {
 
     public static function getList($params = array())
     {
-        $result = FilesInfo::paginate(LIMIT_ROW);
+        $query = FilesInfo::where('title', 'LIKE', "%{$params['title']}%");
+            if ($params['filter_type_download'] != '') {
+                $query->where('type_download', '=', $params['filter_type_download']);
+            }
+            if ($params['filter_status'] != '') {
+                $query->where('status', '=', $params['filter_status']);
+            }
+            $query->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
         return $result;
     }
 

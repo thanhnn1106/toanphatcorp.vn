@@ -19,6 +19,49 @@
                         <h1>Files</h1>
                         <a class="btn btn-success btn-xs" href="{{ route('admin.files.add') }}">Thêm mới</a>
                     </div>
+                    <div class="card-header">
+                        <form id="searchFile" method="GET" action="{{ route('admin.files') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label class="col-sm-3 form-control-label">Loại file</label>
+                                            <select class="form-control" name="filter_type_download" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($type_download as $key => $value)
+                                                <option @if ($filter_type_download != '' && (int)$key === (int)$filter_type_download) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label class="col-sm-4 form-control-label">Trạng thái</label>
+                                            <select class="form-control" name="filter_status" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($status as $key => $value)
+                                                <option @if ($filter_status != '' && (int)$key === (int)$filter_status) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="title" type="text" class="form-control" placeholder="Enter file title..." value="{{ $title }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">

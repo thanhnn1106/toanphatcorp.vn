@@ -11,9 +11,13 @@ class TagsController extends Controller
 {
     public function index(Request $request)
     {
+        $paramSearch['name'] = $request->get('name');
+        $paramSearch['is_popular'] = $request->get('is_popular');
         $data = array(
-            'tags' => Tags::getList(),
-            'status' => config('site.tags_status.label')
+            'tags'      => Tags::getList($paramSearch),
+            'status'    => config('site.tags_status.label'),
+            'name'   => $paramSearch['name'],
+            'is_popular' => $paramSearch['is_popular']
         );
         return view('admin.tag.list', $data);
     }

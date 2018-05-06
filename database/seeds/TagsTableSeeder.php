@@ -15,8 +15,9 @@ class TagsTableSeeder extends Seeder
         $tags = array();
         for ($i = 0; $i <= 50; $i++) {
             $data = [
-                'name' => 'Tag ' . $i,
-                'slug' => 'tag-' . $i,
+                'name'       => 'Tag ' . $i,
+                'slug'       => 'tag-' . $i,
+                'is_popular'  => rand(0,1),
                 'created_at' => date('Y-m-d H:i:s'),
             ];
             array_push($tags, $data);

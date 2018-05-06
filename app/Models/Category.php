@@ -73,7 +73,12 @@ class Category extends Model {
 
     public static function getList($params = array())
     {
-        return Category::paginate(LIMIT_ROW);
+        $query = Category::select('*')
+            ->where('name', 'LIKE', "%{$params['name']}%")
+            ->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
+
+        return $result;
     }
 
     public static function uploadImage($request, $fieldName = 'thumbnail')

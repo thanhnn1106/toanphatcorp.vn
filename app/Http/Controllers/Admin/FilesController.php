@@ -14,16 +14,25 @@ class FilesController extends Controller
 {
     public function index(Request $request)
     {
-        $files = FilesInfo::getList();
+        $paramSearch['title'] = $request->get('title');
+        $paramSearch['filter_type_download'] = $request->get('filter_type_download');
+        $paramSearch['filter_status'] = $request->get('filter_status');
+        $files = FilesInfo::getList($paramSearch);
 
         $fileIds = $files->map(function ($file) {
             return $file->id;
         })->toArray();
 
         $data = array(
-            'files'      => $files,
-            'categories' => Category::getCatesByIdFiles($fileIds),
+            'files'                => $files,
+            'categories'           => Category::getCatesByIdFiles($fileIds),
+            'status'               => config('site.file_status.label'),
+            'type_download'        => config('site.type_download.label'),
+            'title'                => $paramSearch['title'],
+            'filter_type_download' => $paramSearch['filter_type_download'],
+            'filter_status'        => $paramSearch['filter_status'],
         );
+
         return view('admin.files.list', $data);
     }
 

@@ -122,7 +122,7 @@ return [
         ),
         'label' => array(
             1 => 'Phổ biến',
-            0 => 'Không phố biến'
+            0 => 'Không phổ biến'
         )
     ),
     'payment_gate' => array(
