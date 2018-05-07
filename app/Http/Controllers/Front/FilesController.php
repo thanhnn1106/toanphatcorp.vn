@@ -20,14 +20,12 @@ class FilesController extends BaseController
     public function detail(Request $request, $slug)
     {
         $status = config('site.file_status.value');
-        $categories = Category::all();
         $fileInfo = FilesInfo::where('slug', '=', $slug)
             ->where('status', '=', $status['active'])
             ->first();
         if (empty($fileInfo)) {
             $data = [
                 'file' => null,
-                'categories' => $categories
             ];
 
             return view('front.file.detail', $data);
@@ -47,7 +45,6 @@ class FilesController extends BaseController
             'file'         => $fileInfo,
             'fileNext'     => $fileInfoNext,
             'filePrevious' => $fileInfoPrevious,
-            'categories'   => $categories,
             'tags'         => Tags::getTagsByIdFiles(array($fileInfo->id)),
             'cateTags'     => Category::getCatesByIdFiles(array($fileInfo->id)),
         ];

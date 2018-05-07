@@ -21,6 +21,7 @@
         <script src="{{ asset_front('js/jquery.validate.min.js') }}" type="text/javascript"></script>
         <link  href="{{ asset_front('css/stype_02.css') }}" rel="stylesheet" type="text/css" />
 
+
         <!-- Google Analytics start -->
         <!-- Google Analytics end -->
         <script>

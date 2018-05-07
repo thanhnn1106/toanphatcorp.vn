@@ -18,7 +18,6 @@ class StaticPagesController extends Controller
         }
         $data = [
             'pageDetail' => $page,
-            'categories' => Category::getCateFile(),
         ];
 
         return view('front.static_page.detail', $data);

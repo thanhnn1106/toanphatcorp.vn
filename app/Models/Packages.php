@@ -23,7 +23,7 @@ class Packages extends Model  {
         'name',
         'description',
         'price',
-        'number_month',
+        'number_days',
         'status',
     ];
 

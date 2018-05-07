@@ -31,10 +31,7 @@
                 <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
-                        <dt style="@if( ! empty($coverImage)) background:url('{{ $coverImage }}')
-                                   @else
-                                   background:url('../front/images/subpage_img_01.jpg')
-                                   @endif">
+                        <dt style="background:url('{{ $coverImage }}')">
                             <a href="{{ route('front.file_detail', ['slug' => $file->slug]) }}">
                                 {{ $file->getTitleWithDate() }}
                             </a>
@@ -73,6 +70,7 @@
             </div>
             <div class="col-md-12 col-lg-4">
                 @include('front.partial.category_menu')
+                @include('front.partial.calendar_menu')
             </div>
         </div>
     </div>

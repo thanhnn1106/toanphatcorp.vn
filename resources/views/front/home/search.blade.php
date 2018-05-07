@@ -39,6 +39,7 @@
             </div>
             <div class="col-md-12 col-lg-4">
                 @include('front.partial.category_menu')
+                @include('front.partial.calendar_menu')
             </div>
         </div>
     </div>

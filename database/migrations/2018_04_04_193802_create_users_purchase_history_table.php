@@ -24,7 +24,7 @@ class CreateUsersPurchaseHistoryTable extends Migration
             $table->string('transaction_status', 10)-> comment('00: da thanh toan, 01: da thanh toan - cho xu ly, 02: chua thanh toan');
             $table->decimal('price', 10, 0);
             $table->string('package_name', 255);
-            $table->integer('package_month')->nullable();
+            $table->integer('package_days')->nullable();
             $table->string('payment_method', 255);
             $table->string('bank_code', 255);
             $table->string('buyer_name', 255)->nullable();

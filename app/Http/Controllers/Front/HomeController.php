@@ -27,7 +27,6 @@ class HomeController extends BaseController
 
         $data = array(
             'files'      => $fielList,
-            'categories' => Category::getCateFile(),
         );
 
         return view('front.home.index', $data);
@@ -46,7 +45,6 @@ class HomeController extends BaseController
         $data = array(
             'keyword' => $keyword,
             'files'   => $files,
-            'categories' => Category::getCateFile(),
             'tags'       => Tags::getTagsByIdFiles($fileIds),
             'cateTags'   => Category::getCatesByIdFiles($fileIds),
         );

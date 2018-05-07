@@ -12,24 +12,27 @@ class TagsController extends BaseController
 {
     public function detail(Request $request, $slug)
     {
+        $params   = array();
+        $fileIds  = array();
+
         $tag = Tags::where('slug', $slug)->first();
-        if ($tag == NULL) {
-            return view('front.tag.detail', ['fileList' => NULL]);
+        if ($tag !== NULL) {
+            $params['tag_id'] = $tag->id;
         }
 
-        $params['tag_id'] = $tag->id;
-        $files = FilesInfo::getListFileByTagId($params);
+        if ( ! empty($params)) {
+            $files = FilesInfo::getListFileByTagId($params);
 
-        $fileIds = $files->map(function ($file) {
-            return $file->id;
-        })->toArray();
+            $fileIds = $files->map(function ($file) {
+                return $file->id;
+            })->toArray();
+        }
 
         $data = array(
             'files'      => $files,
             'tag'        => $tag,
             'tags'       => Tags::getTagsByIdFiles($fileIds),
             'cateTags'   => Category::getCatesByIdFiles($fileIds),
-            'categories' => Category::all(),
         );
 
         return view('front.tag.detail', $data);

@@ -26,7 +26,7 @@ class PackagesController extends Controller
         if ($request->isMethod('POST')) {
             $rules =  array(
                 'name'         => 'required|max:255',
-                'number_month' => 'required|in:1,3,12',
+                'number_days' => 'required|in:1,3,12',
                 'price'        => 'required|numeric',
                 'description'  => 'required',
                 'status'       => 'required|in:0,1',
@@ -41,7 +41,7 @@ class PackagesController extends Controller
             }
             Packages::insert([
                 'name' => $request->name,
-                'number_month' => $request->number_month,
+                'number_days' => $request->number_days,
                 'price' => $request->price,
                 'description' => $request->description,
                 'status' => $request->status,
@@ -76,7 +76,7 @@ class PackagesController extends Controller
         if ($request->isMethod('POST')) {
             $rules =  array(
                 'name'         => 'required|max:255',
-                'number_month' => 'required|in:1,3,12',
+                'number_days' => 'required|in:1,3,12',
                 'price'        => 'required|numeric',
                 'description'  => 'required',
                 'status'       => 'required|in:0,1',
@@ -90,7 +90,7 @@ class PackagesController extends Controller
                             ->withInput();
             }
             $packageInfo->name = $request->name;
-            $packageInfo->number_month = $request->number_month;
+            $packageInfo->number_days = $request->number_days;
             $packageInfo->price = $request->price;
             $packageInfo->description = $request->description;
             $packageInfo->status = $request->status;

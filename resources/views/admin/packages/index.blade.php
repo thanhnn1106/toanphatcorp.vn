@@ -48,7 +48,7 @@
                                             <th scope="row">{{ ($packageList->currentpage()-1) * $packageList->perpage() + $i++ + 1 }}</th>
                                             <td>{{ $item->name }}</td>
                                             <td>{{ $item->price }}</td>
-                                            <td>{{ $item->number_month }}</td>
+                                            <td>{{ $item->number_days }}</td>
                                             <td>{{ $item->status }}</td>
                                             <td>{{ $item->description }}</td>
                                             <td>{{ $item->created_at }}</td>

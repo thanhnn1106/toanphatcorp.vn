@@ -70,7 +70,7 @@
                             <td>{{ $info->getTransactionType() }}</td>
                             <td>{{ formatCurrency($info->price) }}</td>
                             <td>{{ $info->package_name }}</td>
-                            <td>{{ $info->package_month }} days</td>
+                            <td>{{ $info->package_days }} days</td>
                             <td>{{ $info->getPaymentGate() }}</td>
                             <td>{{ $info->payment_method_name }}</td>
                             <td>{{ $info->getBank() }}</td>

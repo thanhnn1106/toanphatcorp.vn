@@ -107,7 +107,7 @@ class PurchaseController extends BaseController
         if ($result->error_code == '00') {
             $inputs['package_id']    = $packageId;
             $inputs['package_name']  = $package->name;
-            $inputs['package_month'] = $package->number_month;
+            $inputs['package_month'] = $package->number_days;
             $inputs['payment_gate']  = config('site.payment_gate.value.budget');
             Redis::hmset('user:'.$this->user->id.':buy', $inputs);
 
@@ -151,7 +151,6 @@ class PurchaseController extends BaseController
         }
         $data = [
             'message' => $message,
-            'categories' => Category::all(),
         ];
 
         return view('front.purchase.error', $data);
@@ -167,7 +166,7 @@ class PurchaseController extends BaseController
             'user_id' => $this->user->id,
             'package_id' => $info['package_id'],
             'package_name' => $info['package_name'],
-            'package_month' => $info['package_month'],
+            'package_days' => $info['package_days'],
             'payment_gate' => $info['payment_gate'],
             'order_code' => $orderCode,
             'transaction_id' => $result['transaction_id'],
@@ -190,7 +189,7 @@ class PurchaseController extends BaseController
             $expiredDate = $this->user->expired_date;
         }
         $this->user->purchase_date = $now;
-        $this->user->expired_date  = date('Y-m-d H:i:s', strtotime($expiredDate . '+'.$info['package_month'].' day'));
+        $this->user->expired_date  = date('Y-m-d H:i:s', strtotime($expiredDate . '+'.$info['package_days'].' day'));
         $this->user->save();
 
         // Remove hash key from memcache

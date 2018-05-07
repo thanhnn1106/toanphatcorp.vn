@@ -14,7 +14,6 @@ class PackageController extends BaseController
     {
         $data = array(
             'packages'   => Packages::getPackages(),
-            'categories' => Category::getCateFile(),
         );
 
         return view('front.package.index', $data);

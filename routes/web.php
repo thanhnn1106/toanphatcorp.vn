@@ -52,6 +52,10 @@ Route::group([
         'as'   => 'category_detail',
         'uses' => 'Front\CategoryController@detail'
     ]);
+    $router->get('/calendar/{date}', [
+        'as'   => 'calendar_detail',
+        'uses' => 'Front\CategoryController@calendar'
+    ]);
     $router->get('/file/{slug}', [
         'as'   => 'file_detail',
         'uses' => 'Front\FilesController@detail'

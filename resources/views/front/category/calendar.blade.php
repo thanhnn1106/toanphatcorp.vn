@@ -5,9 +5,7 @@
         <div class="row">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('front.home') }}">Home</a></li>
-                @if ( ! empty($tag))
-                <li class="breadcrumb-item active">{{ $tag->name }}</li>
-                @endif
+                <li class="breadcrumb-item active">Calendar</li>
             </ol>
         </div>
     </div>
@@ -18,7 +16,7 @@
                 <h5>No data found.</h5>
                 @else
                 @foreach($files as $file)
-                    <?php $coverImage = $file->getCoverImageUrl(); ?>
+                <?php $coverImage = $file->getCoverImageUrl(); ?>
                 <div class="cate_item">
                     <dl>
                         <dt style="background:url('{{ $coverImage }}')">

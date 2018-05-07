@@ -40,15 +40,15 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 form-control-label">Số tháng</label>
                                 <div class="col-sm-10 mb-3">
-                                    <select name="number_month" 
-                                        class="form-control @if ($errors->has('number_month')) is-invalid @endif"
-                                        value="{{ old('number_month', isset($packageInfo->number_month) ? $packageInfo->number_month : '') }}">
+                                    <select name="number_days" 
+                                        class="form-control @if ($errors->has('number_days')) is-invalid @endif"
+                                        value="{{ old('number_days', isset($packageInfo->number_days) ? $packageInfo->number_days : '') }}">
                                         @foreach ($packageRangeMonth as $key => $value)
                                         <option value="{{ $key }}">{{ $key }}</option>
                                         @endforeach
                                     </select>
-                                    @if ($errors->has('number_month'))
-                                        <p class="help-block text-danger">{{ $errors->first('number_month') }}</p>
+                                    @if ($errors->has('number_days'))
+                                        <p class="help-block text-danger">{{ $errors->first('number_days') }}</p>
                                     @endif
                                 </div>
                             </div>

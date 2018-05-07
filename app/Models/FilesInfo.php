@@ -152,7 +152,7 @@ class FilesInfo extends Model {
         return $result;
     }
 
-    public static function search($params = array())
+    public static function search($params = array(), $isLimit = true)
     {
         $query = FilesInfo::where('status', config('site.file_status.value.active'));
 
@@ -160,9 +160,21 @@ class FilesInfo extends Model {
             $query->where('title', 'LIKE', "%{$params['keyword']}%");
             $query->orWhere('track_list', 'LIKE', "%{$params['keyword']}%");
         }
+        if (isset($params['search_date'])) {
+            $part = explode('-', $params['search_date']);
+            if (count($part) === 3) {
+                $query->where(\DB::raw('DATE_FORMAT(created_at, "%Y-%m-%d")'), $params['search_date']);
+            } else {
+                $query->where(\DB::raw('DATE_FORMAT(created_at, "%Y-%m")'), $params['search_date']);
+            }
+        }
         $query->orderBy('created_at', 'DESC');
 
-        $result = $query->paginate(LIMIT_FRONT_ROW);
+        if ($isLimit) {
+            $result = $query->paginate(LIMIT_FRONT_ROW);
+        } else {
+            $result = $query->get();
+        }
 
         return $result;
     }

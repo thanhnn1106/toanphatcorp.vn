@@ -28,7 +28,7 @@ class PurchaseHistory extends Model  {
         'transaction_status',
         'price',
         'package_name',
-        'package_month',
+        'package_days',
         'bank_code',
         'buyer_name',
         'buyer_email',
