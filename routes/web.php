@@ -244,5 +244,22 @@ Route::group([
             'as'   => 'faqs.delete',
             'uses' => 'FaqsController@delete',
         ]);
+        // Admin manage tags page
+        $router->get('tags', [
+            'as'   => 'tags',
+            'uses' => 'TagsController@index',
+        ]);
+        $router->match(['get', 'post'], 'tags/add', [
+            'as'   => 'tags.add',
+            'uses' => 'TagsController@add',
+        ]);
+        $router->match(['get', 'post'], 'tags/edit/{tagId}', [
+            'as'   => 'tags.edit',
+            'uses' => 'TagsController@edit',
+        ]);
+        $router->match(['get', 'post'], 'tags/delete/{tagId}', [
+            'as'   => 'tags.delete',
+            'uses' => 'TagsController@delete',
+        ]);
     });
 });

@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=-100%, user-scalable=yes" />
         <meta name="format-detection" content="telephone=no">
-        <title></title>
+        <title>Pack4djs.com - Home</title>
         <meta name="keywords" content="" />
         <meta name="description" content="" />
         <meta http-equiv="Content-Style-Type" content="text/css" />
         <meta http-equiv="Content-Script-Type" content="text/javascript" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <link rel="icon" type="img/ico" href="{{ asset_front('images/favicon.png') }}">
         <link  href="{{ asset_front('css/styles.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/style_sp.css') }}" rel="stylesheet" type="text/css" />
         <link  href="{{ asset_front('css/responsive.css') }}" rel="stylesheet" type="text/css" />

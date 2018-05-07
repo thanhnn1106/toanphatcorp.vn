@@ -19,6 +19,23 @@
                         <h1>Categories</h1>
                         <a class="btn btn-success btn-xs" href="{{ route('admin.category.add') }}">Thêm mới</a>
                     </div>
+                    <div class="card-header">
+                        <form id="searchCate" method="GET" action="{{ route('admin.category') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="name" type="text" class="form-control" placeholder="Enter category name..." value="{{ $name }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -39,13 +56,13 @@
                                     @else
                                     @foreach($categories as $category)
                                     <tr>
-                                        <th scope="row">{{ $category->id }}</th>
-                                        <td><a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a></td>
-                                        <td><a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a></td>
-                                        <td>{{ $category->name }}</td>
-                                        <td>{{ $category->slug }}</td>
-                                        <td>{{ $category->description }}</td>
-                                        <td>
+                                        <th style="width: 5%;" scope="row">{{ $category->id }}</th>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $category->getCoverImageUrl() }}">{{ $category->getCoverImage() }}</a></td>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $category->getThumbnailUrl() }}">{{ $category->getThumbnail() }}</a></td>
+                                        <td style="width: 10%;">{{ $category->name }}</td>
+                                        <td style="width: 10%;">{{ $category->slug }}</td>
+                                        <td style="width: 40%;">{{ $category->description }}</td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.category.edit', ['categoryId' => $category->id]) }}" class="btn btn-warning btn-xs">
                                                Cập nhật
                                             </a>
@@ -69,7 +86,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <div class="dataTables_paginate paging_simple_numbers">
-                                    {{ $categories->links() }}
+                                    {{ $categories->appends(request()->input())->links() }}
                                 </div>
                             </div>
                         </div>

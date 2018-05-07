@@ -11,7 +11,7 @@ class FaqsController extends Controller
     public function index(Request $request)
     {
         $data = array(
-            'faqs' => Faqs::getListFront(),
+            'faqs'       => Faqs::getListFront(),
         );
 
         return view('front.faqs.index', $data);

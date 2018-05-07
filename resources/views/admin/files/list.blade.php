@@ -19,6 +19,49 @@
                         <h1>Files</h1>
                         <a class="btn btn-success btn-xs" href="{{ route('admin.files.add') }}">Thêm mới</a>
                     </div>
+                    <div class="card-header">
+                        <form id="searchFile" method="GET" action="{{ route('admin.files') }}">
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label class="col-sm-3 form-control-label">Loại file</label>
+                                            <select class="form-control" name="filter_type_download" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($type_download as $key => $value)
+                                                <option @if ($filter_type_download != '' && (int)$key === (int)$filter_type_download) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <label class="col-sm-4 form-control-label">Trạng thái</label>
+                                            <select class="form-control" name="filter_status" onchange="this.form.submit();">
+                                                <option value="">All</option>
+                                                @foreach ($status as $key => $value)
+                                                <option @if ($filter_status != '' && (int)$key === (int)$filter_status) selected="selected" @endif value="{{ $key }}">{{ $value }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input name="title" type="text" class="form-control" placeholder="Enter file title..." value="{{ $title }}" />
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-primary">Go!</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ csrf_field() }}
+                        </form>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -41,21 +84,33 @@
                                     @else
                                     @foreach($files as $file)
                                     <tr>
-                                        <th scope="row">{{ $file->id }}</th>
-                                        <td><a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a></td>
-                                        <td><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
-                                        <td>
+                                        <th style="width: 5%;" scope="row">{{ $file->id }}</th>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $file->getCoverImageUrl() }}">{{ $file->getCoverImage() }}</a></td>
+                                        <td style="width: 10%;"><a target="_blank" href="{{ $file->getThumbnailUrl() }}">{{ $file->getThumbnail() }}</a></td>
+                                        <td style="width: 15%;">
                                             @if( ! empty($categories[$file->id]))
                                             @foreach ($categories[$file->id] as $cate)
                                             <a href="{{ route('admin.category.edit', ['categoryId' => $cate['id']]) }}">{{ $cate['name'] }}</a><br/>
                                             @endforeach
                                             @endif
                                         </td>
-                                        <td>{{ $file->title }}</td>
-                                        <td>{{ $file->file_name }}</td>
-                                        <td>{{ $file->getTypeDownloadLabel() }}</td>
-                                        <td>{{ $file->getStatusLabel() }}</td>
-                                        <td>
+                                        <td style="width: 15%;">{{ $file->title }}</td>
+                                        <td style="width: 20%;">{{ $file->file_name }}</td>
+                                        <td style="width: 5%;">{{ $file->getTypeDownloadLabel() }}</td>
+                                        <td style="width: 5%;">
+                                            <?php
+                                                $fileStatus = '';
+                                                if ($file->status == 0) {
+                                                    $fileStatus = 'secondary';
+                                                } elseif ($file->status == 1) {
+                                                    $fileStatus = 'success';
+                                                }
+                                            ?>
+                                            <div class="badge badge-{{ $fileStatus }}">
+                                                {{ $file->getStatusLabel() }}
+                                            </div>
+                                        </td>
+                                        <td style="width: 15%;">
                                             <a href="{{ route('admin.files.edit', ['fileId' => $file->id]) }}"
                                                class="btn btn-warning btn-xs">
                                                Cập nhật

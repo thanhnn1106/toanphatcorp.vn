@@ -9,8 +9,7 @@
             @foreach($categories as $c)
             <li>
                 <a href="{{ route('front.category_detail', ['slug' => $c['slug']]) }}"
-                   class="@if (isset($category->id) && $category->id == $c['id'])) cate_rm @endif"
-                >
+                   class="@if (isset($category->id) && $category->id == $c['id'])) cate_rm @endif">
                     {{ $c['name'] }}
                 </a>
             </li>

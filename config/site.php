@@ -65,9 +65,9 @@ return [
     ),
     'file_accept_types' => 'jpeg,png',
     'package_range_month' => array(
-        '1' => 30,
-        '3' => 90,
-        '6' => 180,
+        '1'  => 30,
+        '3'  => 90,
+        '6'  => 180,
         '12' => 365
     ),
     'contact_status' => array(
@@ -114,6 +114,16 @@ return [
             'active'   => 1,
             'inactive' => 0
         ),
+    ),
+    'tags_status' => array(
+        'value' => array(
+            'is_popular'   => 1,
+            'is_not_popular' => 0
+        ),
+        'label' => array(
+            1 => 'Phổ biến',
+            0 => 'Không phổ biến'
+        )
     ),
     'payment_gate' => array(
         'label' => array(

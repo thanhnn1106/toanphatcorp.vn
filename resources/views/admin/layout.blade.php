@@ -60,6 +60,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('admin.tags') }}">
+                                <i class="icon-list"></i>Tags
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('admin.files') }}">
                                 <i class="icon-list"></i>Files
                             </a>

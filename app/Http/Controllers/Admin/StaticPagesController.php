@@ -12,7 +12,8 @@ class StaticPagesController extends Controller
     public function index()
     {
         $data = array(
-            'staticPages' => StaticPages::getAllStaticPages()
+            'staticPages' => StaticPages::getAllStaticPages(),
+            'status'      => config('site.static_page_status.label')
         );
         return view('admin.static_pages.index', $data);
     }

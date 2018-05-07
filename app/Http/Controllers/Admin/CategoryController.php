@@ -11,8 +11,10 @@ class CategoryController extends Controller
 {
     public function index(Request $request)
     {
+        $paramSearch['name'] = $request->get('name');
         $data = array(
-            'categories' => Category::getList(),
+            'categories' => Category::getList($paramSearch),
+            'name' => $paramSearch['name'],
         );
         return view('admin.category.list', $data);
     }

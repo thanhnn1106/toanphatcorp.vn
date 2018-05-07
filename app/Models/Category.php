@@ -73,7 +73,12 @@ class Category extends Model {
 
     public static function getList($params = array())
     {
-        return Category::paginate(LIMIT_ROW);
+        $query = Category::select('*')
+            ->where('name', 'LIKE', "%{$params['name']}%")
+            ->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
+
+        return $result;
     }
 
     public static function uploadImage($request, $fieldName = 'thumbnail')
@@ -164,7 +169,7 @@ class Category extends Model {
 
     public static function saveCateToFile()
     {
-        Storage::disk('public')->put(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE, json_encode(self::getList()->items()));
+        Storage::disk('public')->put(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE, json_encode(self::all()->toArray()));
     }
 
     public static function getCateFile()
@@ -173,6 +178,7 @@ class Category extends Model {
         if (Storage::disk('public')->exists(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE)) {
             $content = Storage::disk('public')->get(self::IMAGE_PATH.'/'.self::CATEGORY_TEMP_FILE);
         }
+
         return json_decode($content, true);
     }
 

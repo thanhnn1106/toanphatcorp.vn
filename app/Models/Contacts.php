@@ -14,14 +14,15 @@ class Contacts extends Model
      */
     protected $table = 'contacts';
 
-    public static function getList($status)
+    public static function getList($params)
     {
-        $result = Contacts::select('*');
-            if ($status != '') {
-                $result = $result->where('status', '=', $status)->orderBy('created_at', 'DESC')->paginate(LIMIT_ROW);
-            } else {
-                $result = $result->orderBy('created_at', 'DESC')->paginate(LIMIT_ROW);
-            }
+        $query = Contacts::where('email', 'LIKE', "%{$params['email']}%");;
+        if ($params['filter_status'] != '') {
+            $query->where('status', '=', $params['filter_status']);
+        }
+        $query->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
+
         return $result;
     }
 

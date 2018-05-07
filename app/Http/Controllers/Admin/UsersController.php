@@ -11,9 +11,15 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
+        $paramSearch['email'] = $request->get('email');
+        $paramSearch['filter_status'] = $request->get('filter_status');
         $data = array(
-            'users' => User::getList(),
+            'users'          => User::getList($paramSearch),
+            'status'         => config('site.user_status.label'),
+            'email'          => $paramSearch['email'],
+            'filter_status'  => $paramSearch['filter_status']
         );
+
         return view('admin.users.list', $data);
     }
 

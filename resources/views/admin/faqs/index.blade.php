@@ -37,7 +37,6 @@
                                             <th>Câu trả lời</th>
                                             <th>Trạng thái</th>
                                             <th>Ngày tạo</th>
-                                            <th>Ngày cập nhật</th>
                                             <th>Thao tác</th>
                                         </tr>
                                     </thead>
@@ -45,10 +44,10 @@
                                         <?php $i = 0;  ?>
                                         @foreach ($faqs as $item)
                                         <tr>
-                                            <th scope="row">{{ ($faqs->currentpage()-1) * $faqs->perpage() + $i++ + 1 }}</th>
-                                            <td>{{ $item->question }}</td>
-                                            <td>{{ $item->answer }}</td>
-                                            <td>
+                                            <th style="width: 5%;" scope="row">{{ ($faqs->currentpage()-1) * $faqs->perpage() + $i++ + 1 }}</th>
+                                            <td style="width: 20%;">{{ $item->question }}</td>
+                                            <td style="width: 40%;">{{ $item->answer }}</td>
+                                            <td style="width: 10%;">
                                                 <?php
                                                     $faqStatus = '';
                                                     if ($item->status == 0) {
@@ -61,9 +60,8 @@
                                                     {{ $status[$item->status] }}
                                                 </div>
                                             </td>
-                                            <td>{{ $item->created_at }}</td>
-                                            <td>{{ $item->updated_at }}</td>
-                                            <td>
+                                            <td style="width: 10%;">{{ $item->created_at }}</td>
+                                            <td  style="width: 15%;">
                                                 <a href="{{ route('admin.faqs.edit', ['id' => $item->id]) }}" class="btn btn-warning btn-xs">Cập nhật</a>
                                                 <a href="javascript:void(0);" onclick="return fncDeleteConfirm(this);" 
                                                    data-message="Are you sure delete this faq?" 

@@ -56,7 +56,13 @@ class User extends Authenticatable
 
     public static function getList($params = array())
     {
-        $result = User::paginate(LIMIT_ROW);
+        $query = User::where('email', 'LIKE', "%{$params['email']}%");
+        if ($params['filter_status'] != '') {
+            $query->where('status', '=', $params['filter_status']);
+        }
+        $result = $query->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
+
         return $result;
     }
 

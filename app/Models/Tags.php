@@ -41,7 +41,14 @@ class Tags extends Model {
 
     public static function getList($params = array())
     {
-        return Category::paginate(LIMIT_ROW);
+        $query = Tags::where('name', 'LIKE', "%{$params['name']}%");
+            if ($params['is_popular'] != '') {
+                $query->where('is_popular', '=', $params['is_popular']);
+            }
+        $query->orderBy('created_at', 'DESC');
+        $result = $query->paginate(LIMIT_ROW);
+
+        return $result;
     }
 
     public static function getTagsByIdFiles($fileIds)
