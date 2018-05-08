@@ -25,7 +25,7 @@
         <!-- Google Analytics start -->
         <!-- Google Analytics end -->
         <script>
-            var isLogged = '{{ $isLogged }}';
+            var isLogged = '{{ isset($isLogged) ? $isLogged : null }}';
         </script>
     </head>
     <body>

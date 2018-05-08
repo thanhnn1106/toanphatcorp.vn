@@ -21,7 +21,7 @@
                     </form>
                 </li>
                 <li>
-                    @if($isLogged)
+                    @if(isset($isLogged) && $isLogged)
                     <!-- Logout button -->
                     <p class="info_name float-left" style="color: #fff;margin-right: 10px;height: 38px;line-height: 38px;">
                       <a href="">{{ $user->full_name }}</a>
@@ -97,7 +97,7 @@
         </div>
         <!-- gnavi sp end -->
         <dl class="frm_login frm_login_sp box_sp">
-            @if( ! $isLogged)
+            @if(isset($isLogged) && ! $isLogged)
            <dt>login</dt>
             <dd>
                 <ul class="clearfix">
