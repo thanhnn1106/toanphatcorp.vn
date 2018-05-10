@@ -108,6 +108,15 @@
                               </div>
                             </div>
                             <div class="form-group row">
+                              <label class="col-sm-2 form-control-label">Date input</label>
+                              <div class="col-sm-10">
+                                <input type="text" id="date_input" name="date_input" class="form-control @if ($errors->has('date_input'))is-invalid @endif" value="{{ old('date_input', isset($file->date_input) ? $file->getFormatDateInput() : '') }}">
+                                @if ($errors->has('date_input'))
+                                <div class="invalid-feedback">{{ $errors->first('date_input') }}</div>
+                                @endif
+                              </div>
+                            </div>
+                            <div class="form-group row">
                               <label class="col-sm-2 form-control-label">Track list</label>
                               <div class="col-sm-10">
                                 <textarea name="track_list" class="form-control border-corner editor-content  @if ($errors->has('track_list'))is-invalid @endif" rows="3">{{ old('track_list', isset($file->track_list) ? $file->track_list : '') }}</textarea>
@@ -168,6 +177,8 @@
 <script src="{{ asset('plugins/bootstrap-tagsinput/tagsinput.js') }}"></script>
 <script type="text/javascript" src="{{ asset('plugins/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
 <link rel="stylesheet" href="{{ asset('plugins/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" type="text/css"/>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- TinyMCE -->
 <script type="text/javascript" src="{{ asset('/plugins/tinymce/tinymce.min.js') }}"></script>
@@ -188,6 +199,8 @@ $(function() {
     });
 
     $('#category').multiselect();
+
+    $("#date_input" ).datepicker();
 });
 </script>
 @endsection

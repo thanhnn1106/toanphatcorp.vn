@@ -34,6 +34,7 @@ class FilesInfo extends Model {
         'thumbnail',
         'cover_image',
         'file_name',
+        'date_input',
     ];
 
     /**
@@ -313,7 +314,18 @@ class FilesInfo extends Model {
 
     function getTitleWithDate()
     {
-        return $this->title.' [' . date('d-M-Y') . ']';
+        if ( ! empty($this->date_input)) {
+            return $this->title.' [' . date('d-M-Y', strtotime($this->date_input)) . ']';
+        }
+        return $this->title.' [' . date('d-M-Y', strtotime($this->created_at)) . ']';
+    }
+
+    function getFormatDateInput()
+    {
+        if ( ! empty($this->date_input)) {
+            return date('m/d/Y', strtotime($this->date_input));
+        }
+        return null;
     }
 
     public function getStatusLabel()

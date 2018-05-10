@@ -74,6 +74,7 @@
                                         <th>Title</th>
                                         <th>File name</th>
                                         <th>Type download</th>
+                                        <th>Date input</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
@@ -97,6 +98,7 @@
                                         <td style="width: 15%;">{{ $file->title }}</td>
                                         <td style="width: 20%;">{{ $file->file_name }}</td>
                                         <td style="width: 5%;">{{ $file->getTypeDownloadLabel() }}</td>
+                                        <td>{{ $file->date_input }}</td>
                                         <td style="width: 5%;">
                                             <?php
                                                 $fileStatus = '';

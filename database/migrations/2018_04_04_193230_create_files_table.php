@@ -23,6 +23,7 @@ class CreateFilesTable extends Migration
             $table->tinyInteger('status')->comment('0=inactive, 0=active');
             $table->string('thumbnail')->nullable();
             $table->string('cover_image')->nullable();
+            $table->date('date_input')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
         });

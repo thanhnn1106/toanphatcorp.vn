@@ -68,6 +68,9 @@ class FilesController extends Controller
                     'status' => $request->get('status', config('site.status.value.inactive')),
                     'created_at'  => date('Y-m-d H:i:s')
                 ];
+                if ( ! empty($request->get('date_input'))) {
+                    $insert['date_input'] = date('Y-m-d', strtotime($request->get('date_input')));
+                }
                 $coverImage = FilesInfo::uploadImage($request, 'cover_image');
                 $thumbImage = FilesInfo::uploadImage($request);
 
@@ -91,6 +94,7 @@ class FilesController extends Controller
                 return redirect()->route('admin.files');
 
             } catch (\Exception $e) {
+
                 DB::rollback();
 
                 $request->session()->flash('error', trans('common.msg_update_error'));
@@ -147,6 +151,9 @@ class FilesController extends Controller
                 $file->slug = str_slug($request->get('title'));
                 $file->title = $request->get('title');
                 $file->file_name = $request->get('file_name');
+                if ( ! empty($request->get('date_input'))) {
+                    $file->date_input = date('Y-m-d', strtotime($request->get('date_input')));
+                }
                 $file->track_list = $request->get('track_list');
                 $file->type_download = $request->get('type_download', config('site.type_download.value.inactive'));
                 $file->status = $request->get('status', config('site.status.value.inactive'));
@@ -234,6 +241,7 @@ class FilesController extends Controller
             'title'            => 'required|max:255',
             'tag_name'         => 'required',
             'file_name'        => 'required',
+            'date_input'       => 'date_format:m/d/Y',
             'track_list'       => 'required',
             'type_download'    => 'required|in:'. implode(',', $typeDownload),
             'status'           => 'required|in:'. implode(',', $status),
