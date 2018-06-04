@@ -37,52 +37,61 @@
     $modifyNext     = $start->modify('+2 month');
     $nextMonthLabel = $modifyNext->format('M');
     $nextMonth      = $modifyNext->format('Y-m');
-
 ?>
-<dl class="frm_cate">
-    <dt>Calendar</dt>
+<dl>
     <dd>
-        <table>
-            <caption>{{ $currentDate }}</caption>
-            <thead>
-                <tr>
-                    @foreach($days as $keyD => $day)
-                    <th scope="col" title="{{ $keyD }}">{{ $day }}</th>
-                    @endforeach
-                </tr>
-            </thead>
-            <tfoot>
-                <tr>
-                  <td colspan="3"><a href="{{ route('front.calendar_detail', ['date' => $preYearMonth]) }}">« {{ $preMonthLabel }}</a></td>
-                    <td>&nbsp;</td>
-                    <td colspan="3">
-                        @if($yearMonth < date('Y-m'))
-                        <a href="{{ route('front.calendar_detail', ['date' => date('Y-m')]) }}">{{ $nextMonthLabel }} »</a>
-                        @else
-                        &nbsp;
-                        @endif
-                    </td>
-                </tr>
-            </tfoot>
-            <tbody>
-                @for($i = 0; $i < $rows; $i++)
-                <tr>
-                    @for($j = 1; $j <= 7; $j++)
-                        <?php $day = 7 * $i + $j - $startday + 1; ?>
-                        @if ($day <= 0 || $day > $monthdays)
-                        <td>&nbsp;</td>
-                        @else
-                        <?php $dateLabel = $yearMonth.'-'.str_pad($day, 2, '0', STR_PAD_LEFT); ?>
-                            @if(isset($dateSel[$dateLabel]))
-                            <td><a href="{{ route('front.calendar_detail', ['date' => $dateLabel]) }}" style="font-weight: bold;">{{ $day }}</a></td>
-                            @else
-                            <td>{{ $day }}</td>
-                            @endif
-                        @endif
-                    @endfor
-                </tr>
-                @endfor
-            </tbody>
-        </table>
+        <div class="month">
+            <ul>
+                <li class="prev">
+                    <a href="{{ route('front.calendar_detail', ['date' => $preYearMonth]) }}">&#10094;</a>
+                </li>
+                @if($yearMonth < date('Y-m'))
+                <li class="next">
+                    <a href="{{ route('front.calendar_detail', ['date' => date('Y-m')]) }}">&#10095;</a>
+                </li>
+                @else
+                <li class="next">&#10095;</li>
+                @endif
+                <li> {{ $currentDate }} </li>
+            </ul>
+        </div>
+        <ul class="weekdays">
+            <li>Mo</li>
+            <li>Tu</li>
+            <li>We</li>
+            <li>Th</li>
+            <li>Fr</li>
+            <li>Sa</li>
+            <li>Su</li>
+        </ul>
+        <ul class="days">
+            <?php for ($i = 0; $i < $startday - 1; $i++) { ?>
+                <li></li>
+            <?php } ?>
+            <?php for ($i = 1; $i <= $monthdays; $i++) { ?>
+                <?php $dateLabel = $yearMonth . '-' . str_pad($i, 2, '0', STR_PAD_LEFT); ?>
+                @if(isset($dateSel[$dateLabel]))
+                <li>
+                    <span class="active">
+                        <a href="{{ route('front.calendar_detail', ['date' => $dateLabel]) }}">{{ $i }}</a>
+                    </span>
+                </li>
+                @else
+                <li>{{ $i }}</li>
+                @endif
+            <?php } ?>
+        </ul>
     </dd>
 </dl>
+@if (count($popularTags) > 0)
+<dl class="frm_cate most_popular">
+    <dt>Most popular</dt>
+    <dd>
+        <ul class="clearfix">
+            @foreach ($popularTags as $item)
+            <li><a href="{{ route('front.tag_detail', ['slug' => $item->slug]) }}" class="size_0{{ rand(1,9) }}">{{ $item->name }}</a></li>
+            @endforeach
+        </ul>
+    </dd>
+</dl>
+@endif

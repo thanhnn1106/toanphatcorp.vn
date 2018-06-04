@@ -21,7 +21,6 @@
         <script src="{{ asset_front('js/jquery.validate.min.js') }}" type="text/javascript"></script>
         <link  href="{{ asset_front('css/stype_02.css') }}" rel="stylesheet" type="text/css" />
 
-
         <!-- Google Analytics start -->
         <!-- Google Analytics end -->
         <script>
@@ -29,6 +28,47 @@
         </script>
     </head>
     <body>
+        <div class="modal fade" id="myModal" role="dialog" style="display: none;">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <dl class="frm_login">
+                            <dt>LOGIN</dt>
+                            <dd>
+                                <ul class="clearfix">
+                                    <li class="login_fb">
+                                        <a href="{{ route('auth.provider', ['service' => 'facebook']) }}" class="btn clearfix"
+                                           data-plugin="nsl" 
+                                           data-action="connect" 
+                                           data-redirect="{{ route("front.redirect") }}" 
+                                           data-provider="facebook" 
+                                           data-popupwidth="475" 
+                                           data-popupheight="175">
+                                            <span>Login with facebook</span>
+                                        </a><span><i class="fab fa-facebook-f"></i></span>
+                                    </li>
+                                    <li class="login_gg">
+                                        <a href="{{ route('auth.provider', ['service' => 'google']) }}" class="btn clearfix"
+                                           data-plugin="nsl" 
+                                           data-action="connect" 
+                                           data-redirect="{{ route("front.redirect") }}" 
+                                           data-provider="google" 
+                                           data-popupwidth="800" 
+                                           data-popupheight="500">
+                                            <span>Login with gmail</span>
+                                        </a><span><i class="fab fa-google"></i></span>
+                                    </li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div id="wrapper">
             <div id="header" class="clearfix">
                 @include('front.header')

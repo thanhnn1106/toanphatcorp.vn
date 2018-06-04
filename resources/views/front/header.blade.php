@@ -24,7 +24,7 @@
                     @if(isset($isLogged) && $isLogged)
                     <!-- Logout button -->
                     <p class="info_name float-left" style="color: #fff;margin-right: 10px;height: 38px;line-height: 38px;">
-                      <a href="">{{ $user->full_name }}</a>
+                      <a href="{{ route('front.account') }}">{{ $user->full_name }}</a>
                     </p>
                     <a type="button" class="btn btn_02" href="{{ route('auth.logout') }}">Logout</a>
                     <!-- End logout button -->
@@ -32,47 +32,6 @@
                     <!-- Login button -->
                     <button type="button" class="btn btn_01" data-toggle="modal" data-target="#myModal">login</button>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog">
-                            <!-- Modal content-->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-                                    <dl class="frm_login">
-                                        <dt>LOGIN</dt>
-                                        <dd>
-                                            <ul class="clearfix">
-                                                <li class="login_fb">
-                                                    <a href="{{ route('auth.provider', ['service' => 'facebook']) }}" class="btn clearfix"
-                                                        data-plugin="nsl" 
-                                                        data-action="connect" 
-                                                        data-redirect="{{ route("front.redirect") }}" 
-                                                        data-provider="facebook" 
-                                                        data-popupwidth="475" 
-                                                        data-popupheight="175">
-                                                        <span>Login with facebook</span>
-                                                    </a><span><i class="fab fa-facebook-f"></i></span>
-                                                </li>
-                                                <li class="login_gg">
-                                                    <a href="{{ route('auth.provider', ['service' => 'google']) }}" class="btn clearfix"
-                                                        data-plugin="nsl" 
-                                                        data-action="connect" 
-                                                        data-redirect="{{ route("front.redirect") }}" 
-                                                        data-provider="google" 
-                                                        data-popupwidth="800" 
-                                                        data-popupheight="500">
-                                                        <span>Login with gmail</span>
-                                                    </a><span><i class="fab fa-google"></i></span>
-                                                </li>
-                                            </ul>
-                                        </dd>
-                                    </dl>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     @endif
                 </li>
             </ul>
@@ -84,6 +43,7 @@
             </div>
             <div class="content_menu_sp">
                 <ul class="menu_sp_top clearfix">
+                    <li class="user"><a href="{{ route('front.account') }}">Your Information</a></li>
                     <li><a href="">News</a></li>
                     <li><a href="">About Us</a></li>
                     <li><a href="">Abuse Report / DMCA</a></li>
